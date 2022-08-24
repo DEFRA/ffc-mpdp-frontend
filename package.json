@@ -1,8 +1,8 @@
 {
-  "name": "ffc-template-node",
+  "name": "ffc-mpdp-frontend",
   "version": "0.1.0",
-  "description": "description-of-project-goes-here",
-  "homepage": "https://github.com/DEFRA/ffc-template-node",
+  "description": "Web frontend for MPDP workstream",
+  "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
   "main": "app/index.js",
   "scripts": {
     "pretest": "npm run test:lint",
