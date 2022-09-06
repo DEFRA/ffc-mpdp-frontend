@@ -1,0 +1,99 @@
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/back-link/macro.njk"           import govukBackLink %}
+{% from "govuk/components/breadcrumbs/macro.njk"         import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk"              import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk"          import govukCheckboxes %}
+{% from "govuk/components/date-input/macro.njk"          import govukDateInput %}
+{% from "govuk/components/details/macro.njk"             import govukDetails %}
+{% from "govuk/components/footer/macro.njk"              import govukFooter %}
+{% from "govuk/components/input/macro.njk"               import govukInput %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/panel/macro.njk"               import govukPanel %}
+{% from "govuk/components/phase-banner/macro.njk"        import govukPhaseBanner %}
+{% from "govuk/components/radios/macro.njk"              import govukRadios %}
+{% from "govuk/components/summary-list/macro.njk"        import govukSummaryList %}
+{% from "govuk/components/table/macro.njk"               import govukTable %}
+{% from "govuk/components/warning-text/macro.njk"        import govukWarningText %}
+
+{% from "../macros/search-box.njk"                       import searchBox %}
+
+{% block pageTitle %}{{ serviceName }} - GOV.UK{% endblock %}
+
+{% block head %}
+  {% if cookiesPolicy.analytics %}
+    {% include "../tag-manager/_head-content.njk" %}
+  {% endif %}
+  <!--[if !IE 8]><!-->
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+    <link href="<%= file %>" rel="stylesheet">
+  <% }) %>
+  <!--<![endif]-->
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
+  <!--[if IE 8]>
+    <link href="{{ assetPath }}/govuk-frontend/govuk/all-ie8.css" rel="stylesheet" />
+  <![endif]-->
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: serviceUrl
+  }) }}
+  <div class="govuk-grid-row govuk-width-container">
+    {{ govukPhaseBanner({
+      tag: {
+        text: "beta"
+      },
+      html: 'This is a new service'
+    }) }}
+  </div>
+{% endblock %}
+
+{% block bodyStart %}
+  {% if not cookiesPolicy.confirmed %}
+    {% include "../cookies/cookie-banner.njk" %}
+  {% endif %}
+
+  {% if cookiesPolicy.analytics %}
+    {% include "../tag-manager/_body-content.njk" %}
+  {% endif %}
+{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "/cookies",
+          text: "Cookies"
+        },
+        {
+          href: "/privacynotice",
+          text: "Privacy Information Notice"
+        },
+        {
+          href: "/accessibility",
+          text: "Accessibility"
+        }
+      ],
+      html: '<h2 class="govuk-visually-hidden">Support links</h2>
+            <ul class="govuk-footer__inline-list">
+              <li class="govuk-footer__inline-list-item">
+                Built by the <a class="govuk-footer__link" href="/defra" target="_blank" rel="noopener noreferrer">
+                  Department for Environment, Food & Rural Affairs
+                </a>
+              </li>
+            </ul>'
+    }
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  <% htmlWebpackPlugin.files.js.forEach(file => { %>
+    <script src="<%= file %>"></script>
+  <% }) %>
+{% endblock %}

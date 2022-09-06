@@ -1,0 +1,185 @@
+{% extends './layouts/layout.njk' %}
+
+{% block pageTitle %}Details about cookies - {{ serviceName }}{% endblock %}
+
+{% block content %}
+
+  {% if updated %}
+    {% set html %}
+      <p class="govuk-notification-banner__heading">You’ve set your cookie preferences.</p>
+    {% endset %}
+
+    {{ govukNotificationBanner({
+      type: "success",
+      html: html
+    }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-l">Details about cookies on {{ serviceName }} service</h1>
+
+  <p class="govuk-body">This service puts small files (known as ‘cookies’) onto your computer to collect information about how you browse the site. Find out more about the cookies we use, what they’re for and when they expire.</p>
+
+  <h3 class="govuk-heading-m">Third party cookies</h3>
+
+  <p class="govuk-body">With your permission, we use Google Analytics to collect data about how you use this service. This information helps us to improve our service.</p>
+
+  <p class="govuk-body">Google is not allowed to use or share our analytics data with anyone.</p>
+
+  <p class="govuk-body">Google Analytics stores anonymised information about:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>how you got to this service</li>
+    <li>the pages you visit on this service and how long you spend on them</li>
+    <li>any errors you see while using this service</li>
+  </ul>
+
+  {{ govukTable({
+    head: [
+      {
+        text: "Name"
+      },
+      {
+        text: "Purpose"
+      },
+      {
+        text: "Expires"
+      }
+    ],
+    rows: [
+      [
+        {
+          text: "_ga"
+        },
+        {
+          text: "Checks if you’ve visited this before. This helps us count how many people visit our site."
+        },
+        {
+          text: "2 years"
+        }
+      ],
+      [
+        {
+          text: "_ga_xxxxxxxxxx"
+        },
+        {
+          text: "Checks if you’ve visited this before. This helps us count how many people visit our site."
+        },
+        {
+          text: "2 years"
+        }
+      ]
+    ]
+  }) }}
+
+  <h3 class="govuk-heading-m">Cookies that remember your settings</h3>
+
+  <p class="govuk-body">These cookies do things like remember your preferences and the choices you make, to personalise your experience of using this service.</p>
+
+  {{ govukTable({
+    head: [
+      {
+        text: "Name"
+      },
+      {
+        text: "Purpose"
+      },
+      {
+        text: "Expires"
+      }
+    ],
+    rows: [
+      [
+        {
+          text: "ffc_ahwr_cookie_policy"
+        },
+        {
+          text: "Saves your cookie consent settings."
+        },
+        {
+          text: "1 year"
+        }
+      ],
+      [
+        {
+          text: "ffc_ahwr_session"
+        },
+        {
+          text: "	Remembers actions you’ve taken and answers you've given as you use the site."
+        },
+        {
+          text: "3 days"
+        }
+      ]
+    ]
+  }) }}
+
+  <h3 class="govuk-heading-m">Strictly necessary cookies</h3>
+
+  <p class="govuk-body">When you use the service, we'll set cookies to protect the integrity of other cookies and protect the service from attackers.</p>
+
+  {{ govukTable({
+    head: [
+      {
+        text: "Name"
+      },
+      {
+        text: "Purpose"
+      },
+      {
+        text: "Expires"
+      }
+    ],
+    rows: [
+      [
+        {
+          text: "crumb"
+        },
+        {
+          text: "Protects our service from bots."
+        },
+        {
+          text: "When you close your browser"
+        }
+      ],
+      [
+        {
+          text: "TS01xxxxxx"
+        },
+        {
+          text: "Ensures cookies are not altered."
+        },
+        {
+          text: "When you close your browser"
+        }
+      ],
+      [
+        {
+          text: "TSPD_101"
+        },
+        {
+          text: "Proactive bot defence."
+        },
+        {
+          text: "When you close your browser"
+        }
+      ]
+    ]
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-l">Change your cookie settings</h2>
+      <form action="/cookies" method="post" novalidate>
+        <input type="hidden" name="async" value="false"/>
+        {{ govukRadios(analytics) }}
+        {{ govukButton({
+          text: "Save cookie settings",
+          attributes: {
+          id: "submit"
+        }
+        }) }}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

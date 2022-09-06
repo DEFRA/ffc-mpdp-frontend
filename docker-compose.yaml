@@ -8,3 +8,10 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-mpdp-frontend-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      REDIS_HOSTNAME: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+      COOKIE_PASSWORD: who-likes-cookies-i-like-cookies-everybody-likes-cookies
+      GOOGLE_TAG_MANAGER_KEY: ${GOOGLE_TAG_MANAGER_KEY}
+      SERVICE_URI: http://localhost:3000
+      TEST_TOKEN:
