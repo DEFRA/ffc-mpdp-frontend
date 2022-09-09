@@ -9,10 +9,10 @@ const sharedConfig = {
 }
 
 module.exports = [{
-    path: '/service-start',
-    ...sharedConfig
-  }, {
-    path: '/',
-    ...sharedConfig
-  }
+  path: '/service-start',
+  ...sharedConfig
+}, {
+  path: '/',
+  ...sharedConfig
+}
 ]
