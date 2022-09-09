@@ -1,6 +1,6 @@
 # This override file should be used when running this service in isolation
 # to provide dependencies and expose ports for local testing
-
+version: '3.8'
 services:
   ffc-mpdp-frontend:
     build:

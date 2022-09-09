@@ -1,6 +1,15 @@
+version: '3.8'
+
 services:
-  ffc-mpdp-frontend:
+  ffc-ahwr-frontend:
     command: >
-      sh -c "npm run test:watch"
+      sh -c "npm run test:watch:all"
     volumes:
-      - ./.git:/home/node/.git
+      - ./app:/home/node/app
+      - ./test:/home/node/test
+      - ./jest.config.js:/home/node/jest.config.js
+      - ./webpack.config.js:/home/node/webpack.config.js
+
+volumes:
+  dist:
+  layouts:
