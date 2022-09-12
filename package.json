@@ -8,7 +8,7 @@
     "build": "webpack",
     "build:watch": "webpack --watch",
     "pretest": "npm run test:lint",
-    "test": "jest --runInBand --forceExit",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
     "lint:fix": "standard --fix",
     "test:lint": "standard",
