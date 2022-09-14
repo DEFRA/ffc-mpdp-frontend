@@ -1,0 +1,3 @@
+{{- include "ffc-helm-library.azure-ingress" (list . "ffc-mpdp-frontend.ingress") -}}
+{{- define "ffc-mpdp-frontend.ingress" -}}
+{{- end -}}

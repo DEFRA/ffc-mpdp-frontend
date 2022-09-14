@@ -30,6 +30,15 @@ container:
   limitCpu: 40m
   port: 3000
 
+service:
+  port: 80
+  type: ClusterIP
+
+ingress:
+  class: nginx
+  endpoint: ffc-mpdp-frontend
+  server: example.com
+
 livenessProbe:
   path: /healthz
   port: 3000
