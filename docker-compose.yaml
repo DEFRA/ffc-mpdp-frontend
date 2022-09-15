@@ -8,5 +8,3 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-mpdp-frontend-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
-      SERVICE_URI: http://localhost:3000
-      
