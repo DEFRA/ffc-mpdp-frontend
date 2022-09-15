@@ -29,6 +29,7 @@ container:
   limitMemory: 40Mi
   limitCpu: 40m
   port: 3000
+  serviceUri:
 
 service:
   port: 80

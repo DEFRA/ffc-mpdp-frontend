@@ -5,12 +5,10 @@ services:
   ffc-mpdp-frontend:
     build:
       target: development
+    environment:
+      NODE_ENV: test
     image: ffc-mpdp-frontend-development
     container_name: ffc-mpdp-frontend-test
     command: npm run test
     volumes:
-      - ./app:/home/node/app
-      - ./test:/home/node/test
       - ./test-output:/home/node/test-output
-      - ./jest.config.js:/home/node/jest.config.js
-      - ./package.json:/home/node/package.json
