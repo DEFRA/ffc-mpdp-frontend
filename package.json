@@ -1,6 +1,6 @@
 {
   "name": "ffc-mpdp-frontend",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
   "main": "app/index.js",
@@ -12,7 +12,7 @@
     "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
     "test:watch:all": "npm-run-all --parallel test:watch build:watch",
     "test:lint": "standard",
-    "lint:fix": "standard fix",
+    "lint:fix": "standard --fix",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --coverage=false --onlyChanged --watch --runInBand --no-cache",
     "start:watch": "npm-run-all --parallel build:watch start:nodemon",
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",

@@ -33,7 +33,7 @@ module.exports = {
     context: {
       appVersion: version,
       assetPath: '/assets',
-      pageTitle: serviceName,
+      pageTitle: serviceName
     }
   }
 }
