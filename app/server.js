@@ -1,7 +1,7 @@
 require('./insights').setup()
 const Hapi = require('@hapi/hapi')
 
-const server = Hapi.server({
+const tServer = Hapi.server({
   port: process.env.PORT
 })
 
@@ -10,6 +10,6 @@ const routes = [].concat(
   require('./routes/healthz')
 )
 
-server.route(routes)
+tServer.route(routes)
 
-module.exports = server
+module.exports = tServer
