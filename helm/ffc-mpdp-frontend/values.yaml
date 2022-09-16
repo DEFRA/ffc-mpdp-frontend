@@ -17,10 +17,14 @@ containerSecret:
   type: Opaque
 
 deployment:
-  restartPolicy: Always
+  cpuThreshold: 40
+  memoryThreshold: 80
+  minReadySeconds: 0
+  minReplicas: 1
+  maxReplicas: 2
   priorityClassName: default
   replicas: 1
-  minReadySeconds: 0
+  restartPolicy: Always
 
 container:
   imagePullPolicy: IfNotPresent
