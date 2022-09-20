@@ -17,10 +17,14 @@ containerSecret:
   type: Opaque
 
 deployment:
-  restartPolicy: Always
+  cpuThreshold: 40
+  memoryThreshold: 80
+  minReadySeconds: 0
+  minReplicas: 1
+  maxReplicas: 2
   priorityClassName: default
   replicas: 1
-  minReadySeconds: 0
+  restartPolicy: Always
 
 container:
   imagePullPolicy: IfNotPresent
@@ -29,6 +33,15 @@ container:
   limitMemory: 40Mi
   limitCpu: 40m
   port: 3000
+
+service:
+  port: 80
+  type: ClusterIP
+
+ingress:
+  class: nginx
+  endpoint: ffc-mpdp-frontend
+  server: example.com
 
 livenessProbe:
   path: /healthz
