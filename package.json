@@ -71,7 +71,8 @@
       "test/acceptance/**/*.js",
       "test/acceptance/**/*.mjs",
       "test/acceptance/**/*.cjs",
-      "dist/*.js"
+      "dist/*.js",
+      "webpack.config.js"
     ]
   },
   "nodemonConfig": {
