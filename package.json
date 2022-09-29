@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
-  "main": "app/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --watch",
@@ -15,8 +15,8 @@
     "lint:fix": "standard --fix",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --coverage=false --onlyChanged --watch --runInBand --no-cache",
     "start:watch": "npm-run-all --parallel build:watch start:nodemon",
-    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",
-    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch dist/main.js",
+    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch dist/main.js",
     "pre-commit": "echo \"Running pre-commit hook\" && npm run lint:fix && docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up"
   },
   "pre-commit": [
@@ -29,12 +29,14 @@
     "@hapi/hapi": "^20.2.2",
     "@hapi/inert": "^6.0.5",
     "@hapi/vision": "^7.0.0",
+    "@types/hapi__inert": "^5.2.3",
     "applicationinsights": "^2.3.5",
     "govuk-frontend": "4.3.1",
     "joi": "^17.6.0",
     "nunjucks": "^3.2.3"
   },
   "devDependencies": {
+    "@types/hapi__hapi": "^20.0.12",
     "cheerio": "^1.0.0-rc.12",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
@@ -43,6 +45,7 @@
     "jest": "^27.5.1",
     "jest-junit": "^13.2.0",
     "mini-css-extract-plugin": "^2.5.3",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "nodemon": "^2.0.19",
     "npm-run-all": "^4.1.5",
     "pre-commit": "^1.2.2",
@@ -50,6 +53,8 @@
     "sass": "^1.49.7",
     "sass-loader": "^12.4.0",
     "standard": "^16.0.4",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2"
   },

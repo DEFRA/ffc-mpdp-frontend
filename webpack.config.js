@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV === 'development' || process.env.NODE_ENV ===
 console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 
 module.exports = {
-  entry: './app/frontend/src/entry.js',
+  entry: './src/index.ts',
   mode: isDev ? 'development' : 'production',
   module: {
     rules: [
@@ -49,23 +49,32 @@ module.exports = {
         generator: {
           filename: 'fonts/[contenthash][ext]'
         }
+      },
+      {
+        test: /\.tsx?/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       }
     ]
   },
   output: {
-    filename: 'js/[contenthash].js',
-    path: path.resolve(__dirname, 'app/frontend/dist'),
-    publicPath: '/assets/'
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
+  resolve: {
+    extensions: [ '.ts', '.js' ]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: false,
-      filename: '../../views/layouts/layout.njk',
+      filename: 'app/views/layouts/layout.njk',
       template: 'app/views/layouts/_layout.njk'
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[contenthash].css'
     })
-  ]
+  ],
+  target: 'node'
 }
