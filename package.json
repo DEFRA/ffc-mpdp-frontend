@@ -70,7 +70,8 @@
       "app/frontend/dist/**/*.js",
       "test/acceptance/**/*.js",
       "test/acceptance/**/*.mjs",
-      "test/acceptance/**/*.cjs"
+      "test/acceptance/**/*.cjs",
+      "dist/*.js"
     ]
   },
   "nodemonConfig": {
