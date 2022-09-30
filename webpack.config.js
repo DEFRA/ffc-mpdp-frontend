@@ -61,7 +61,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'js/[name].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'src/dist'),
     publicPath: '/assets/'
   },

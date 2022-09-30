@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
-  "main": "src/dist/js/main.js",
+  "main": "src/dist/main.js",
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --watch",
@@ -15,8 +15,8 @@
     "lint:fix": "standard --fix",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --coverage=false --onlyChanged --watch --runInBand --no-cache",
     "start:watch": "npm-run-all --parallel build:watch start:nodemon",
-    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/js/main.js",
-    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/js/main.js",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/main.js",
+    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/main.js",
     "pre-commit": "echo \"Running pre-commit hook\" && npm run lint:fix && docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up"
   },
   "pre-commit": [
