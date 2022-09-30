@@ -1,4 +1,4 @@
-const { serviceName } = require('../config')
+const { serviceName } = require('../config/config')
 
 module.exports = {
   plugin: {

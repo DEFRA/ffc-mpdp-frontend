@@ -1,6 +1,6 @@
 const path = require('path')
 const nunjucks = require('nunjucks')
-const { serviceName } = require('../config')
+const { serviceName } = require('../config/config')
 const { version } = require('../../package.json')
 
 module.exports = {
