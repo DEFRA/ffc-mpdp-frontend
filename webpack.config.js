@@ -9,7 +9,10 @@ const isDev = process.env.NODE_ENV === 'development' || process.env.NODE_ENV ===
 console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    'assets': './app/frontend/src/entry.js',
+    'main': './src/index.ts'
+  },
   mode: isDev ? 'development' : 'production',
   module: {
     rules: [
@@ -58,12 +61,22 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    filename: 'js/[name].js',
+    path: path.resolve(__dirname, 'app/frontend/dist'),
+    publicPath: '/assets/'
   },
   resolve: {
-    extensions: [ '.ts', '.js' ]
+    extensions: [ '.ts', '.js' ],
+    fallback: { 
+      "os": require.resolve("os-browserify/browser"),
+      "crypto": require.resolve("crypto-browserify"),
+      "path": require.resolve("path-browserify"),
+      "stream": require.resolve("stream-browserify"),
+      "zlib": require.resolve("browserify-zlib"),
+      // "http": require.resolve("stream-http"),
+      "https": require.resolve("https-browserify"),
+      "fs": false
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
