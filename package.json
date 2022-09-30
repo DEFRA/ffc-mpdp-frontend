@@ -77,7 +77,7 @@
       "test/acceptance/**/*.js",
       "test/acceptance/**/*.mjs",
       "test/acceptance/**/*.cjs",
-      "src/dist/*.js",
+      "src/dist/**/*.js",
       "webpack.config.js"
     ]
   },
