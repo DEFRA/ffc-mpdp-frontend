@@ -10,7 +10,7 @@ console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 
 module.exports = {
   entry: {
-    'assets': './app/frontend/src/entry.js',
+    'assets': './assets/index.js',
     'main': './src/index.ts'
   },
   mode: isDev ? 'development' : 'production',
@@ -62,7 +62,7 @@ module.exports = {
   },
   output: {
     filename: 'js/[name].js',
-    path: path.resolve(__dirname, 'app/frontend/dist'),
+    path: path.resolve(__dirname, 'src/dist'),
     publicPath: '/assets/'
   },
   resolve: {
@@ -73,7 +73,6 @@ module.exports = {
       "path": require.resolve("path-browserify"),
       "stream": require.resolve("stream-browserify"),
       "zlib": require.resolve("browserify-zlib"),
-      // "http": require.resolve("stream-http"),
       "https": require.resolve("https-browserify"),
       "fs": false
     }
