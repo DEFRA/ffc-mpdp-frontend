@@ -1,41 +1,71 @@
 {
   "name": "ffc-mpdp-frontend",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
   "main": "app/index.js",
   "scripts": {
+    "build": "webpack",
+    "build:watch": "webpack --watch",
     "pretest": "npm run test:lint",
-    "test": "jest --runInBand --forceExit",
+    "test": "jest --runInBand",
     "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
+    "test:watch:all": "npm-run-all --parallel test:watch build:watch",
     "test:lint": "standard",
+    "lint:fix": "standard --fix",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --coverage=false --onlyChanged --watch --runInBand --no-cache",
-    "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
-    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext js --legacy-watch app/index.js"
+    "start:watch": "npm-run-all --parallel build:watch start:nodemon",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",
+    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch app/index.js",
+    "pre-commit": "echo \"Running pre-commit hook\" && npm run lint:fix && docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up"
   },
+  "pre-commit": [
+    "pre-commit"
+  ],
   "author": "Defra",
   "contributors": [],
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
-    "applicationinsights": "^2.2.1"
+    "@hapi/inert": "^6.0.5",
+    "@hapi/vision": "^7.0.0",
+    "applicationinsights": "^2.3.5",
+    "govuk-frontend": "4.3.1",
+    "joi": "^17.6.0",
+    "nunjucks": "^3.2.3"
   },
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.6.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "jest": "^27.5.1",
-    "jest-junit": "^13.0.0",
-    "nodemon": "^2.0.15",
-    "standard": "^16.0.4"
+    "jest-junit": "^13.2.0",
+    "mini-css-extract-plugin": "^2.5.3",
+    "nodemon": "^2.0.19",
+    "npm-run-all": "^4.1.5",
+    "pre-commit": "^1.2.2",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.49.7",
+    "sass-loader": "^12.4.0",
+    "standard": "^16.0.4",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
   },
   "standard": {
+    "env": {
+      "jest": true
+    },
     "globals": [
-      "describe",
-      "beforeEach",
-      "expect",
-      "test",
-      "afterEach",
-      "jest",
-      "beforeAll",
-      "afterAll"
+      "$",
+      "browser"
+    ],
+    "ignore": [
+      "app/frontend/dist/**/*.js",
+      "test/acceptance/**/*.js",
+      "test/acceptance/**/*.mjs",
+      "test/acceptance/**/*.cjs"
     ]
   },
   "nodemonConfig": {
