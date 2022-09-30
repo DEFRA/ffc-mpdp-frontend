@@ -25,8 +25,9 @@ const init = async function(): Promise<Server> {
     return server;
 };
 
-export const start = async function (): Promise<void> {
+export const start = async function (): Promise<Server> {
     const server = await init()
     console.log(`Listening on ${server.settings.host}:${server.settings.port}`);
-    return server.start();
+    await server.start();
+    return server;
 };

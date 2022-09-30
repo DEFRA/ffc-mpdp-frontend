@@ -2,6 +2,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     '**/*.js',
+    '**/*.ts',
     '!**/*.test.js'
   ],
   coverageDirectory: 'test-output',
@@ -32,11 +33,18 @@ module.exports = {
       }
     ]
   ],
-  testEnvironment: 'node',
-  testPathIgnorePatterns: [],
-  verbose: true,
   setupFilesAfterEnv: [
     '<rootDir>/test/setup.js',
     '<rootDir>/test/teardown.js'
-  ]
+  ],
+  testEnvironment: 'node',
+  testPathIgnorePatterns: [],
+  testMatch: [
+    '**/__tests__/**/*.+(ts|js)',
+    '**/?(*.)+(spec|test).+(ts|js)'
+  ],
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest'
+  },
+  verbose: true
 }
