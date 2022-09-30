@@ -1,8 +1,7 @@
-
 'use strict';
 
-import Hapi from "@hapi/hapi";
-import { Server } from "@hapi/hapi";
+import Hapi from '@hapi/hapi';
+import { Server } from '@hapi/hapi';
 
 const init = async function(): Promise<Server> {
     const server = Hapi.server({
