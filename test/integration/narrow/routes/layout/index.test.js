@@ -1,7 +1,7 @@
 const cheerio = require('cheerio')
 const expectPhaseBanner = require('../../../../utils/phase-banner-expect')
 const expectFooter = require('../../../../utils/footer-expects')
-const { serviceName } = require('../../../../../app/config')
+const { serviceName } = require('../../../../../app/config/config')
 
 describe('MPDP layout test', () => {
   test('Primary url route returns 200', async () => {
