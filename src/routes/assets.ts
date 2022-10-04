@@ -5,7 +5,7 @@ module.exports = {
     auth: false,
     handler: {
       directory: {
-        path: ['src/dist', 'node_modules/govuk-frontend/govuk/assets']
+        path: ['app/dist', 'node_modules/govuk-frontend/govuk/assets']
       }
     },
     cache: {
