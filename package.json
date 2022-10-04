@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
-  "main": "src/dist/main.js",
+  "main": "src/dist/main.*.js",
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --watch",
@@ -15,8 +15,8 @@
     "lint:fix": "standard --fix",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --coverage=false --onlyChanged --watch --runInBand --no-cache",
     "start:watch": "npm-run-all --parallel build:watch start:nodemon",
-    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/main.js",
-    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/main.js",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/main.*.js",
+    "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch src/dist/main.*.js",
     "pre-commit": "echo \"Running pre-commit hook\" && npm run lint:fix && docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up"
   },
   "pre-commit": [
@@ -39,12 +39,13 @@
     "nunjucks": "^3.2.3",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0"
+    "stream-browserify": "^3.0.0"
   },
   "devDependencies": {
     "@types/hapi__hapi": "^20.0.12",
+    "@types/hapi__vision": "^5.5.3",
     "@types/jest": "^29.1.1",
+    "@types/nunjucks": "^3.2.1",
     "cheerio": "^1.0.0-rc.12",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
@@ -53,6 +54,7 @@
     "jest": "^27.5.1",
     "jest-junit": "^13.2.0",
     "mini-css-extract-plugin": "^2.5.3",
+    "node-loader": "^2.0.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "nodemon": "^2.0.19",
     "npm-run-all": "^4.1.5",

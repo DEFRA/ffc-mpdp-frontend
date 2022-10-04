@@ -57,11 +57,15 @@ module.exports = {
         test: /\.tsx?/,
         use: 'ts-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /.node$/,
+        loader: 'node-loader',
       }
     ]
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'src/dist'),
     publicPath: '/assets/'
   },
@@ -81,8 +85,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: false,
-      filename: 'app/views/layouts/layout.njk',
-      template: 'app/views/layouts/_layout.njk'
+      filename: path.resolve(__dirname, 'src/views/layouts/layout.njk'),
+      template: 'src/views/layouts/_layout.njk'
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[contenthash].css'
