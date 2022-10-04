@@ -11,7 +11,7 @@ console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 module.exports = {
   entry: {
     'assets': './assets/index.js',
-    'main': './src/index.ts'
+    'main': './app/index.ts'
   },
   mode: isDev ? 'development' : 'production',
   module: {
@@ -66,7 +66,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'src/dist'),
+    path: path.resolve(__dirname, 'app/dist'),
     publicPath: '/assets/'
   },
   resolve: {
@@ -85,8 +85,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: false,
-      filename: path.resolve(__dirname, 'src/views/layouts/layout.njk'),
-      template: 'src/views/layouts/_layout.njk'
+      filename: path.resolve(__dirname, 'app/views/layouts/layout.njk'),
+      template: 'app/views/layouts/_layout.njk'
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[contenthash].css'

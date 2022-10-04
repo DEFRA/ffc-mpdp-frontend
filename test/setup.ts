@@ -1,4 +1,4 @@
-import { start } from '../src/server'
+import { start } from '../app/server'
 
 declare var global: any;
 

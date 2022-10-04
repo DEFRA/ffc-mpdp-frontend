@@ -17,7 +17,7 @@ module.exports = {
     '<rootDir>/test/',
     '<rootDir>/jest.config.js',
     '<rootDir>/webpack.config.js',
-    '<rootDir>/src/'
+    '<rootDir>/app/dist'
   ],
   modulePathIgnorePatterns: [
     'node_modules'
