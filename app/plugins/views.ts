@@ -1,6 +1,8 @@
-const path = require('path')
-const nunjucks = require('nunjucks')
-const { serviceName } = require('../config/config')
+import * as path from 'path'
+import * as nunjucks from 'nunjucks'
+
+import config from '../config'
+
 const { version } = require('../../package.json')
 
 module.exports = {
@@ -8,14 +10,14 @@ module.exports = {
   options: {
     engines: {
       njk: {
-        compile: (src, options) => {
+        compile: (src: string, options: any) => {
           const template = nunjucks.compile(src, options.environment)
 
-          return (context) => {
+          return (context: any) => {
             return template.render(context)
           }
         },
-        prepare: (options, next) => {
+        prepare: (options: any, next: (err?: Error) => void) => {
           options.compileOptions.environment = nunjucks.configure([
             path.join(options.relativeTo || process.cwd(), options.path),
             'node_modules/govuk-frontend/'
@@ -33,7 +35,7 @@ module.exports = {
     context: {
       appVersion: version,
       assetPath: '/assets',
-      pageTitle: serviceName
+      pageTitle: config.serviceName
     }
   }
 }

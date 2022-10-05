@@ -71,6 +71,8 @@
 
 {% block bodyEnd %}
   <% htmlWebpackPlugin.files.js.forEach(file => { %>
-    <script src="<%= file %>"></script>
+    <% if (file.includes('assets.')) { %>
+      <script src="<%= file %>"></script>
+    <% } %>
   <% }) %>
 {% endblock %}

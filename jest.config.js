@@ -2,6 +2,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     '**/*.js',
+    '**/*.ts',
     '!**/*.test.js'
   ],
   coverageDirectory: 'test-output',
@@ -10,12 +11,13 @@ module.exports = {
     'lcov'
   ],
   coveragePathIgnorePatterns: [
-    '<rootDir>/app/frontend/',
+    '<rootDir>/dist/',
     '<rootDir>/node_modules/',
     '<rootDir>/test-output/',
     '<rootDir>/test/',
     '<rootDir>/jest.config.js',
-    '<rootDir>/webpack.config.js'
+    '<rootDir>/webpack.config.js',
+    '<rootDir>/app/dist'
   ],
   modulePathIgnorePatterns: [
     'node_modules'
@@ -31,11 +33,18 @@ module.exports = {
       }
     ]
   ],
+  setupFilesAfterEnv: [
+    '<rootDir>/test/setup.ts',
+    '<rootDir>/test/teardown.ts'
+  ],
   testEnvironment: 'node',
   testPathIgnorePatterns: [],
-  verbose: true,
-  setupFilesAfterEnv: [
-    '<rootDir>/test/setup.js',
-    '<rootDir>/test/teardown.js'
-  ]
+  testMatch: [
+    '**/__tests__/**/*.+(ts|js)',
+    '**/?(*.)+(spec|test).+(ts|js)'
+  ],
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest'
+  },
+  verbose: true
 }

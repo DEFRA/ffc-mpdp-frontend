@@ -1,3 +1,5 @@
+import { Server } from "@hapi/hapi";
+
 const routes = [].concat(
   require('../routes/assets'),
   require('../routes/healthy'),
@@ -8,7 +10,7 @@ const routes = [].concat(
 module.exports = {
   plugin: {
     name: 'router',
-    register: (server, _) => {
+    register: (server: Server) => {
       server.route(routes)
     }
   }
