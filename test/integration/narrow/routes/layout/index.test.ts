@@ -2,6 +2,7 @@ import config from '../../../../../app/config'
 import * as cheerio from 'cheerio'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { expectFooter } from '../../../../utils/footer-expects'
+import { expectHeader } from '../../../../utils/header-expects'
 
 describe('MPDP layout test', () => {
   test('Primary url route returns 200', async () => {
@@ -23,5 +24,6 @@ describe('MPDP layout test', () => {
     expect($('title').text()).toEqual(config.serviceName)
     expectPhaseBanner($)
     expectFooter($)
+    expectHeader($)
   })
 })
