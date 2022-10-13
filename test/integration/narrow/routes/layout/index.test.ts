@@ -1,7 +1,7 @@
-const cheerio = require('cheerio')
-const expectPhaseBanner = require('../../../../utils/phase-banner-expect')
-const expectFooter = require('../../../../utils/footer-expects')
-const { serviceName } = require('../../../../../app/config/config')
+import config from '../../../../../app/config'
+import * as cheerio from 'cheerio'
+import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
+import { expectFooter } from '../../../../utils/footer-expects'
 
 describe('MPDP layout test', () => {
   test('Primary url route returns 200', async () => {
@@ -20,8 +20,8 @@ describe('MPDP layout test', () => {
     const button = $('.govuk-main-wrapper .govuk-button')
     expect(button.attr('href')).toMatch('/mpdp/search')
     expect(button.text()).toMatch('Start now')
-    expect($('title').text()).toEqual(serviceName)
-    expectPhaseBanner.ok($)
-    expectFooter.toBePresent($)
+    expect($('title').text()).toEqual(config.serviceName)
+    expectPhaseBanner($)
+    expectFooter($)
   })
 })
