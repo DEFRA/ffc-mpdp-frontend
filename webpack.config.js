@@ -86,7 +86,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: false,
       filename: path.resolve(__dirname, 'app/views/layouts/layout.njk'),
-      template: 'app/views/layouts/_layout.njk'
+      template: 'app/views/layouts/_layout.njk',
+      cache: false
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[contenthash].css'
