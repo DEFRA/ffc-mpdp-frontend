@@ -1,13 +1,27 @@
 {% extends './layouts/layout.njk' %}
 
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% block pageTitle %}{{ serviceName }}{% endblock %}
 
 {% block content %}
-<div class="govuk-grid-row">
+<div class="govuk-grid-row govuk-prose-scope">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Service Start Page</h1>
+    <h2 class="govuk-heading-l">Find data on farm and land payments</h2>
 
-    <p>The most awesome service ever.</p>
+    <p>Check agricultural scheme payments to farmers and land managers in England</p>
+    
+    <p>View payments from the:</p>
+    <ul class='margin-left-20'>
+      <li>Sustainable Farming Incentive</li>
+      <li>Farming Equipment and Technology Fund</li>
+      <li>Tree Health Pilot Scheme</li>
+    </ul>
+
+    {{ govukDetails({
+      summaryText: "What data we publish",
+      text: "Only data we ever need (placeholder)"
+    }) }}
 
     {{ govukButton({
       classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
@@ -15,6 +29,10 @@
       isStartButton: true,
       text: "Start now"
     }) }}
+
+    <p>You can also <a id='downloadAllLink' href="/">download all scheme payment data (.CSV, 245KB)</a></p>
+
+    <p>You can also search for payments from other <a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx">Common Agrricultural Policy (CAP) schemes</a>.</p>
 
   </div>
 </div>
