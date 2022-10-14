@@ -5,7 +5,10 @@ const routes = [].concat(
   require('../routes/healthy'),
   require('../routes/healthz'),
   require('../routes/service-start'),
-  require('../routes/feedback')
+  require('../routes/feedback'),
+  require('../routes/cookies'),
+  require('../routes/privacy'),
+  require('../routes/accessibility')
 )
 
 module.exports = {
