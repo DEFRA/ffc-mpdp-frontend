@@ -10,7 +10,7 @@ module.exports = {
         if (response.variety === 'view') {
           const ctx = response.source.context || {}
           ctx.serviceName = config.serviceName
-          ctx.serviceUrl = `/${request.path}`
+          ctx.serviceUrl = config.startPageLink
 
           response.source.context = ctx
         }
