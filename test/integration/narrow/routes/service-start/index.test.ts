@@ -4,6 +4,25 @@ import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 
 describe('MPDP service start page test', () => {
+
+  const expectLinks = ($: cheerio.CheerioAPI) => {
+    const expectedLinks = [
+      '/',
+      'https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance',
+      'https://www.gov.uk/guidance/farming-equipment-and-technology-fund-round-1-manual',
+      'https://www.gov.uk/guidance/tree-health-pilot-scheme',
+      'https://cap-payments.defra.gov.uk/Default.aspx'
+    ]
+
+    const foundLinks: (string | undefined)[] = []
+    $('a').each((_index, value) => {
+      foundLinks.push($(value).attr('href'))
+    })
+    expect(
+      expectedLinks.every(x => foundLinks.includes(x))
+    ).toEqual(true)
+  }
+
   test('GET /service-start route returns 200', async () => {
     const options = {
       method: 'GET',
@@ -21,10 +40,9 @@ describe('MPDP service start page test', () => {
     const button = $('.govuk-main-wrapper .govuk-button')
     expect(button.attr('href')).toMatch('/mpdp/search')
     expect(button.text()).toMatch('Start now')
+    expect($('#publishedData')).toBeDefined()
 
-    expect($('#downloadAllLink').attr('href')).toEqual('/')
-    expect($('#capLink').attr('href')).toEqual('https://cap-payments.defra.gov.uk/Default.aspx')
-    
+    expectLinks($)
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)

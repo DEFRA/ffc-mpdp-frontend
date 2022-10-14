@@ -19,8 +19,28 @@
     </ul>
 
     {{ govukDetails({
-      summaryText: "What data we publish",
-      text: "Only data we ever need (placeholder)"
+      summaryText: 'What data we publish',
+      id: 'publishedData',
+      html: "<p>The data we publish varies for different schemes and depends on the total funding a business has received.</p>
+      
+      <h4>Sustainable Farming Incentive and the Farming Equipment and Technology Fund</h4>
+
+      <p>When a business has received total agricultural scheme payments of £1,250 or more, we publish: </p>
+      <ul class='margin-left-20'>
+        <li>full names of agreement holders and businesses</li>
+        <li>partial postcodes, post towns and districts where the agreement holder is resident or located</li>
+        <li>total payments received by the agreement holder in the lastfinancial year</li>
+        <li>a description of the activities financed by the relevant payments</li>
+      </ul>
+
+      <p>Read more about the <a id='sfiLink' href='https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance'>Sustainable Farming Incentive </a> and the <a id='featLink' href='https://www.gov.uk/guidance/farming-equipment-and-technology-fund-round-1-manual'>Farming Equipment and Technology Fund </a></p>
+      
+      <h4>Tree Health Pilot Scheme </h4>
+
+      <p>We only publish the total figure paid through the scheme as a single amount.</p>
+
+      <p>Data is published in the ‘scheme payment data’ CSV document.</p>
+      <p>Read more about the <a id='thplLink' href='https://www.gov.uk/guidance/tree-health-pilot-scheme'>Tree Health Pilot Scheme</a></p>"
     }) }}
 
     {{ govukButton({
