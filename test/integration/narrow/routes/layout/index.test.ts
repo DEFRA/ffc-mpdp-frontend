@@ -19,7 +19,7 @@ describe('MPDP layout test', () => {
       'Service Start Page'
     )
     const button = $('.govuk-main-wrapper .govuk-button')
-    expect(button.attr('href')).toMatch('/mpdp/search')
+    expect(button.attr('href')).toMatch('/search')
     expect(button.text()).toMatch('Start now')
     expect($('title').text()).toEqual(config.serviceName)
     expectPhaseBanner($)

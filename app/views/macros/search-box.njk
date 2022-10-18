@@ -1,0 +1,17 @@
+{% macro searchBox(model) %}
+<form id='searchForm' action="{{model.href}}" method="post">
+  <div class="govuk-form-group {% if model.errorMessage %}govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-!-font-weight-bold" for="{{model.name}}">{{model.label.text}}</label>
+    {% if model.errorMessage %}
+      <span id="error-message" class="govuk-error-message">{{model.errorMessage.text}}</span>
+    {% endif %}
+    <input class="{{model.inputClass}}"
+      id="{{model.id}}"
+      name="{{model.name}}"
+      inputmode="{{model.inputmode}}"
+      type="text"
+      value="{{model.value}}"/>
+    <button class="govuk-button search-btn" data-module="govuk-button" type="submit">{{model.buttonText}}</button>
+  </div>
+</form>
+{% endmacro %}

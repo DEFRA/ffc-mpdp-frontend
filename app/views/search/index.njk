@@ -1,0 +1,27 @@
+{% extends './layouts/layout.njk' %}
+
+{% from "./macros/search-box.njk"                       import searchBox %}
+
+{% block pageTitle %}{{ serviceName }}{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Search for a business or payee name</h1>
+
+    <p>Enter a name, town, county or postcode</p>
+
+    <p><span class='subtitle'>Example: Pine Grove Farm, Alex Smith, Hartlepool, Durham, TS2 </span></p>
+
+    {{ searchBox({
+      inputClass: 'govuk-input govuk-input--width-20',
+      id: 'searchBox',
+      name: 'searchString',
+      inputmode: 'string',
+      buttonText: 'Search',
+      href: '/search'
+    }) }}
+
+  </div>
+</div>
+{% endblock %}
