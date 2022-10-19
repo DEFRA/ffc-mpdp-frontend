@@ -18,17 +18,17 @@ const init = async function(): Promise<Server> {
         }
     });
 
-    await server.register(require('@hapi/inert'))
-    await server.register(require('./plugins/router'))
-    await server.register(require('./plugins/view-context'))
-    await server.register(require('./plugins/views'))
+    await server?.register(require('@hapi/inert'))
+    await server?.register(require('./plugins/router'))
+    await server?.register(require('./plugins/view-context'))
+    await server?.register(require('./plugins/views'))
 
     return server;
 };
 
 export const start = async function (): Promise<Server> {
     const server = await init()
-    if(process.env.NODE_ENV === 'development'){
+    if(process.env.NODE_ENV !== 'test'){
         console.log(`Listening on ${server.settings.host}:${server.settings.port}`);
     }
     await server.start();

@@ -57,4 +57,22 @@ describe('MPDP Search page test', () => {
     expectFooter($)
     expectHeader($)
   })
+
+  test('POST /search with invalid payload redirects back to search page', async () => {
+    const options = {
+      method: 'POST',
+      url: '/search',
+      payload: {
+        searchString: 1234
+      }
+    }
+
+    const res = await global.__SERVER__.inject(options)
+
+    expect(res.statusCode).toBe(400)
+    const $ = cheerio.load(res.payload)
+    expect($('.govuk-heading-l').text()).toEqual(
+      'Search for a business or payee name'
+    )
+  })
 })
