@@ -20,7 +20,7 @@ describe('MPDP Search page test', () => {
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
     expect($('.govuk-heading-l').text()).toEqual(
-      'Search for a business or payee name'
+      'Enter a business or payee name'
     )
 
     const button = $('.govuk-button')
@@ -50,7 +50,7 @@ describe('MPDP Search page test', () => {
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
     expect($('.govuk-heading-l').text()).toEqual(
-      'Search for a business or payee name'
+      'Enter a business or payee name'
     )
 
     expectPhaseBanner($)
@@ -72,7 +72,7 @@ describe('MPDP Search page test', () => {
     expect(res.statusCode).toBe(400)
     const $ = cheerio.load(res.payload)
     expect($('.govuk-heading-l').text()).toEqual(
-      'Search for a business or payee name'
+      'Enter a business or payee name'
     )
   })
 })
