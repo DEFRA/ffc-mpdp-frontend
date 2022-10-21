@@ -11,17 +11,22 @@
 
     <p>Check agricultural scheme payments to farmers and land managers in England</p>
     
-    <p>View payments from the:</p>
+    <p>Use this service to view payments for the:</p>
     <ul class='margin-left-20'>
       <li>Sustainable Farming Incentive</li>
       <li>Farming Equipment and Technology Fund</li>
-      <li>Tree Health Pilot Scheme</li>
     </ul>
 
-    {{ govukDetails({
+    {{ govukInsetText({
+      html: "This service only shows payments received between 1 April 2021 and <br> 31 March 2022."
+    }) }}
+
+   {{ govukDetails({
       summaryText: 'What data we publish',
       id: 'publishedData',
       html: "<p>The data we publish varies for different schemes and depends on the total funding a business has received.</p>
+
+      <p>Payment data will remain online for 3 years from the date we publish it.</p>
       
       <h4>Sustainable Farming Incentive and the Farming Equipment and Technology Fund</h4>
 
@@ -39,7 +44,6 @@
 
       <p>We publish the total figure paid through the scheme as a single amount.</p>
 
-      <p>Data is published in the ‘scheme payment data’ CSV document.</p>
       <p>Read more about the <a id='thplLink' href='https://www.gov.uk/guidance/tree-health-pilot-scheme'>Tree Health Pilot Scheme</a></p>"
     }) }}
 
@@ -50,9 +54,14 @@
       text: "Start now"
     }) }}
 
-    <p>You can also <a id='downloadAllLink' href="/">download all scheme payment data (.CSV, 245KB)</a></p>
+    <p>You can also <a id='downloadAllLink' href="/">download all scheme payment data (.CSV, 345KB)</a> for the:</p>
+    <ul class='margin-left-20'>
+      <li>Tree Health Pilot Scheme</li>
+      <li>Sustainable Farming Incentive</li>
+      <li>Farming Equipment and Technology Fund</li>
+    </ul>
 
-    <p>You can also search for payments from other <a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx">Common Agrricultural Policy (CAP) schemes</a>.</p>
+    <p>Search for payments from other <a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx">Common Agrricultural Policy (CAP) <br>schemes</a>.</p>
 
   </div>
 </div>
