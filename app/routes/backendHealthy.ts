@@ -5,7 +5,7 @@ module.exports = {
   method: 'GET',
   path: '/backendHealthy',
   handler: async (_request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
-    const res = await get('/healthy')
-    return h.response(`Response from backend: ${JSON.stringify(Object.keys(res))}`).code(200)
+    const { res } = await get('/healthy')
+    return h.response(`Response from backend: ${res}`).code(200)
   }
 }
