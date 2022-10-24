@@ -6,6 +6,6 @@ module.exports = {
   path: '/backendHealthy',
   handler: async (_request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
     const { payload } = await get('/healthy')
-    return h.response(`Response from backend: ${JSON.stringify(Object.keys(payload))}`).code(200)
+    return h.response(`Response from backend: ${JSON.stringify(Object.values(payload))}`).code(200)
   }
 }
