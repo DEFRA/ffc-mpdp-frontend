@@ -29,6 +29,7 @@
     "@hapi/hapi": "^20.2.2",
     "@hapi/inert": "^6.0.5",
     "@hapi/vision": "^7.0.0",
+    "@hapi/wreck": "^18.0.0",
     "applicationinsights": "^2.3.5",
     "browserify-zlib": "^0.2.0",
     "crypto-browserify": "^3.12.0",
