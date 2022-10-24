@@ -1,13 +1,51 @@
 {% extends './layouts/layout.njk' %}
 
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% block pageTitle %}{{ serviceName }}{% endblock %}
 
 {% block content %}
-<div class="govuk-grid-row">
+<div class="govuk-grid-row govuk-prose-scope">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Service Start Page</h1>
+    <h2 class="govuk-heading-l">Find data on farm and land payments</h2>
 
-    <p>The most awesome service ever.</p>
+    <p>Check agricultural scheme payments to farmers and land managers in England</p>
+    
+    <p>Use this service to view payments for the:</p>
+    <ul class='margin-left-20'>
+      <li>Sustainable Farming Incentive</li>
+      <li>Farming Equipment and Technology Fund</li>
+    </ul>
+
+    {{ govukInsetText({
+      html: "This service only shows payments received between 1 April 2021 and <br> 31 March 2022."
+    }) }}
+
+   {{ govukDetails({
+      summaryText: 'What data we publish',
+      id: 'publishedData',
+      html: "<p>The data we publish varies for different schemes and depends on the total funding a business has received.</p>
+
+      <p>Payment data will remain online for 3 years from the date we publish it.</p>
+      
+      <h4>Sustainable Farming Incentive and the Farming Equipment and Technology Fund</h4>
+
+      <p>When a business has received total agricultural scheme payments of £1,250 or more, we publish: </p>
+      <ul class='margin-left-20'>
+        <li>full names of agreement holders and businesses</li>
+        <li>partial postcodes, post towns and districts where the agreement holder is resident or located</li>
+        <li>total payments received by the agreement holder in the last financial year</li>
+        <li>a description of the activities financed by the relevant payments</li>
+      </ul>
+
+      <p>Read more about the <a id='sfiLink' href='https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance'>Sustainable Farming Incentive </a> and the <a id='featLink' href='https://www.gov.uk/guidance/farming-equipment-and-technology-fund-round-1-manual'>Farming Equipment and Technology Fund </a></p>
+      
+      <h4>Tree Health Pilot Scheme </h4>
+
+      <p>We publish the total figure paid through the scheme as a single amount.</p>
+
+      <p>Read more about the <a id='thplLink' href='https://www.gov.uk/guidance/tree-health-pilot-scheme'>Tree Health Pilot Scheme</a></p>"
+    }) }}
 
     {{ govukButton({
       classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
@@ -15,6 +53,15 @@
       isStartButton: true,
       text: "Start now"
     }) }}
+
+    <p>You can also <a id='downloadAllLink' href="/">download all scheme payment data (.CSV, 345KB)</a> for the:</p>
+    <ul class='margin-left-20'>
+      <li>Tree Health Pilot Scheme</li>
+      <li>Sustainable Farming Incentive</li>
+      <li>Farming Equipment and Technology Fund</li>
+    </ul>
+
+    <p>Search for payments from other <a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx">Common Agrricultural Policy (CAP) <br>schemes</a>.</p>
 
   </div>
 </div>

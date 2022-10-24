@@ -16,7 +16,7 @@ describe('MPDP layout test', () => {
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
     expect($('.govuk-heading-l').text()).toEqual(
-      'Service Start Page'
+      'Find data on farm and land payments'
     )
     const button = $('.govuk-main-wrapper .govuk-button')
     expect(button.attr('href')).toMatch('/search')
