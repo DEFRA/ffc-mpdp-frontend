@@ -1,8 +1,8 @@
-const endpoint = 'http://__TEST_ENDPOINT__'
-process.env.MPDP_BACKEND_ENDPOINT = endpoint
-
 import wreck from '@hapi/wreck'
 import { get } from '../../../app/backend/api'
+
+const endpoint = 'http://__TEST_ENDPOINT__'
+process.env.MPDP_BACKEND_ENDPOINT = endpoint
 
 describe('Backend API tests', () => {
     const route = '/__TEST_ROUTE__'
