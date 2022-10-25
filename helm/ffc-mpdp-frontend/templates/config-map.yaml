@@ -4,4 +4,9 @@ data:
   NODE_ENV: {{ quote .Values.environment }}
   PORT: {{ quote .Values.container.port }}
   APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
-{{- end -}}
+  {{- if and (.Values.environmentCode) (not .Values.pr) }}
+    MPDP_BACKEND_ENDPOINT: {{ .Values.container.mpdpBackendEndpoint }}-{{ .Values.environmentCode }}
+    {{ else }}
+    MPDP_BACKEND_ENDPOINT: {{ quote .Values.container.mpdpBackendEndpoint }}
+  {{- end }}
+{{- end }}

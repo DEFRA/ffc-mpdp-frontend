@@ -5,6 +5,7 @@ type config = {
   serviceName?: string,
   startPageLink: string,
   feedbackLink?: string,
+  backendEndpoint: string
 }
 
 export default {
@@ -13,5 +14,6 @@ export default {
   port: process.env.PORT? parseInt(process.env.PORT) : 3001,
   serviceName: 'Find data on farm and land payments',
   startPageLink: '/service-start',
-  feedbackLink: process.env.feedbackLink
+  feedbackLink: process.env.feedbackLink,
+  backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
 } as config
