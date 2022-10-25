@@ -9,7 +9,7 @@ const routes = [].concat(
   require('../routes/cookies'),
   require('../routes/privacy'),
   require('../routes/accessibility'),
-  require('../routes/downloadall')
+  //require('../routes/downloadall')
 )
 
 module.exports = {
