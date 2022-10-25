@@ -1,3 +1,4 @@
+/*
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import { get } from '../backend/api'
 
@@ -10,3 +11,4 @@ module.exports = {
     return h.response(res).code(200)
   }
 }
+*/
