@@ -1,6 +1,7 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import { get } from '../backend/api'
 
+// NOSONAR
 module.exports = {
   method: 'GET',
   path: '/downloadall',

@@ -4,6 +4,7 @@ process.env.MPDP_BACKEND_ENDPOINT = endpoint
 import wreck from '@hapi/wreck'
 import { get } from '../../../app/backend/api'
 
+
 describe('Backend API tests', () => {
     const route = '/__TEST_ROUTE__'
     test('service uses the env variable to connect to the backend service', async () => {
