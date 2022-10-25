@@ -1,9 +1,4 @@
-const wreck = require('@hapi/wreck')
+import * as wreck from '@hapi/wreck'
 import config from '../config'
 
-export const get = async (url: string) => {
-  console.log(config.serviceName)
-  const _url = `${config.backendEndpoint}${url}`
-  console.log(`url: ${_url}`)
-  return wreck.get(`${config.backendEndpoint}${url}`)
-}
+export const get = async (url: string) => wreck.get(`${config.backendEndpoint}${url}`)
