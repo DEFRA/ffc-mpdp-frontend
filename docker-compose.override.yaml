@@ -6,7 +6,7 @@ services:
     container_name: ffc-mpdp-frontend-development
     ports:
       - "3001:3001"
-      - "9229:9229"
+      - "9330:9330"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
