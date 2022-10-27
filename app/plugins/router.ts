@@ -8,8 +8,7 @@ const routes = [].concat(
   require('../routes/feedback'),
   require('../routes/cookies'),
   require('../routes/privacy'),
-  require('../routes/accessibility'),
-  require('../routes/backendHealthy')
+  require('../routes/accessibility')
 )
 
 module.exports = {
