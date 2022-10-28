@@ -38,7 +38,7 @@ describe('MPDP service start page test', () => {
     )
 
     const button = $('.govuk-main-wrapper .govuk-button')
-    expect(button.attr('href')).toMatch('/mpdp/search')
+    expect(button.attr('href')).toMatch('/search')
     expect(button.text()).toMatch('Start now')
     expect($('#publishedData')).toBeDefined()
 

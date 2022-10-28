@@ -28,7 +28,9 @@ const init = async function(): Promise<Server> {
 
 export const start = async function (): Promise<Server> {
     const server = await init()
-    console.log(`Listening on ${server.settings.host}:${server.settings.port}`);
+    if(process.env.NODE_ENV !== 'test'){
+        console.log(`Listening on ${server.settings.host}:${server.settings.port}`);
+    }
     await server.start();
     return server;
 };
