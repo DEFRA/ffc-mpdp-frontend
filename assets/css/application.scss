@@ -81,21 +81,12 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
   }
 }
 
-.search-button {
-  position: absolute;
-  border-color: black;
-  border-style: solid;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  background-image: url(../images/search-icon.png);
-  background-position: 2px 50%;
-  background-color: #1d70b8;
-  margin-left: -2.5rem;
+.search-btn {
+  margin-left: -4px;
+}
 
-  &:hover {
-    background-color: #143c7c;
-  }
+.subtitle {
+  color: $govuk-secondary-text-colour;
 }
 
 .margin-left-20 {

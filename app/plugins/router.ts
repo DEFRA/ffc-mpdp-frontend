@@ -9,7 +9,8 @@ const routes = [].concat(
   require('../routes/cookies'),
   require('../routes/privacy'),
   require('../routes/accessibility'),
-  require('../routes/backendHealthy')
+  require('../routes/backendHealthy'),
+  require('../routes/search')
 )
 
 module.exports = {
