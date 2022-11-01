@@ -1,0 +1,22 @@
+{% macro searchResults(model) %}
+  <div>
+    <h3 id='totalResults'>{{ model.total }} Results</h3>
+    <hr class="govubk-section-break govuk-section-reak--visible" style="height:2px;border-width:0;background-color:gray">
+    {% for item in model.results %}
+      <a href="#" class="govuk-link govuk-link--no-underline govuk-link--no-visited-state">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+              <h3>{{ item.payee_name }}</h3>    
+            <div class="subtitle">Location: {{ item.part_postcode }}, {{item.town}}, {{item.county_council}}</div>
+          </div>
+          <div class="govuk-grid-column-one-third">
+            <h4 style="margin-top:20px; color:black">{{ item.amount }}</h4>
+          </div>
+        </div>
+        <hr class="govubk-section-break govuk-section-reak--visible" style="height:2px;border-width:0;background-color:lightgray">
+      </a>
+    {% else %}
+      <h3>There are no matching results.</h3>
+    {% endfor %}  
+  </div>
+{% endmacro %}

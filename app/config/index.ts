@@ -5,6 +5,9 @@ type config = {
   startPageLink: string,
   feedbackLink: string,
   backendEndpoint: string,
+  search: {
+    limit: number
+  }
 }
 
 export default {
@@ -14,4 +17,7 @@ export default {
   startPageLink: '/service-start',
   feedbackLink: process.env.feedbackLink,
   backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
+  search: {
+    limit: 10
+  }
 } as config
