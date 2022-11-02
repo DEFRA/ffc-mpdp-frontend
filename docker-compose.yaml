@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   ffc-mpdp-frontend:
     build:
@@ -8,3 +10,5 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-mpdp-frontend-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      MPDP_BACKEND_ENDPOINT: "http://ffc-mpdp-backend:3000"
+      

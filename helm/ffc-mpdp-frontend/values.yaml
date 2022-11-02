@@ -1,4 +1,5 @@
 environment: development
+environmentCode:
 name: ffc-mpdp-frontend
 namespace: ffc-mpdp
 workstream: ffc-mpdp
@@ -32,7 +33,8 @@ container:
   requestCpu: 10m
   limitMemory: 40Mi
   limitCpu: 40m
-  port: 3000
+  port: 3001
+  mpdpBackendEndpoint: http://ffc-mpdp-backend.ffc-mpdp
 
 service:
   port: 80
@@ -45,14 +47,14 @@ ingress:
 
 livenessProbe:
   path: /healthz
-  port: 3000
+  port: 3001
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3
 
 readinessProbe:
   path: /healthy
-  port: 3000
+  port: 3001
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3

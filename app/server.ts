@@ -5,7 +5,7 @@ import { Server } from '@hapi/hapi';
 
 const init = async function(): Promise<Server> {
     const server = Hapi.server({
-        port: process.env.PORT || 3000,
+        port: process.env.PORT || 3001,
         routes: {
             validate: {
                 options: {

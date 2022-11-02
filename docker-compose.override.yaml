@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   ffc-mpdp-frontend:
     build:
@@ -5,8 +7,8 @@ services:
     image: ffc-mpdp-frontend-development
     container_name: ffc-mpdp-frontend-development
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - "3001:3001"
+      - "9330:9229"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
