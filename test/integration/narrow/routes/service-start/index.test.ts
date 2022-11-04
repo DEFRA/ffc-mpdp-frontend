@@ -7,7 +7,7 @@ describe('MPDP service start page test', () => {
 
   const expectLinks = ($: cheerio.CheerioAPI) => {
     const expectedLinks = [
-      '/',
+      '/downloadall',
       'https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance',
       'https://www.gov.uk/guidance/farming-equipment-and-technology-fund-round-1-manual',
       'https://www.gov.uk/guidance/tree-health-pilot-scheme',
