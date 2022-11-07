@@ -14,7 +14,7 @@ describe('MPDP Search page test', () => {
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
-    expect($('.govuk-heading-l').text()).toEqual(
+    expect($('h1').text()).toEqual(
       'Enter a business or payee name'
     )
 
@@ -45,15 +45,15 @@ describe('MPDP Search page test', () => {
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
-    expect($('.govuk-heading-l').text()).toEqual(
-      `Results for ${searchString}`
+    expect($('h1').text()).toEqual(
+      `Results for ‘${searchString}’`
     )
 
     const searchBox = $('#searchBox')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
 
-    expect($('#totalResults').text()).toMatch(`0 Results`)
+    expect($('#totalResults').text()).toMatch(`0 results`)
 
     expectPhaseBanner($)
     expectFooter($)
@@ -73,7 +73,7 @@ describe('MPDP Search page test', () => {
 
     expect(res.statusCode).toBe(400)
     const $ = cheerio.load(res.payload)
-    expect($('.govuk-heading-l').text()).toEqual(
+    expect($('h1').text()).toEqual(
       'Enter a business or payee name'
     )
   })

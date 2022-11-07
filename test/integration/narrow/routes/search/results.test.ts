@@ -30,7 +30,7 @@ describe('GET /search route with query parameters return results page', () => {
 
   test('Results heading contains search string', () => {
     expect($('.govuk-heading-l').text()).toEqual(
-      `Results for ${searchString}`
+      `Results for ‘${searchString}’`
     )
   })
 
@@ -55,7 +55,7 @@ describe('GET /search route with query parameters return results page', () => {
   })
 
   test('Total results show the real number', () => {
-    expect($('#totalResults').text()).toMatch(`${mockData.length} Results`)
+    expect($('#totalResults').text()).toMatch(`${mockData.length} results`)
   })
 
   test('Header, footer and title gets rendered', () => {
@@ -90,7 +90,7 @@ describe('GET /search route with pagination return new result with each page', (
 
   test('Results heading contains search string', () => {
     expect($('.govuk-heading-l').text()).toEqual(
-      `Results for ${searchString}`
+      `Results for ‘${searchString}’`
     )
   })
 
@@ -118,7 +118,7 @@ describe('GET /search route with pagination return new result with each page', (
   })
 
   test('Total results show the real number', () => {
-    expect($('#totalResults').text()).toMatch(`${mockData.length} Results`)
+    expect($('#totalResults').text()).toMatch(`${mockData.length} results`)
   })
 
   test('Header, footer and title gets rendered', () => {
