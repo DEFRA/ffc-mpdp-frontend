@@ -45,8 +45,9 @@ describe('MPDP Search page test', () => {
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
+    
     expect($('h1').text()).toEqual(
-      `Results for ‘${searchString}’`
+      `We found no results for ‘${searchString}’`
     )
 
     const searchBox = $('#searchBox')

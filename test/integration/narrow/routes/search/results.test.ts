@@ -127,3 +127,45 @@ describe('GET /search route with pagination return new result with each page', (
     expectHeader($)
   })
 })
+
+describe('Seach results page shows no results message', () => {
+  const searchString = '__INVALID_SEARCH_STRING__'
+  let res: any
+  let $: cheerio.CheerioAPI
+
+  beforeEach(async () => {
+    if(res) { return }
+
+    res = await global.__SERVER__.inject({
+      method: 'GET',
+      url: `/search?searchString=${searchString}&page=3`
+    })
+    $ = cheerio.load(res.payload)
+  })
+
+  test('Results heading contains no results found with searchString', () => {
+    expect($('.govuk-heading-l').text()).toEqual(
+      `We found no results for ‘${searchString}’`
+    )
+  })
+
+  test('Search box is present on the results page', () => {
+    const button = $('.govuk-button')
+    expect(button).toBeDefined()
+    expect(button.text()).toMatch('Search')
+
+    const searchBox = $('#searchBox')
+    expect(searchBox).toBeDefined()
+    expect(searchBox.val()).toMatch(searchString)
+  })
+
+  test('Total results show: 0 results', () => {
+    expect($('#totalResults').text()).toMatch(`0 results`)
+  })
+
+  test('Shows no matching results message', () => {
+    const noResults = $('#noResults')
+    expect(noResults).toBeDefined()
+    expect(noResults.text()).toMatch('There are no matching results')
+  })
+})

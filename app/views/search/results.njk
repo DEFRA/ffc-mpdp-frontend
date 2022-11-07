@@ -15,7 +15,12 @@
 
 {% set mainClasses = "padding-top-10" %}
 {% block content %}
-<h1 class="govuk-heading-l margin-bottom-15">Results for ‘{{ searchQuery }}’</h1>
+{% if total %}
+  <h1 class="govuk-heading-l margin-bottom-15">Results for ‘{{ searchQuery }}’</h1>
+{% else %}
+  <h1 class="govuk-heading-l margin-bottom-15">We found no results for ‘{{ searchQuery }}’</h1>
+{% endif %}
+
 <p>Check results or search again</p>
 
  <div class="govuk-grid-row">    
