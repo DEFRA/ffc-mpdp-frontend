@@ -5,7 +5,7 @@ import dummyResults from './data/mockResults'
 export const get = async (url: string) => wreck.get(`${config.backendEndpoint}${url}`)
 
 export const search = (searchQuery: string, offset: number, limit: number = config.search.limit) => {
-    const results = dummyResults.filter(x => x.payee_name.includes(searchQuery))
+    const results = dummyResults.filter(x => x.payee_name.toLowerCase().includes(searchQuery.toLowerCase()))
     if(!results) {
         return {
             results: [],

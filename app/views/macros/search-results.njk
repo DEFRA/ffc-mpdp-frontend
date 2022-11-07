@@ -1,22 +1,30 @@
 {% macro searchResults(model) %}
   <div>
-    <h3 id='totalResults'>{{ model.total }} Results</h3>
-    <hr class="govubk-section-break govuk-section-reak--visible" style="height:2px;border-width:0;background-color:gray">
+    <h3 class="govuk-heading-s" id='totalResults'>{{ model.total }} results</h3>
+    <hr class="govubk-section-break govuk-section-reak--visible section-break-heading">
     {% for item in model.results %}
-      <a href="#" class="govuk-link govuk-link--no-underline govuk-link--no-visited-state">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-two-thirds">
-              <h3>{{ item.payee_name }}</h3>    
-            <div class="subtitle">Location: {{ item.part_postcode }}, {{item.town}}, {{item.county_council}}</div>
-          </div>
-          <div class="govuk-grid-column-one-third">
-            <h4 style="margin-top:20px; color:black">{{ item.amount }}</h4>
+      <div>
+        <div class='grid-column-two-one'>
+          <h3 class='margin-top-10'>
+            <a href="#" class="govuk-link govuk-link--no-visited-state govuk-link--no-underline">
+              {{ item.payee_name }}
+            </a>
+          </h3>
+          <div>
+            <h4 class="govuk-heading-s search-results-amount">{{ item.amount }}</h4>
           </div>
         </div>
-        <hr class="govubk-section-break govuk-section-reak--visible" style="height:2px;border-width:0;background-color:lightgray">
-      </a>
+        <div class="subtitle margin-bottom-20">Location: {{ item.part_postcode }}, {{item.town}}, {{item.county_council}}</div>
+        <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray">
+      </div>
     {% else %}
-      <h3>There are no matching results.</h3>
+      <h3 class='govuk-heading-s margin-top-60'>There are no matching results.</h3>
+      <p>Improve your search results by</p>
+      <ul class='govuk-list govuk-list--bullet'>
+        <li>double-checking your spelling</li>
+        <li>using fewer keywords</li>
+        <li>searching for something less specific</li>
+      </ul>
     {% endfor %}  
   </div>
 {% endmacro %}

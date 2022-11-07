@@ -4,7 +4,7 @@ export default [
       part_postcode: 'RG1',
       town: 'Reading',
       county_council: 'Berkshire',
-      amount: '£11,000'
+      amount: '£11,000000'
     },
     {
       payee_name: 'T R Carter & Sons 2',
