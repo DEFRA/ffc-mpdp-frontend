@@ -7,6 +7,6 @@ module.exports = {
 
   handler: async (_request: Request, h: ResponseToolkit): Promise<any> => {
     const res  = await get('/downloadall')
-    return res
+    return res.payload
   }
 }
