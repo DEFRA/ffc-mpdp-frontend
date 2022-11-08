@@ -36,7 +36,6 @@
     "govuk-frontend": "4.3.1",
     "https-browserify": "^1.0.0",
     "joi": "^17.6.0",
-    "node-loader": "^2.0.0",
     "nunjucks": "^3.2.3",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
