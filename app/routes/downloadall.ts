@@ -12,6 +12,6 @@ module.exports = {
       protocol: "http",
       passThrough: true,
       xforward: true,
-    },
+    }
   }
 }
