@@ -1,6 +1,6 @@
 {% macro searchResults(model) %}
   <div>
-    <h2 class="govuk-heading-s">{{ model.total }} results</h2>
+    <h2 class="govuk-heading-s" id='totalResults' {{ model.total }} results>{{ model.total }} results</h2>
     <hr class="govubk-section-break govuk-section-reak--visible section-break-heading">
     {% for item in model.results %}
       <div>
