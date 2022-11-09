@@ -22,3 +22,5 @@ layout.njk
 
 # OS stuff
 .DS_Store
+.idea
+
