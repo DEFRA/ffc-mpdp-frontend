@@ -1,6 +1,6 @@
 {% macro searchResults(model) %}
   <div>
-    <h3 class="govuk-heading-s" id='totalResults'>{{ model.total }} results</h3>
+    <h2 class="govuk-heading-s">{{ model.total }} results</h2>
     <hr class="govubk-section-break govuk-section-reak--visible section-break-heading">
     {% for item in model.results %}
       <div>
@@ -18,7 +18,7 @@
         <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray">
       </div>
     {% else %}
-      <h3 class='govuk-heading-s margin-top-60' id='noResults'>There are no matching results.</h3>
+      <h2 class='govuk-heading-s margin-top-60' id='noResults'>There are no matching results.</h2>
       <p>Improve your search results by</p>
       <ul class='govuk-list govuk-list--bullet'>
         <li>double-checking your spelling</li>
