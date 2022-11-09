@@ -50,7 +50,7 @@ describe('GET /search route with query parameters return results page', () => {
   })
 
   test('Results are displayed on the page upto the limit of 10', () => {
-    const resElements = $('.govuk-link.govuk-link--no-underline.govuk-link--no-visited-state')
+    const resElements = $('.govuk-link.govuk-link--no-visited-state')
     expect(resElements.length).toBe(10)
   })
 
@@ -113,7 +113,7 @@ describe('GET /search route with pagination return new result with each page', (
   })
 
   test('Page 3 only shows the 2 remaining results from dummy data', () => {
-    const resElements = $('.govuk-link.govuk-link--no-underline.govuk-link--no-visited-state')
+    const resElements = $('.govuk-link.govuk-link--no-visited-state')
     expect(resElements.length).toBe(2)
   })
 
