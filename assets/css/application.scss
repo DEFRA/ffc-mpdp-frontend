@@ -71,6 +71,7 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
   box-shadow: none;
   height: 40px;
   width: auto;
+  margin-bottom: 0 !important;
 }
 
 .govuk-input {

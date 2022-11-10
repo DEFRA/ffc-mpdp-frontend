@@ -50,7 +50,7 @@ describe('MPDP Search page test', () => {
       `We found no results for ‘${searchString}’`
     )
 
-    const searchBox = $('#searchBox')
+    const searchBox = $('#searchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
 
@@ -61,12 +61,12 @@ describe('MPDP Search page test', () => {
     expectHeader($)
   })
 
-  test('POST /search with invalid payload redirects back to search page', async () => {
+  test('POST /search with invalid payload displays an error', async () => {
     const options = {
       method: 'POST',
       url: '/search',
       payload: {
-        searchString: 1234
+        searchString: ''
       }
     }
 
@@ -77,5 +77,12 @@ describe('MPDP Search page test', () => {
     expect($('h1').text()).toEqual(
       'Enter a business or payee name'
     )
+    const errorSummary = $('#error-summary-title')
+    expect(errorSummary).toBeDefined()
+    expect(errorSummary.text()).toContain('There is a problem')
+    expect($('#searchInput')).toBeDefined()
+
+    expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
+    expect($('#search-input-error').text()).toContain('Enter a search term')
   })
 })

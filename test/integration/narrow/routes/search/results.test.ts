@@ -39,7 +39,7 @@ describe('GET /search route with query parameters return results page', () => {
     expect(button).toBeDefined()
     expect(button.text()).toMatch('Search')
 
-    const searchBox = $('#searchBox')
+    const searchBox = $('#searchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
   })
@@ -99,7 +99,7 @@ describe('GET /search route with pagination return new result with each page', (
     expect(button).toBeDefined()
     expect(button.text()).toMatch('Search')
 
-    const searchBox = $('#searchBox')
+    const searchBox = $('#searchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
   })
@@ -154,7 +154,7 @@ describe('Seach results page shows no results message', () => {
     expect(button).toBeDefined()
     expect(button.text()).toMatch('Search')
 
-    const searchBox = $('#searchBox')
+    const searchBox = $('#searchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
   })

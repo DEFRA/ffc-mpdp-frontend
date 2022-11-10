@@ -66,8 +66,7 @@ module.exports = [
           page: Joi.number().default(1)
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
-          // Todo: Add error handling to search page
-          return h.view('search/index', { ...(request.payload as Object), errorMessage: { text: error.details[0].message } }).code(400).takeover()
+          return h.view('search/index', { ...(request.payload as Object), errorList: [{ text: error.details[0].message }] }).code(400).takeover()
         }
       },
       handler: (request: Request, h: ResponseToolkit): ResponseObject => {
@@ -86,12 +85,19 @@ module.exports = [
       auth: false,
       validate: {
         payload: Joi.object({
-          searchString: Joi.string(),
+          searchString: Joi.string().strict().trim().min(1).required(),
           page: Joi.number().default(1)
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
-          // Todo: Add error handling to search page
-          return h.view('search/index', { ...(request.payload as Object), errorMessage: { text: error.details[0].message } }).code(400).takeover()
+          if(!(request.payload as any).searchString.trim()) {
+            return h.view('search/index', { 
+                errorList: [{
+                  text: "Enter a search term",
+                  href: "#searchInput"
+                }] }).code(400).takeover()
+          }
+
+          return h.view('search/index', { ...(request.payload as Object), errorList: [{ text: error.details[0].message }] }).code(400).takeover()
         }
       },
       handler: (request: Request, h: ResponseToolkit): ResponseObject => {
