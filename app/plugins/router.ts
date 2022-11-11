@@ -10,6 +10,7 @@ const routes = [].concat(
   require('../routes/privacy'),
   require('../routes/accessibility'),
   require('../routes/backendHealthy'),
+  require('../routes/downloadall'),
   require('../routes/search')
 )
 
