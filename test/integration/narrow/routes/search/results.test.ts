@@ -169,3 +169,57 @@ describe('Seach results page shows no results message', () => {
     expect(noResults.text()).toMatch('There are no matching results')
   })
 })
+
+describe('Seach results page shows error message when searchString is empty', () => {
+  const searchString = ''
+  let res: any
+  let $: cheerio.CheerioAPI
+
+  beforeEach(async () => {
+    if(res) { return }
+
+    res = await global.__SERVER__.inject({
+      method: 'POST',
+      url: '/search',
+      payload: {
+        searchString,
+        pageId: 'results'
+      }
+    })
+    $ = cheerio.load(res.payload)
+  })
+
+  test('Results heading show empty string', () => {
+    expect($('.govuk-heading-l').text()).toEqual(
+      `Results for ‘${searchString}’`
+    )
+  })
+
+  test('Error heading is displayed', () => {
+    expect($('.govuk-error-summary__title').text()).toContain('There is a problem')
+  })
+
+  test('Search box is present and shows error', () => {
+    const button = $('.govuk-button')
+    expect(button).toBeDefined()
+    expect(button.text()).toMatch('Search')
+
+    const searchInputError = $('#search-input-error')
+    expect(searchInputError).toBeDefined()
+    expect(searchInputError.text()).toContain('Error: Enter a search term')
+
+    const searchErrorBox = $('.govuk-input.govuk-input--error')
+    expect(searchErrorBox).toBeDefined()
+    expect(searchErrorBox.val()).toMatch(searchString)
+  })
+
+  test('Total results show: 0 results', () => {
+    expect($('#totalResults').text()).toMatch(`0 results`)
+  })
+
+  test('Shows no matching results message', () => {
+    const noResults = $('#noResults')
+    expect(noResults).toBeDefined()
+    expect(noResults.text()).toMatch('There are no matching results')
+  })
+})

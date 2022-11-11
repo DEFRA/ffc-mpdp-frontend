@@ -5,7 +5,7 @@
     {% for item in model.results %}
       <div>
         <div class='grid-column-two-one'>
-          <h3 class='margin-top-10'>
+          <h3 class='govuk-!-margin-top-2'>
             <a href="/" class="govuk-link govuk-link--no-visited-state">
               {{ item.payee_name }}
             </a>
@@ -14,11 +14,11 @@
             <div class="govuk-heading-s search-results-amount">{{ item.amount }}</div>
           </div>
         </div>
-        <div class="govuk-body subtitle margin-bottom-20 govuk-!-font-size-16">Location: {{ item.part_postcode }}, {{item.town}}, {{item.county_council}}</div>
+        <div class="govuk-body subtitle govuk-!-margin-bottom-4 govuk-!-font-size-16">Location: {{ item.part_postcode }}, {{item.town}}, {{item.county_council}}</div>
         <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray">
       </div>
     {% else %}
-      <h2 class='govuk-heading-s margin-top-60' id='noResults'>There are no matching results.</h2>
+      <h2 class='govuk-heading-s govuk-!-margin-top-9' id='noResults'>There are no matching results.</h2>
       <p>Improve your search results by</p>
       <ul class='govuk-list govuk-list--bullet'>
         <li>double-checking your spelling</li>

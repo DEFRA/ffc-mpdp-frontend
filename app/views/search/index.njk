@@ -7,11 +7,12 @@
 
 {% block content %}
 {% if errorList %}
-    {{govukErrorSummary ({
-      "titleText": "There is a problem",
-      "errorList": errorList
-    }) }}
-  {% endif %}
+  {{govukErrorSummary ({
+    "titleText": "There is a problem",
+    "errorList": errorList,
+    "classes": 'govuk-!-margin-bottom-7'
+  }) }}
+{% endif %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Enter a business or payee name</h1>
@@ -24,9 +25,9 @@
       buttonText: 'Search',
       href: '/search',
       errorList: errorList,
+      pageId: 'index',
       labelText: "
         <p>Enter a name, town, county or postcode</p>
-
         <p><span class='subtitle'>Example: Pine Grove Farm, Alex Smith, Hartlepool, Durham, TS2 </span></p>"
     }) }}
 

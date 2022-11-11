@@ -40,7 +40,17 @@ const performSearch = (searchQuery: string, requestedPage: number) => {
   }
 }
 
-const createModel = (payload: any) => {
+const createModel = (payload: any, error?: any) => {
+  if(error) {
+    return {
+      errorList: [{
+        text: "Enter a search term",
+        href: "#searchInput"
+      }],
+      total: 0 
+    }
+  }
+
   const searchQuery = decodeURIComponent(payload.searchString)
   const requestedPage = payload.page
   
@@ -62,7 +72,7 @@ module.exports = [
       auth: false,
       validate: {
         query: Joi.object({
-          searchString: Joi.string().optional(),
+          searchString: Joi.string(),
           page: Joi.number().default(1)
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
@@ -73,7 +83,7 @@ module.exports = [
         if(!request.query.searchString) {
           return h.view('search/index')
         }
-
+        
         return h.view('search/results', createModel(request.query))
       }
     }
@@ -86,15 +96,15 @@ module.exports = [
       validate: {
         payload: Joi.object({
           searchString: Joi.string().strict().trim().min(1).required(),
-          page: Joi.number().default(1)
+          page: Joi.number().default(1),
+          pageId: Joi.string().default('')
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           if(!(request.payload as any).searchString.trim()) {
-            return h.view('search/index', { 
-                errorList: [{
-                  text: "Enter a search term",
-                  href: "#searchInput"
-                }] }).code(400).takeover()
+            return h.view(
+              `search/${(request.payload as any).pageId || 'index'}`,
+              createModel(request.payload, error)
+            ).code(400).takeover()
           }
 
           return h.view('search/index', { ...(request.payload as Object), errorList: [{ text: error.details[0].message }] }).code(400).takeover()
