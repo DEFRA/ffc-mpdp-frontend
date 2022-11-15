@@ -4,12 +4,7 @@ import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 
 describe('MPDP Search page test', () => {
-
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
-  test('GET /search route returns 200', async () => {
+  test('GET /search route returns search landing page when no query parameters are sent', async () => {
     const options = {
       method: 'GET',
       url: '/search'
@@ -19,7 +14,7 @@ describe('MPDP Search page test', () => {
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
-    expect($('.govuk-heading-l').text()).toEqual(
+    expect($('h1').text()).toEqual(
       'Enter a business or payee name'
     )
 
@@ -36,12 +31,13 @@ describe('MPDP Search page test', () => {
     expectHeader($)
   })
 
-  test('POST /search route returns 200', async () => {
+  test('POST /search route returns results page', async () => {
+    const searchString = '__TEST_STRING__'
     const options = {
       method: 'POST',
       url: '/search',
       payload: {
-        searchString: 'searchString'
+        searchString
       }
     }
 
@@ -49,9 +45,16 @@ describe('MPDP Search page test', () => {
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
-    expect($('.govuk-heading-l').text()).toEqual(
-      'Enter a business or payee name'
+    
+    expect($('h1').text()).toEqual(
+      `We found no results for ‘${searchString}’`
     )
+
+    const searchBox = $('#searchBox')
+    expect(searchBox).toBeDefined()
+    expect(searchBox.val()).toMatch(searchString)
+
+    expect($('#totalResults').text()).toMatch(`0 results`)
 
     expectPhaseBanner($)
     expectFooter($)
@@ -71,7 +74,7 @@ describe('MPDP Search page test', () => {
 
     expect(res.statusCode).toBe(400)
     const $ = cheerio.load(res.payload)
-    expect($('.govuk-heading-l').text()).toEqual(
+    expect($('h1').text()).toEqual(
       'Enter a business or payee name'
     )
   })

@@ -33,7 +33,7 @@ describe('MPDP service start page test', () => {
     expect(res.statusCode).toBe(200)
 
     const $ = cheerio.load(res.payload)
-    expect($('.govuk-heading-l').text()).toEqual(
+    expect($('h1').text()).toEqual(
       'Find data on farm and land payments'
     )
 

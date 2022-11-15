@@ -1,7 +1,7 @@
 {% macro searchBox(model) %}
 <form id='searchForm' action="{{model.href}}" method="post">
   <div class="govuk-form-group {% if model.errorMessage %}govuk-form-group--error{% endif %}">
-    <label class="govuk-label govuk-!-font-weight-bold" for="{{model.name}}">{{model.label.text}}</label>
+    <label class="govuk-label {{'govuk-visually-hidden' if model.labelText === undefined}}" for="{{model.id}}">{{model.labelText if model.labelText else 'Search'}}</label>
     {% if model.errorMessage %}
       <span id="error-message" class="govuk-error-message">{{model.errorMessage.text}}</span>
     {% endif %}

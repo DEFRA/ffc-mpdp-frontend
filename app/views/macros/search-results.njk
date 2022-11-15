@@ -1,0 +1,30 @@
+{% macro searchResults(model) %}
+  <div>
+    <h2 class="govuk-heading-s" id='totalResults' {{ model.total }} results>{{ model.total }} results</h2>
+    <hr class="govubk-section-break govuk-section-reak--visible section-break-heading">
+    {% for item in model.results %}
+      <div>
+        <div class='grid-column-two-one'>
+          <h3 class='margin-top-10'>
+            <a href="/" class="govuk-link govuk-link--no-visited-state">
+              {{ item.payee_name }}
+            </a>
+          </h3>
+          <div>
+            <div class="govuk-heading-s search-results-amount">{{ item.amount }}</div>
+          </div>
+        </div>
+        <div class="govuk-body subtitle margin-bottom-20 govuk-!-font-size-16">Location: {{ item.part_postcode }}, {{item.town}}, {{item.county_council}}</div>
+        <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray">
+      </div>
+    {% else %}
+      <p class='govuk-heading-s margin-top-60 govuk-!-font-weight-regular' id='noResults'>There are no matching results.</p>
+      <p>Improve your search results by:</p>
+      <ul class='govuk-list govuk-list--bullet'>
+        <li>double-checking your spelling</li>
+        <li>using fewer keywords</li>
+        <li>searching for something less specific</li>
+      </ul>
+    {% endfor %}  
+  </div>
+{% endmacro %}
