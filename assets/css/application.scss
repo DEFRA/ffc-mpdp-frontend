@@ -76,7 +76,7 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
 
 .govuk-input {
   @include govuk-media-query($from: mobile) {
-    width: 66.6%;
+    width: 100%;
   }
 }
 

@@ -2,10 +2,11 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
+import { getOptions } from '../../../../utils/helpers'
 
 import mockData from '../../../../../app/backend/data/mockResults'
 
-describe('GET /search route with query parameters return results page', () => {
+describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
   let res: any
   let $: cheerio.CheerioAPI
@@ -13,10 +14,7 @@ describe('GET /search route with query parameters return results page', () => {
   beforeEach(async () => {
     if(res) { return }
 
-    res = await global.__SERVER__.inject({
-      method: 'GET',
-      url: `/search?searchString=${searchString}`
-    })
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
     $ = cheerio.load(res.payload)
   })
 
@@ -65,7 +63,7 @@ describe('GET /search route with query parameters return results page', () => {
   })
 })
 
-describe('GET /search route with pagination return new result with each page', () => {
+describe('GET /results route with pagination return new result with each page', () => {
   const searchString = 'Sons'
   let res: any
   let $: cheerio.CheerioAPI
@@ -73,10 +71,10 @@ describe('GET /search route with pagination return new result with each page', (
   beforeEach(async () => {
     if(res) { return }
 
-    res = await global.__SERVER__.inject({
-      method: 'GET',
-      url: `/search?searchString=${searchString}&page=3`
-    })
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { 
+      searchString,
+      page: 3 
+    }))
     $ = cheerio.load(res.payload)
   })
 
@@ -136,10 +134,13 @@ describe('Seach results page shows no results message', () => {
   beforeEach(async () => {
     if(res) { return }
 
-    res = await global.__SERVER__.inject({
-      method: 'GET',
-      url: `/search?searchString=${searchString}&page=3`
-    })
+    res = await global.__SERVER__.inject(
+      getOptions('results', 'GET', { 
+        searchString,
+        page: 3 
+      })
+    )
+    
     $ = cheerio.load(res.payload)
   })
 
@@ -172,20 +173,19 @@ describe('Seach results page shows no results message', () => {
 
 describe('Seach results page shows error message when searchString is empty', () => {
   const searchString = ''
+  const pageId = 'results'
   let res: any
   let $: cheerio.CheerioAPI
 
   beforeEach(async () => {
     if(res) { return }
 
-    res = await global.__SERVER__.inject({
-      method: 'POST',
-      url: '/search',
-      payload: {
+    res = await global.__SERVER__.inject(
+      getOptions('results', 'GET', { 
         searchString,
-        pageId: 'results'
-      }
-    })
+        pageId 
+      })
+    )
     $ = cheerio.load(res.payload)
   })
 

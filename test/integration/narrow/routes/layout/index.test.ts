@@ -3,15 +3,11 @@ import * as cheerio from 'cheerio'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
+import { getOptions } from '../../../../utils/helpers'
 
 describe('MPDP layout test', () => {
   test('Primary url route returns 200', async () => {
-    const options = {
-      method: 'GET',
-      url: '/'
-    }
-
-    const res = await global.__SERVER__.inject(options)
+    const res = await global.__SERVER__.inject(getOptions(''))
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)

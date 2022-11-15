@@ -1,4 +1,3 @@
-import * as api from '../../../../app/backend/api'
 import * as Http from 'http';
 
 import wreck from '@hapi/wreck'
@@ -13,7 +12,6 @@ describe('BackendHealthy test', () => {
         payload: {}
       })
 
-    //jest.spyOn(api, 'get').mockResolvedValue({res: {} as IncomingMessage})
     await global.__SERVER__.inject({
       method: 'GET',
       url: '/backendHealthy'
