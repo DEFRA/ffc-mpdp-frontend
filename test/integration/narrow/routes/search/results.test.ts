@@ -2,10 +2,11 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
+import { getOptions } from '../../../../utils/helpers'
 
 import mockData from '../../../../../app/backend/data/mockResults'
 
-describe('GET /search route with query parameters return results page', () => {
+describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
   let res: any
   let $: cheerio.CheerioAPI
@@ -13,10 +14,7 @@ describe('GET /search route with query parameters return results page', () => {
   beforeEach(async () => {
     if(res) { return }
 
-    res = await global.__SERVER__.inject({
-      method: 'GET',
-      url: `/search?searchString=${searchString}`
-    })
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
     $ = cheerio.load(res.payload)
   })
 
@@ -39,7 +37,7 @@ describe('GET /search route with query parameters return results page', () => {
     expect(button).toBeDefined()
     expect(button.text()).toMatch('Search')
 
-    const searchBox = $('#searchBox')
+    const searchBox = $('#searchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
   })
@@ -65,7 +63,7 @@ describe('GET /search route with query parameters return results page', () => {
   })
 })
 
-describe('GET /search route with pagination return new result with each page', () => {
+describe('GET /results route with pagination return new result with each page', () => {
   const searchString = 'Sons'
   let res: any
   let $: cheerio.CheerioAPI
@@ -73,10 +71,10 @@ describe('GET /search route with pagination return new result with each page', (
   beforeEach(async () => {
     if(res) { return }
 
-    res = await global.__SERVER__.inject({
-      method: 'GET',
-      url: `/search?searchString=${searchString}&page=3`
-    })
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { 
+      searchString,
+      page: 3 
+    }))
     $ = cheerio.load(res.payload)
   })
 
@@ -99,7 +97,7 @@ describe('GET /search route with pagination return new result with each page', (
     expect(button).toBeDefined()
     expect(button.text()).toMatch('Search')
 
-    const searchBox = $('#searchBox')
+    const searchBox = $('#searchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
   })
@@ -136,10 +134,13 @@ describe('Seach results page shows no results message', () => {
   beforeEach(async () => {
     if(res) { return }
 
-    res = await global.__SERVER__.inject({
-      method: 'GET',
-      url: `/search?searchString=${searchString}&page=3`
-    })
+    res = await global.__SERVER__.inject(
+      getOptions('results', 'GET', { 
+        searchString,
+        page: 3 
+      })
+    )
+    
     $ = cheerio.load(res.payload)
   })
 
@@ -154,9 +155,62 @@ describe('Seach results page shows no results message', () => {
     expect(button).toBeDefined()
     expect(button.text()).toMatch('Search')
 
-    const searchBox = $('#searchBox')
+    const searchBox = $('#searchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
+  })
+
+  test('Total results show: 0 results', () => {
+    expect($('#totalResults').text()).toMatch(`0 results`)
+  })
+
+  test('Shows no matching results message', () => {
+    const noResults = $('#noResults')
+    expect(noResults).toBeDefined()
+    expect(noResults.text()).toMatch('There are no matching results')
+  })
+})
+
+describe('Seach results page shows error message when searchString is empty', () => {
+  const searchString = ''
+  const pageId = 'results'
+  let res: any
+  let $: cheerio.CheerioAPI
+
+  beforeEach(async () => {
+    if(res) { return }
+
+    res = await global.__SERVER__.inject(
+      getOptions('results', 'GET', { 
+        searchString,
+        pageId 
+      })
+    )
+    $ = cheerio.load(res.payload)
+  })
+
+  test('Results heading show empty string', () => {
+    expect($('.govuk-heading-l').text()).toEqual(
+      `Results for ‘${searchString}’`
+    )
+  })
+
+  test('Error heading is displayed', () => {
+    expect($('.govuk-error-summary__title').text()).toContain('There is a problem')
+  })
+
+  test('Search box is present and shows error', () => {
+    const button = $('.govuk-button')
+    expect(button).toBeDefined()
+    expect(button.text()).toMatch('Search')
+
+    const searchInputError = $('#search-input-error')
+    expect(searchInputError).toBeDefined()
+    expect(searchInputError.text()).toContain('Error: Enter a search term')
+
+    const searchErrorBox = $('.govuk-input.govuk-input--error')
+    expect(searchErrorBox).toBeDefined()
+    expect(searchErrorBox.val()).toMatch(searchString)
   })
 
   test('Total results show: 0 results', () => {

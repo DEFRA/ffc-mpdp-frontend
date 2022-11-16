@@ -71,41 +71,17 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
   box-shadow: none;
   height: 40px;
   width: auto;
+  margin-bottom: govuk-spacing(0) !important;
 }
 
 .govuk-input {
   @include govuk-media-query($from: mobile) {
-    width: 66.6%;
+    width: 100%;
   }
 }
 
 .subtitle {
   color: $govuk-secondary-text-colour;
-}
-
-// Todo: replace with govuk-spacing
-.margin-left-20 { 
-  margin-left: govuk-spacing(4)
-}
-
-.margin-top-10 {
-  margin-top: govuk-spacing(2);
-}
-
-.margin-top-60 {
-  margin-top: govuk-spacing(9);
-}
-
-.margin-bottom-20 {
-  margin-bottom: govuk-spacing(4);
-}
-
-.margin-bottom-15 {
-  margin-bottom: govuk-spacing(3);
-}
-
-.padding-top-10 {
-  padding-top: govuk-spacing(2);
 }
 
 .section-break-heading {

@@ -3,58 +3,56 @@
 {% from "./macros/search-box.njk"                       import searchBox %}
 {% from "./macros/search-results.njk"                   import searchResults %}
 {% from "govuk/components/pagination/macro.njk"         import govukPagination %}
+{% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
 
 {% block pageTitle %}{{ serviceName }}{% endblock %}
 
 {% block beforeContent %}
+  {% if errorList %}
+    {{govukErrorSummary ({
+      "titleText": "There is a problem",
+      "errorList": errorList,
+      "classes": 'govuk-!-margin-top-4 govuk-!-margin-bottom-2'
+    }) }}
+  {% endif %}
   {{ govukBackLink({
-        text: "Back",
-        href: "/search"
-      }) }}
+    text: "Back",
+    href: "/search"
+  }) }}
 {% endblock %}
 
-{% set mainClasses = "padding-top-10" %}
+{% set mainClasses = "govuk-!-padding-top-2" %}
 {% block content %}
-{% if total %}
-  <h1 class="govuk-heading-l margin-bottom-15">Results for ‘{{ searchQuery }}’</h1>
-{% else %}
-  <h1 class="govuk-heading-l margin-bottom-15">We found no results for ‘{{ searchQuery }}’</h1>
-{% endif %}
 
-<p>Check results or search again.</p>
+  {% set resultsText = ('Results for' if total > 0 or errorList else 'We found no results for') %}
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ resultsText }} ‘{{ searchQuery }}’</h1>
 
- <div class="govuk-grid-row">    
+  <p>Check results or search again.</p>
+
+  <div class="govuk-grid-row">    
     <div class="govuk-grid-column-one-third" style="padding-top: 15px">
-        {{ searchBox({
-            inputClass: 'govuk-input',
-            id: 'searchBox',
-            name: 'searchString',
-            inputmode: 'string',
-            buttonText: 'Search',
-            href: '/search',
-            labelText: 'Search',
-            value: searchQuery
-        }) }}
+      {{ searchBox({
+        inputClass: 'govuk-input',
+        id: 'searchInput',
+        name: 'searchString',
+        inputmode: 'string',
+        buttonText: 'Search',
+        href: '/results',
+        labelText: 'Search',
+        value: searchQuery,
+        errorList: errorList,
+        pageId: 'results'
+      }) }}
     </div>
-
-    {# {% if error %}
-      <div class="govuk-grid-row">
-        <p class="govuk-error-message">{{error}}</p>
-      </div>
-    {% else %} #}
-      <div class="govuk-grid-column-two-thirds">
-          {{ searchResults({
-            results: results,
-            total: total
-          }) }}
-          {{ govukPagination({
-            previous: previous,
-            next: next
-          }) 
-        }}
-      </div>
-
-    {# {% endif %} #}
-
+    <div class="govuk-grid-column-two-thirds">
+      {{ searchResults({
+        results: results,
+        total: total
+      }) }}
+      {{ govukPagination({
+        previous: previous,
+        next: next
+      }) }}
+    </div>
   </div>
 {% endblock %}

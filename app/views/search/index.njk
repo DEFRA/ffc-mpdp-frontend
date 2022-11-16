@@ -1,25 +1,34 @@
 {% extends './layouts/layout.njk' %}
 
 {% from "./macros/search-box.njk"                       import searchBox %}
+{% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
 
 {% block pageTitle %}{{ serviceName }}{% endblock %}
 
 {% block content %}
+{% if errorList %}
+  {{govukErrorSummary ({
+    "titleText": "There is a problem",
+    "errorList": errorList,
+    "classes": 'govuk-!-margin-bottom-7'
+  }) }}
+{% endif %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Enter a business or payee name</h1>
 
-    <p>Enter a name, town, county or postcode</p>
-
-    <p><span class='subtitle'>Example: Pine Grove Farm, Alex Smith, Hartlepool, Durham, TS2 </span></p>
-
     {{ searchBox({
       inputClass: 'govuk-input',
-      id: 'searchBox',
+      id: 'searchInput',
       name: 'searchString',
       inputmode: 'string',
       buttonText: 'Search',
-      href: '/search'
+      href: '/results',
+      errorList: errorList,
+      pageId: 'index',
+      labelText: "
+        <p>Enter a name, town, county or postcode</p>
+        <p><span class='subtitle'>Example: Pine Grove Farm, Alex Smith, Hartlepool, Durham, TS2 </span></p>"
     }) }}
 
   </div>

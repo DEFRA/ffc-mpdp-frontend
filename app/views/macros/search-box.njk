@@ -1,17 +1,26 @@
 {% macro searchBox(model) %}
-<form id='searchForm' action="{{model.href}}" method="post">
-  <div class="govuk-form-group {% if model.errorMessage %}govuk-form-group--error{% endif %}">
-    <label class="govuk-label {{'govuk-visually-hidden' if model.labelText === undefined}}" for="{{model.id}}">{{model.labelText if model.labelText else 'Search'}}</label>
-    {% if model.errorMessage %}
-      <span id="error-message" class="govuk-error-message">{{model.errorMessage.text}}</span>
+<form id='searchForm' action="{{model.href}}" method="get">
+  <div class="govuk-form-group {% if model.errorList %}govuk-form-group--error{% endif %}">
+    {% if model.pageId %}
+      <input type="hidden" id="pageId" name="pageId" value="{{model.pageId}}">
     {% endif %}
-    <input class="{{model.inputClass}}"
-      id="{{model.id}}"
-      name="{{model.name}}"
-      inputmode="{{model.inputmode}}"
-      type="text"
-      value="{{model.value}}"/>
-    <button class="govuk-button search-btn" data-module="govuk-button" type="submit">{{model.buttonText}}</button>
+    <label class="govuk-label {{'govuk-visually-hidden' if model.labelText === undefined}}" for="{{model.id}}">{{model.labelText|safe if model.labelText else 'Search'}}</label>
+    {% if model.errorList %}
+      <span id="error-message" class="govuk-error-message">{{model.errorMessage.text}}</span>
+      <p id="search-input-error" class="govuk-error-message govuk-!-font-weight-regular">
+        <span class="govuk-visually-hidden">Error:</span> {{model.errorList[0].text}}
+      </p>
+    {% endif %}
+    <div style='display:flex'>
+      <input class="{{model.inputClass}} {% if model.errorList %}govuk-input--error{% endif %}"
+        id="{{model.id}}"
+        name="{{model.name}}"
+        inputmode="{{model.inputmode}}"
+        type="text"
+        value="{{model.value}}"/>
+      <button class="govuk-button search-btn" data-module="govuk-button" type="submit">{{model.buttonText}}</button>
+    </div>
+    
   </div>
 </form>
 {% endmacro %}
