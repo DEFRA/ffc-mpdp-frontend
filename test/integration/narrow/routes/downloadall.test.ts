@@ -1,5 +1,10 @@
 import * as utils from '../../../../app/utils'
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+
 describe('downloadall csv test', () => {
   const content = 'Sample data in csv'
   const mockedFetch = jest.spyOn(utils, 'getBuffer')
@@ -23,6 +28,28 @@ describe('downloadall csv test', () => {
   test('GET /downloadall returns the expected content', async () => {
     const res = await global.__SERVER__.inject(request)
     expect(res.result).toBe(content)
+  })
+})
+
+
+describe('downloadall csv error test', () => {
+  const content = 'Sample data in csv'
+  const mockedFetch = jest.spyOn(utils, 'getBuffer')
+  const request = {
+    method: 'GET',
+    url: '/downloadall'
+  }
+
+  test('GET /downloadall throws error when underlying error', async () => {
+    mockedFetch.mockRejectedValue('Internal Server Error')
+    const res = await global.__SERVER__.inject(request)
+    console.log(res)
+    expect(res.statusCode).toBe(500)
+  })
+
+  test('GET /downloadall throws error when no response', async () => {
+    const res = await global.__SERVER__.inject(request)
+    expect(res.statusCode).toBe(500)
   })
 
 })
