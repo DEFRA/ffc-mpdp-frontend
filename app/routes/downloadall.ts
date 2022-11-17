@@ -1,10 +1,10 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
-import config from '../config'
 
+const csvFile = 'app/data/mpdp-data-file.csv'
 module.exports = {
   method: 'GET',
   path: '/downloadall',
   handler: (_request: Request, h: ResponseToolkit) => {
-    return h.redirect(`${config.backendEndpoint}/downloadall`).permanent(true);
+    return h.file(csvFile).header('mode', 'attachment').type('text/csv')
   }
 }
