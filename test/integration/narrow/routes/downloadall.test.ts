@@ -33,14 +33,13 @@ describe('downloadall csv test', () => {
 
 
 describe('downloadall csv error test', () => {
-  const content = 'Sample data in csv'
-  const mockedFetch = jest.spyOn(utils, 'getBuffer')
   const request = {
     method: 'GET',
     url: '/downloadall'
   }
 
   test('GET /downloadall throws error when underlying error', async () => {
+    const mockedFetch = jest.spyOn(utils, 'getBuffer')
     mockedFetch.mockRejectedValue('Internal Server Error')
     const res = await global.__SERVER__.inject(request)
     console.log(res)
