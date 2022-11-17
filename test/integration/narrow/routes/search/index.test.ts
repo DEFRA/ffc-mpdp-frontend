@@ -30,7 +30,7 @@ describe('MPDP Search page test', () => {
     expectFooter($)
     expectHeader($)
   })
-  
+
   test('GET /results route returns results page', async () => {
     const searchString = '__TEST_STRING__'
     const res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
