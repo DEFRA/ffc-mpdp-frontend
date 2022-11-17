@@ -42,7 +42,6 @@ describe('downloadall csv error test', () => {
     const mockedFetch = jest.spyOn(utils, 'getBuffer')
     mockedFetch.mockRejectedValue('Internal Server Error')
     const res = await global.__SERVER__.inject(request)
-    console.log(res)
     expect(res.statusCode).toBe(500)
   })
 
@@ -50,5 +49,4 @@ describe('downloadall csv error test', () => {
     const res = await global.__SERVER__.inject(request)
     expect(res.statusCode).toBe(500)
   })
-
 })
