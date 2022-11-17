@@ -1,12 +1,28 @@
-import { getOptions } from '../../../utils/helpers'
+import * as utils from '../../../../app/utils'
+
 describe('downloadall csv test', () => {
-  test('GET /downloadall route returns 200', async () => {
-    const res = await global.__SERVER__.inject(getOptions('downloadall'))
+  const content = 'Sample data in csv'
+  const mockedFetch = jest.spyOn(utils, 'getBuffer')
+  mockedFetch.mockResolvedValue(new Buffer(content));
+  const request = {
+    method: 'GET',
+    url: '/downloadall'
+  }
+
+  test('GET /downloadall returns 200', async () => {
+    const res = await global.__SERVER__.inject(request)
     expect(res.statusCode).toBe(200)
   })
 
-  test('GET /downloadall route returns attachment', async () => {
-    const res = await global.__SERVER__.inject(getOptions('downloadall'))
-    expect(res.headers.mode).toContain('attachment')
+  test('GET /downloadall returns attachment', async () => {
+    const res = await global.__SERVER__.inject(request)
+    expect(res.headers).toHaveProperty('content-type', 'application/csv')
+    expect(res.headers).toHaveProperty('content-disposition', 'attachment; filename="ffc-payment-data.csv"')
   })
+
+  test('GET /downloadall returns the expected content', async () => {
+    const res = await global.__SERVER__.inject(request)
+    expect(res.result).toBe(content)
+  })
+
 })
