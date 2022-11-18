@@ -1,0 +1,53 @@
+{% extends './layouts/layout.njk' %}
+
+{% from "govuk/components/inset-text/macro.njk"          import govukInsetText %}
+{% from "govuk/components/panel/macro.njk"               import govukPanel %}
+
+{% block beforeContent %}
+  <a id='detailsBackLink' href="/results?searchString={{ searchString }}&page={{ page }}" class="govuk-back-link">Back to results</a>
+{% endblock %}
+
+{% set mainClasses = "govuk-!-padding-top-2 govuk-!-padding-left-1" %}
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{details.payee_name}}</h1>
+    <p>Business location: {{details.county_council}}, {{details.town}}, {{ details.part_postcode }} </p>
+
+    {{ govukInsetText({
+      text: "The business location may not match the location of the land itself."
+    }) }}
+
+    <div class='govuk-!-padding-2'>
+      <div class='mpdp-panel'>
+        <div class="grid-column-two-one">
+          <div> 
+            <h2 class="govuk-heading-m mpdp-text-color-white">Payments to date</h2>
+            <p class='govuk-body govuk-!-font-size-16 mpdp-margin-top-negative-3 mpdp-text-color-white' >From April {{details.startYear}} to March {{details.endYear}}</p>
+          </div>
+          <div> 
+            <h2 class="govuk-heading-m mpdp-text-color-white mpdp-text-align-right">£{{ details.total }}</h2>
+          </div>
+        </div>
+        <div>
+          <ul class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 mpdp-text-color-white'>
+            {% for scheme in details.schemes %}
+              <li><div class="grid-column-three-one"><div>{{scheme.scheme}}</div> <div class='mpdp-text-align-right'>£{{scheme.amount}}</div></div></li>
+            {% endfor %}  
+          </ul>
+        </div>
+      </div>
+
+      <div class='govuk-!-margin-top-7'>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Payment summary</h2>
+        <p>See a breakdown of the payments for each scheme.</p>
+
+        <details class="description govuk-link" open>
+          <summary data-open="Hide details" data-close="Show details"></summary>
+          <p class='govuk-body govuk-heading-m govuk-!-font-weight-bold' style='background-color: #f3f2f1; padding: 5px;'>1 April {{details.startYear}} to 31 March {{details.endYear}}</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

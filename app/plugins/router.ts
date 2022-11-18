@@ -12,7 +12,8 @@ const routes = [].concat(
   require('../routes/backendHealthy'),
   require('../routes/downloadall'),
   require('../routes/search'),
-  require('../routes/search/results')
+  require('../routes/search/results'),
+  require('../routes/details')
 )
 
 module.exports = {

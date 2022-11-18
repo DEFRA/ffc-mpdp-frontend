@@ -25,7 +25,7 @@
 {% block content %}
 
   {% set resultsText = ('Results for' if total > 0 or errorList else 'We found no results for') %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ resultsText }} ‘{{ searchQuery }}’</h1>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ resultsText }} ‘{{ searchString }}’</h1>
 
   <p>Check results or search again.</p>
 
@@ -39,7 +39,7 @@
         buttonText: 'Search',
         href: '/results',
         labelText: 'Search',
-        value: searchQuery,
+        value: searchString,
         errorList: errorList,
         pageId: 'results'
       }) }}
@@ -47,7 +47,9 @@
     <div class="govuk-grid-column-two-thirds">
       {{ searchResults({
         results: results,
-        total: total
+        total: total,
+        page: currentPage,
+        searchString: searchString
       }) }}
       {{ govukPagination({
         previous: previous,
