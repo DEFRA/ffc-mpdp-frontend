@@ -12,7 +12,7 @@ const request = {
   url: '/downloadall'
 }
 
-describe('router', () => {
+describe('fetch utility test', () => {
   test('fetch: should return data', async () => {
     const content = { mockKey: 'mockValue' };
     const mockedResponse = new Response(JSON.stringify(content));
@@ -33,5 +33,4 @@ describe('router', () => {
     const response = await global.__SERVER__.inject(request)
     expect(response.statusCode).toEqual(500);
   });
-
 });
