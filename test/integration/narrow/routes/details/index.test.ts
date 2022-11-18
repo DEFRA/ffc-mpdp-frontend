@@ -13,7 +13,6 @@ describe('MPDP Details page tests', () => {
 			searchString,
 			page
 		})
-		console.log(options)
 
 		const res = await global.__SERVER__.inject(
 			options
