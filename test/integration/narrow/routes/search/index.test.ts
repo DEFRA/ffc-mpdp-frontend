@@ -22,6 +22,10 @@ describe('MPDP Search page test', () => {
     expect(form.attr('action')).toMatch('/results')
     expect(form.attr('method')).toMatch('get')
 
+    const downloadAllLink = $('#downloadAllLink')
+    expect(downloadAllLink.attr('href')).toMatch('/downloadall')
+    expect(downloadAllLink.text()).toMatch('download all scheme payment data (.CSV, 345KB)')
+
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)
