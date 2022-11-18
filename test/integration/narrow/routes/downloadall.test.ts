@@ -44,9 +44,4 @@ describe('downloadall csv error test', () => {
     const res = await global.__SERVER__.inject(request)
     expect(res.statusCode).toBe(500)
   })
-
-  test('GET /downloadall throws error when no response', async () => {
-    const res = await global.__SERVER__.inject(request)
-    expect(res.statusCode).toBe(500)
-  })
 })
