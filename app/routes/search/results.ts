@@ -36,9 +36,9 @@ const performSearch = (searchString: string, requestedPage: number) => {
   const offset = (requestedPage - 1) * config.search.limit
   const { results, total } = search(searchString, offset)
 
-  results.forEach(result => result.amount = getReadableAmount(parseInt(result.amount)))
+  const matches = results.map(x => ({...x, amount: getReadableAmount(parseInt(x.amount))}))
   return {
-    matches: results,
+    matches,
     total: total
   }
 }
