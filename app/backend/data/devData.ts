@@ -7,6 +7,24 @@ export default [
     county_council: 'Berkshire',
     financial_year: '21/22',
     schemes: [{
+      scheme: "Farming Equipment and Technology Fund",
+      scheme_detail: "Horticulture",
+      activity_detail: "",
+      amount: '120000'
+    },
+    {
+      scheme: "Farming Equipment and Technology Fund",
+      scheme_detail: "forestry",
+      activity_detail: "",
+      amount: '20000'
+    },
+    {
+      scheme: "Farming Equipment and Technology Fund",
+      scheme_detail: "resource management",
+      activity_detail: "",
+      amount: '2000'
+    },
+    {
       scheme: "Sustainable Farming Incentive pilot",
       scheme_detail: "Improved Grassland soils",
       activity_detail: "Medium",
@@ -17,12 +35,6 @@ export default [
       scheme_detail: "Arable and Horticultural Land",
       activity_detail: "Low",
       amount: '1000000'
-    },
-    {
-      scheme: "Farming Equipment and Technology Fund",
-      scheme_detail: "Horticulture",
-      activity_detail: "",
-      amount: '120000'
     }]
   },
   {
