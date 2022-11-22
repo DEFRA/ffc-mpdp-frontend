@@ -106,3 +106,62 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
   display: grid; 
   grid-template-columns: 2fr 1fr;
 }
+
+.grid-column-three-one {
+  display: grid; 
+  grid-template-columns: 3fr 1fr;
+}
+
+.mpdp-panel {
+  background-color: $govuk-brand-colour;
+  padding: 35px;
+}
+
+details.description {
+  display: flex;
+}
+
+details.description[open] summary::after {
+  content: attr(data-open);
+}
+
+details.description:not([open]) summary::after {
+  content: attr(data-close);
+}
+
+details.description > summary {
+  list-style: none;
+  color: blue;
+  text-decoration: underline;
+  float: right;
+  cursor: pointer;
+  margin-left:auto;
+  width: 90px;
+  text-align: right;
+  padding: 5px;
+}
+
+details.description > summary::marker, /* Latest Chrome, Edge, Firefox */ 
+details.description > summary::-webkit-details-marker /* Safari */ {
+  display: none;
+  color: blue;
+  text-decoration: underline;
+  float: right;
+  cursor: pointer;
+  margin-left: auto;
+  width: 90px;
+  text-align: right;
+  padding: 5px;
+}
+
+.mpdp-text-color-white {
+  color: govuk-colour("white");
+}
+
+.mpdp-margin-top-negative-3 {
+  margin-top: govuk-spacing(-3);
+}
+
+.mpdp-text-align-right {
+  text-align: right;
+}

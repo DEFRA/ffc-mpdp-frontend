@@ -4,6 +4,8 @@ import Joi from "joi";
 import config from '../../config'
 import { search } from '../../backend/api'
 
+import { getReadableAmount } from '../../utils/helper'
+
 const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string) => {
   const encodedSearchString = encodeURIComponent(searchString)
   const totalPages = Math.ceil(totalResults / config.search.limit)
@@ -26,16 +28,17 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
   return { previous, next }
 }
 
-const performSearch = (searchQuery: string, requestedPage: number) => {
+const performSearch = (searchString: string, requestedPage: number) => {
   // Get results from api and provice limit and offset as parameters
   // expect results <= limit from offset, and totalResults
   // {results: [], total: 20}
 
   const offset = (requestedPage - 1) * config.search.limit
-  const { results, total } = search(searchQuery, offset)
+  const { results, total } = search(searchString, offset)
 
+  const matches = results.map(x => ({...x, amount: getReadableAmount(parseInt(x.amount))}))
   return {
-    matches: results,
+    matches,
     total: total
   }
 }
@@ -51,16 +54,17 @@ const createModel = (payload: any, error?: any) => {
     }
   }
 
-  const searchQuery = decodeURIComponent(payload.searchString)
+  const searchString = decodeURIComponent(payload.searchString)
   const requestedPage = payload.page
   
-  const { matches, total } = performSearch(searchQuery, requestedPage)
-
+  const { matches, total } = performSearch(searchString, requestedPage)
+  
   return {
-    searchQuery,
-    ...getPaginationAttributes(total, requestedPage, searchQuery),
+    searchString,
+    ...getPaginationAttributes(total, requestedPage, searchString),
     results: matches,
-    total
+    total,
+    currentPage: requestedPage
   }
 }
 

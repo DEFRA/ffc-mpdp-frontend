@@ -6,15 +6,15 @@
       <div>
         <div class='grid-column-two-one'>
           <h3 class='govuk-!-margin-top-2'>
-            <a href="/" class="govuk-link govuk-link--no-visited-state">
+            <a href="/details?payeeName={{ item.payee_name | urlencode }}&searchString={{model.searchString | urlencode}}&page={{model.page}}" class="govuk-link govuk-link--no-visited-state">
               {{ item.payee_name }}
             </a>
           </h3>
           <div>
-            <div class="govuk-heading-s search-results-amount">{{ item.amount }}</div>
+            <div class="govuk-heading-s search-results-amount">£{{ item.amount }}</div>
           </div>
         </div>
-        <div class="govuk-body subtitle govuk-!-margin-bottom-4 govuk-!-font-size-16">Location: {{ item.part_postcode }}, {{item.town}}, {{item.county_council}}</div>
+        <div class="govuk-body subtitle govuk-!-margin-bottom-4 govuk-!-font-size-16">Location: {{item.county_council}}, {{item.town}}, {{ item.part_postcode }}</div>
         <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray">
       </div>
     {% else %}

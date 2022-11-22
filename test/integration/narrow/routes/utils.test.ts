@@ -20,7 +20,6 @@ describe('fetch utility test', () => {
     mockedFetch.mockResolvedValueOnce(mockedResponse);
     
     const response = await global.__SERVER__.inject(request)
-    console.log(response)
     expect(response.statusCode).toEqual(200);
     expect(response.result).toContain('mockKey');
     expect(response.result).toContain('mockValue');
