@@ -9,11 +9,11 @@ export default [
   },
   {
     id: '2',
-    payee_name: 'Adan Brandt',
-    part_postcode: 'YO26',
-    town: 'Little Ouseburn',
-    county_council: 'North Yorkshire',
-    amount: '11000000'
+    payee_name: 'T R Carter & Sons 2',
+    part_postcode: 'RG1',
+    town: 'Reading',
+    county_council: 'Berkshire',
+    amount: '10000'
   },
   {
     id: '3',
@@ -174,6 +174,14 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '122300.25'
+  },
+  {
+    id: '23',
+    payee_name: 'Adan Brandt Sons',
+    part_postcode: 'YO26',
+    town: 'Little Ouseburn',
+    county_council: 'North Yorkshire',
+    amount: '11000000'
   }
 
 ]
