@@ -5,15 +5,15 @@ export default [
     part_postcode: 'RG1',
     town: 'Reading',
     county_council: 'Berkshire',
-    amount: '11000000'
+    amount: '11142000'
   },
   {
     id: '2',
-    payee_name: 'T R Carter & Sons 2',
-    part_postcode: 'RG1',
-    town: 'Reading',
-    county_council: 'Berkshire',
-    amount: '10000'
+    payee_name: 'Adan Brandt',
+    part_postcode: 'YO26',
+    town: 'Little Ouseburn',
+    county_council: 'North Yorkshire',
+    amount: '11000000'
   },
   {
     id: '3',
