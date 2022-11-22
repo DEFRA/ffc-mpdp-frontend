@@ -5,7 +5,7 @@ export default [
     part_postcode: 'RG1',
     town: 'Reading',
     county_council: 'Berkshire',
-    amount: '11142000'
+    amount: '11142000.95'
   },
   {
     id: '2',

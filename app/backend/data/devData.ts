@@ -6,6 +6,7 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     financial_year: '21/22',
+    parliamentary_constituency: 'Reading East',
     schemes: [{
       scheme: "Farming Equipment and Technology Fund",
       scheme_detail: "Horticulture",
@@ -16,13 +17,13 @@ export default [
       scheme: "Farming Equipment and Technology Fund",
       scheme_detail: "forestry",
       activity_detail: "",
-      amount: '20000'
+      amount: '20000.5'
     },
     {
       scheme: "Farming Equipment and Technology Fund",
       scheme_detail: "resource management",
       activity_detail: "",
-      amount: '2000'
+      amount: '2000.45'
     },
     {
       scheme: "Sustainable Farming Incentive pilot",
@@ -43,6 +44,7 @@ export default [
     part_postcode: 'YO26',
     town: 'Little Ouseburn',
     county_council: 'North Yorkshire',
+    parliamentary_constituency: 'Selby and Ainsty',
     financial_year: '21/22',
     schemes: [{
       scheme: "Sustainable Farming Incentive pilot",
@@ -64,6 +66,7 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     financial_year: '21/22',
+    parliamentary_constituency: 'Reading East',
     schemes: [ {
       scheme: "Farming Equipment and Technology Fund",
       scheme_detail: "Horticulture",

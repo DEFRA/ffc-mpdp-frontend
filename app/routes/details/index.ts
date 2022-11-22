@@ -16,6 +16,7 @@ type Summary = {
   part_postcode: string,
   town: string,
   county_council: string,
+  parliamentary_constituency: string,
   financial_year: string,
   total: string,
   startYear?: string,
@@ -43,25 +44,26 @@ const createModel = ({ payeeName, searchString, page } : queryParams) => {
     }
   }
 
-  const { id, payee_name, part_postcode, town, county_council, financial_year } = farmerDetails
+  const { id, payee_name, part_postcode, town, county_council, parliamentary_constituency, financial_year } = farmerDetails
   const [startYear, endYear] = farmerDetails.financial_year.split('/')
   const summary: Summary = { 
     id, 
     payee_name, 
     part_postcode, 
     town, 
-    county_council, 
+    county_council,
+    parliamentary_constituency,
     financial_year, 
     total: '',
     schemes: [],
-    startYear,
-    endYear
+    startYear: `20${startYear}`,
+    endYear: `20${endYear}`
   }
   
   let farmerTotal = 0
   let schemeTotal = 0
   farmerDetails.schemes.forEach((scheme) => {
-    const amount = parseInt(scheme.amount)
+    const amount = parseFloat(scheme.amount)
     
     farmerTotal += amount
     schemeTotal += amount

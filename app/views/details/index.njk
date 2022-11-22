@@ -12,13 +12,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{summary.payee_name}}</h1>
-    <p>Business location: {{summary.county_council}}, {{summary.town}}, {{ summary.part_postcode }} </p>
+    <p>Business location: {{summary.town}}, {{summary.county_council}}, {{summary.parliamentary_constituency}}, {{ summary.part_postcode }} </p>
 
     {{ govukInsetText({
       text: "The business location may not match the location of the land itself."
     }) }}
 
-    <div class='govuk-!-padding-2'>
+    <div>
       <div class='mpdp-panel'>
         <div class="grid-column-two-one">
           <div> 
@@ -57,7 +57,7 @@
                 <p class='govuk-caption-s govuk-!-margin-top-3 govuk-!-margin-bottom-1 mpdp-text-color-dark-grey mpdp-details-summary'>Payments for:</p>
                 <ul class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 govuk-caption-s mpdp-text-color-dark-grey'>
                   {% for schemeType in scheme.schemeTypes %}
-                    <li><div class="grid-column-three-one mpdp-details-summary"><div>{{schemeType.name}} {%if schemeType.activityLevel %} ({{schemeType.activityLevel}} level) {% endif %}</div> <div class='mpdp-text-align-right'>£{{schemeType.amount}}</div></div></li>
+                    <li class='mpdp-list-marker-small'><div class="grid-column-three-one mpdp-details-summary"><div>{{schemeType.name}} {%if schemeType.activityLevel %} ({{schemeType.activityLevel}} level) {% endif %}</div> <div class='mpdp-text-align-right'>£{{schemeType.amount}}</div></div></li>
                     {% if not loop.last %}
                       <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey">
                     {% endif %}
