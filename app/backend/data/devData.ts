@@ -1,6 +1,5 @@
 export default [
   {
-    id: '1',
     payee_name: 'T R Carter & Sons 1',
     part_postcode: 'RG1',
     town: 'Reading',
@@ -39,7 +38,6 @@ export default [
     }]
   },
   {
-    id: '2',
     payee_name: 'Adan Brandt',
     part_postcode: 'YO26',
     town: 'Little Ouseburn',
@@ -60,7 +58,6 @@ export default [
     }]
   },
   {
-    id: '3',
     payee_name: 'T R Carter & Sons 3',
     part_postcode: 'RG1',
     town: 'Reading',

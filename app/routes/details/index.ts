@@ -11,7 +11,6 @@ type queryParams = {
 }
 
 type Summary = {
-  id: string,
   payee_name: string,
   part_postcode: string,
   town: string,
@@ -44,10 +43,9 @@ const createModel = ({ payeeName, searchString, page } : queryParams) => {
     }
   }
 
-  const { id, payee_name, part_postcode, town, county_council, parliamentary_constituency, financial_year } = farmerDetails
+  const { payee_name, part_postcode, town, county_council, parliamentary_constituency, financial_year } = farmerDetails
   const [startYear, endYear] = farmerDetails.financial_year.split('/')
   const summary: Summary = { 
-    id, 
     payee_name, 
     part_postcode, 
     town, 
