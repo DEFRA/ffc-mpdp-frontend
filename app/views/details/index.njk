@@ -72,7 +72,7 @@
       </div>
 
       {{ govukDetails({
-      summaryText: 'Report a problem',
+      summaryHtml: '<div class="govuk-!-font-size-16">Report a problem</div>',
       id: 'reportProblem',
       html: "<p>If you're the agreement holder for this business, you can contact the Rural Payments Agency.</p>
 
@@ -85,6 +85,17 @@
       <br>
       <p>Sustainable Farming Incentive pilot <a id='sfiQueryForm' href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1088945/SFI-query-form.pdf'>query form</a></p>"
     }) }}
+
+    <div class='govuk-!-margin-top-9'>
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-1">More actions:</h2>
+      <div class='govuk-body'>
+        You can:
+        <ul class='govuk-!-padding-left-5'>
+          <li class='mpdp-list-marker-small'><a id='newSearchLink' class='govuk-body govuk-!-font-size-16' href='/search'>start a new search</a></li>
+          <li class='mpdp-list-marker-small'><a id='printLink' class='govuk-body govuk-!-font-size-16' href='javascript:window.print()'>print this page</a></li>
+        </ul>
+      </div>
+    </div>
     </div>
   </div>
 </div>
