@@ -19,7 +19,7 @@
     }) }}
 
     <div>
-      <div class='mpdp-panel'>
+      <div class='mpdp-panel' id='mpdpSummaryPanel'>
         <div class="grid-column-two-one">
           <div> 
             <h2 class="govuk-heading-m mpdp-text-color-white">Payments to date</h2>
@@ -42,7 +42,7 @@
         <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Payment summary</h2>
         <p>See a breakdown of the payments for each scheme.</p>
 
-        <details class="description govuk-body govuk-!-font-size-16" open>
+        <details id='mpdpSummaryBreakdown' class="description govuk-body govuk-!-font-size-16" open>
           <summary data-open="Hide details" data-close="Show details"></summary>
           <div class="grid-column-three-one govuk-!-padding-2 govuk-!-padding-left-3 mpdp-bg-color-light-grey">
             <p class='govuk-body govuk-!-font-weight-bold govuk-!-margin-0'>1 April {{summary.startYear}} to 31 March {{summary.endYear}}</p>
@@ -86,7 +86,7 @@
       <p>Sustainable Farming Incentive pilot <a id='sfiQueryForm' href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1088945/SFI-query-form.pdf'>query form</a></p>"
     }) }}
 
-    <div class='govuk-!-margin-top-9'>
+    <div class='govuk-!-margin-top-9 govuk-!-margin-bottom-7' id='mpdpMoreActions'>
       <h2 class="govuk-heading-m govuk-!-margin-bottom-1">More actions:</h2>
       <div class='govuk-body'>
         You can:
@@ -98,5 +98,8 @@
     </div>
     </div>
   </div>
+</div>
+<div>
+  <a id='detailsBtmBackLink' href="/results?searchString={{ searchString }}&page={{ page }}" class="govuk-back-link">Back to results</a>
 </div>
 {% endblock %}

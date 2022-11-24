@@ -198,3 +198,9 @@ details.description > summary::-webkit-details-marker /* Safari */ {
 .mpdp-list-marker-small {
   font-size: 0.85rem
 }
+
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
