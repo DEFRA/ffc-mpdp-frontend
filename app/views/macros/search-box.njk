@@ -11,14 +11,14 @@
         <span class="govuk-visually-hidden">Error:</span> {{model.errorList[0].text}}
       </p>
     {% endif %}
-    <div style='display:flex'>
+    <div class='form-inline'>
       <input class="{{model.inputClass}} {% if model.errorList %}govuk-input--error{% endif %}"
         id="{{model.id}}"
         name="{{model.name}}"
         inputmode="{{model.inputmode}}"
         type="text"
         value="{{model.value}}"/>
-      <button class="govuk-button search-btn" data-module="govuk-button" type="submit">{{model.buttonText}}</button>
+      <button class="govuk-button" data-module="govuk-button" type="submit">{{model.buttonText}}</button>
     </div>
     
   </div>
