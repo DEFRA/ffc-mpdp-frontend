@@ -105,11 +105,13 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
 .grid-column-two-one {
   display: grid; 
   grid-template-columns: 2fr 1fr;
+  column-gap: 5px;
 }
 
 .grid-column-three-one {
   display: grid; 
   grid-template-columns: 3fr 1fr;
+  column-gap: 5px;
 }
 
 .mpdp-panel {
@@ -197,4 +199,10 @@ details.description > summary::-webkit-details-marker /* Safari */ {
 
 .mpdp-list-marker-small {
   font-size: 0.85rem
+}
+
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
 }
