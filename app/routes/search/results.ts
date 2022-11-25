@@ -76,7 +76,7 @@ module.exports = [
       auth: false,
       validate: {
         query: Joi.object({
-          searchString: Joi.string().strict().trim().min(1).required(),
+          searchString: Joi.string().trim().min(1).required(),
           page: Joi.number().default(1),
           pageId: Joi.string().default('')
         }),
