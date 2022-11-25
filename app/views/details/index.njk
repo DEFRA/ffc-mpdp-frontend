@@ -11,28 +11,28 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">{{details.payee_name}}</h1>
-    <p>Business location: {{details.county_council}}, {{details.town}}, {{ details.part_postcode }} </p>
+    <h1 class="govuk-heading-l">{{summary.payee_name}}</h1>
+    <p>Business location: {{summary.town}}, {{summary.county_council}}, {{summary.parliamentary_constituency}}, {{ summary.part_postcode }} </p>
 
     {{ govukInsetText({
       text: "The business location may not match the location of the land itself."
     }) }}
 
-    <div class='govuk-!-padding-2'>
+    <div>
       <div class='mpdp-panel'>
         <div class="grid-column-two-one">
           <div> 
             <h2 class="govuk-heading-m mpdp-text-color-white">Payments to date</h2>
-            <p class='govuk-body govuk-!-font-size-16 mpdp-margin-top-negative-3 mpdp-text-color-white' >From April {{details.startYear}} to March {{details.endYear}}</p>
+            <p class='govuk-body govuk-!-font-size-16 mpdp-margin-top-negative-3 mpdp-text-color-white' >From April {{summary.startYear}} to March {{summary.endYear}}</p>
           </div>
           <div> 
-            <h2 class="govuk-heading-m mpdp-text-color-white mpdp-text-align-right">£{{ details.total }}</h2>
+            <h2 class="govuk-heading-m mpdp-text-color-white mpdp-text-align-right">£{{ summary.total }}</h2>
           </div>
         </div>
         <div>
           <ul class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 mpdp-text-color-white'>
-            {% for scheme in details.schemes %}
-              <li><div class="grid-column-three-one"><div>{{scheme.scheme}}</div> <div class='mpdp-text-align-right'>£{{scheme.amount}}</div></div></li>
+            {% for scheme in summary.schemes %}
+              <li><div class="grid-column-three-one"><div>{{scheme.name}}</div> <div class='mpdp-text-align-right'>£{{scheme.total}}</div></div></li>
             {% endfor %}  
           </ul>
         </div>
@@ -42,9 +42,32 @@
         <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Payment summary</h2>
         <p>See a breakdown of the payments for each scheme.</p>
 
-        <details class="description govuk-link" open>
+        <details class="description govuk-body govuk-!-font-size-16" open>
           <summary data-open="Hide details" data-close="Show details"></summary>
-          <p class='govuk-body govuk-heading-m govuk-!-font-weight-bold' style='background-color: #f3f2f1; padding: 5px;'>1 April {{details.startYear}} to 31 March {{details.endYear}}</p>
+          <div class="grid-column-three-one govuk-!-padding-2 govuk-!-padding-left-3 mpdp-bg-color-light-grey">
+            <p class='govuk-body govuk-!-font-weight-bold govuk-!-margin-0'>1 April {{summary.startYear}} to 31 March {{summary.endYear}}</p>
+            <p class='govuk-body govuk-!-font-weight-bold govuk-!-margin-0 mpdp-text-align-right'>£{{summary.total}}</p>
+          </div>
+
+           {% for scheme in summary.schemes %}
+              <div class='govuk-!-margin-3 mpdp-text-color-dark-grey'>
+                <div class="grid-column-three-one govuk-body-m govuk-!-margin-bottom-1"><div>{{scheme.name}}</div> <div class='mpdp-text-align-right'>£{{scheme.total}}</div></div>
+                <div class="grid-column-three-one"><div class='mpdp-details-summary'>{{scheme.description}}</div><div></div></div>
+
+                <p class='govuk-caption-s govuk-!-margin-top-3 govuk-!-margin-bottom-1 mpdp-text-color-dark-grey mpdp-details-summary'>Payments for:</p>
+                <ul class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 govuk-caption-s mpdp-text-color-dark-grey'>
+                  {% for schemeType in scheme.schemeTypes %}
+                    <li class='mpdp-list-marker-small'><div class="grid-column-three-one mpdp-details-summary"><div>{{schemeType.name}} {%if schemeType.activityLevel %} ({{schemeType.activityLevel}} level) {% endif %}</div> <div class='mpdp-text-align-right'>£{{schemeType.amount}}</div></div></li>
+                    {% if not loop.last %}
+                      <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey">
+                    {% endif %}
+                  {% endfor %}  
+                </ul>
+                <p class='govuk-!-margin-top-4 mpdp-details-summary'><a href='{{scheme.link}}' target='_blank'>Read more about the {{scheme.name}} </a></p>
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+              </div>
+              
+            {% endfor %}  
         </details>
       </div>
     </div>

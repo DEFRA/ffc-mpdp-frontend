@@ -2,7 +2,7 @@ import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import Joi from "joi";
 
 import { getPaymentDetails } from '../../backend/api'
-import { getReadableAmount } from '../../utils/helper'
+import { getReadableAmount, getSchemeStaticData } from '../../utils/helper'
 
 type queryParams = {
   payeeName: string, 
@@ -10,26 +10,90 @@ type queryParams = {
   page: string 
 }
 
-const createModel = ({ payeeName, searchString, page } : queryParams) => {
-	const details = getPaymentDetails(payeeName)
-  
-  if(details) {
-    let total = 0;
-    details.schemes.forEach(scheme => { 
-      total += parseInt(scheme.amount)
-      scheme.amount = getReadableAmount(parseInt(scheme.amount))
-    });
+type Summary = {
+  payee_name: string,
+  part_postcode: string,
+  town: string,
+  county_council: string,
+  parliamentary_constituency: string,
+  financial_year: string,
+  total: string,
+  startYear?: string,
+  endYear?: string,
+  schemes: [{
+    name: string,
+    description: string,
+    link: string,
+    total?: string,
+    schemeTypes: [{
+      name: string,
+      amount?: string,
+      activityLevel: string
+    }]
+  }] | any[]
+}
 
-    const [startYear, endYear] = details.financial_year.split('/')
-    Object.assign(details, { 
-      total: getReadableAmount(total),
-      startYear, 
-      endYear 
-    })
+const createModel = ({ payeeName, searchString, page } : queryParams) => {
+	const farmerDetails = getPaymentDetails(payeeName)
+  
+  if(!farmerDetails) {
+    return {
+      searchString: searchString,
+      page: page
+    }
+  }
+
+  const { payee_name, part_postcode, town, county_council, parliamentary_constituency, financial_year } = farmerDetails
+  const [startYear, endYear] = farmerDetails.financial_year.split('/')
+  const summary: Summary = { 
+    payee_name, 
+    part_postcode, 
+    town, 
+    county_council,
+    parliamentary_constituency,
+    financial_year, 
+    total: '',
+    schemes: [],
+    startYear: `20${startYear}`,
+    endYear: `20${endYear}`
   }
   
+  let farmerTotal = 0
+  let schemeTotal = 0
+  farmerDetails.schemes.forEach((scheme) => {
+    const amount = parseFloat(scheme.amount)
+    
+    farmerTotal += amount
+    schemeTotal += amount
+
+    const schemeDetails = {
+      name: scheme.scheme_detail,
+      activityLevel: scheme.activity_detail,
+      amount: getReadableAmount(amount),
+    }
+
+    const index = summary.schemes?.findIndex(x => x?.name === scheme.scheme)
+    if(index === -1) {
+      const schemeData = getSchemeStaticData(scheme.scheme)
+      schemeTotal = amount;
+      summary.schemes.push({
+        name: scheme.scheme,
+        description: schemeData?.description || '',
+        link: schemeData?.link || '',
+        total: getReadableAmount(schemeTotal),
+        schemeTypes: [schemeDetails]
+      })
+    }
+    else {
+      summary.schemes[index].total = getReadableAmount(schemeTotal)
+      summary.schemes[index].schemeTypes.push(schemeDetails)
+    }
+  })
+
+  summary.total = getReadableAmount(farmerTotal)
+
   return {
-		details,
+		summary,
     searchString: searchString,
     page: page
 	}
