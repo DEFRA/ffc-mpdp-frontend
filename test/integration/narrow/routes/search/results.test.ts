@@ -110,9 +110,9 @@ describe('GET /results route with pagination return new result with each page', 
     expect(prevBtn).toBeDefined()
   })
 
-  test('Page 3 only shows the 2 remaining results from dummy data', () => {
+  test('Page 3 only shows the 3 remaining results from dummy data', () => {
     const resElements = $('.govuk-link.govuk-link--no-visited-state')
-    expect(resElements.length).toBe(2)
+    expect(resElements.length).toBe(3)
   })
 
   test('Total results show the real number', () => {

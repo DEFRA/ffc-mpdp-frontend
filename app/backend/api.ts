@@ -5,8 +5,16 @@ import devData from './data/devData'
 
 export const get = async (url: string) => wreck.get(`${config.backendEndpoint}${url}`)
 
+const includes = (baseString: string, searchingString: string) => baseString.toLowerCase().includes(searchingString.toLowerCase())
+
 export const search = (searchQuery: string, offset: number, limit: number = config.search.limit) => {
-    const results = dummyResults.filter(x => x.payee_name.toLowerCase().includes(searchQuery.toLowerCase()))
+    const results = dummyResults.filter(x =>
+        includes(x.payee_name, searchQuery) ||
+        includes(x.town, searchQuery) ||
+        includes(x.county_council, searchQuery) ||
+        includes(x.part_postcode, searchQuery)
+    )
+
     if(!results) {
         return {
             results: [],

@@ -105,11 +105,13 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
 .grid-column-two-one {
   display: grid; 
   grid-template-columns: 2fr 1fr;
+  column-gap: 5px;
 }
 
 .grid-column-three-one {
   display: grid; 
   grid-template-columns: 3fr 1fr;
+  column-gap: 5px;
 }
 
 .mpdp-panel {
@@ -131,7 +133,7 @@ details.description:not([open]) summary::after {
 
 details.description > summary {
   list-style: none;
-  color: blue;
+  color: #1d70b8;
   text-decoration: underline;
   float: right;
   cursor: pointer;
@@ -141,10 +143,14 @@ details.description > summary {
   padding: 5px;
 }
 
+details.description > summary :hover {
+  text-decoration-thickness: from-font;
+}
+
 details.description > summary::marker, /* Latest Chrome, Edge, Firefox */ 
 details.description > summary::-webkit-details-marker /* Safari */ {
   display: none;
-  color: blue;
+  color: #1d70b8;
   text-decoration: underline;
   float: right;
   cursor: pointer;
@@ -158,10 +164,45 @@ details.description > summary::-webkit-details-marker /* Safari */ {
   color: govuk-colour("white");
 }
 
+.mpdp-text-color-light-grey {
+  color: govuk-colour("light-grey");
+}
+
+.mpdp-text-color-dark-grey {
+  color: govuk-colour("dark-grey");
+}
+
+.mpdp-bg-color-light-grey {
+  background-color: govuk-colour("light-grey");
+}
+
+.mpdp-border-color-light-grey {
+  border-color: govuk-colour("light-grey");
+}
+
 .mpdp-margin-top-negative-3 {
   margin-top: govuk-spacing(-3);
 }
 
 .mpdp-text-align-right {
   text-align: right;
+}
+
+.mpdp-text-underline {
+  text-decoration: underline;
+}
+
+.mpdp-details-summary {
+  line-height: 1.5;
+  font-size: 15px
+}
+
+.mpdp-list-marker-small {
+  font-size: 0.85rem
+}
+
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
 }
