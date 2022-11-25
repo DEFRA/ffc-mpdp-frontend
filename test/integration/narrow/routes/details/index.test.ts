@@ -21,11 +21,20 @@ describe('MPDP Details page tests', () => {
 		expect(res.statusCode).toBe(200)
 		const $ = cheerio.load(res.payload)
 		expect($('h1').text()).toContain(searchString)
+		expect($('#reportProblem')).toBeDefined()
 
-		const backLink = $('#detailsBackLink')
-		expect(backLink).toBeDefined()
-		expect(backLink.attr('href')).toContain(`/results?searchString=${searchString}&page=${page}`)
-		expect(backLink.text()).toMatch('Back to results')
+		const linkObjs = [
+			{id: '#detailsBackLink', href: `/results?searchString=${searchString}&page=${page}`, text: 'Back to results'},
+			{id: '#callCharges', href: 'https://www.gov.uk/call-charges', text: 'Find out more about call charges'},
+			{id: '#sfiQueryForm', href: 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1088945/SFI-query-form.pdf', text: 'query form'}
+		]
+
+		linkObjs.forEach(obj => {
+			const link = $(obj.id)
+			expect(link).toBeDefined()
+			expect(link.attr('href')).toContain(obj.href)
+			expect(link.text()).toMatch(obj.text)
+		})
 
 		expectPhaseBanner($)
 		expectFooter($)

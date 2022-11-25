@@ -1,7 +1,7 @@
 {% extends './layouts/layout.njk' %}
 
 {% from "govuk/components/inset-text/macro.njk"          import govukInsetText %}
-{% from "govuk/components/panel/macro.njk"               import govukPanel %}
+{% from "govuk/components/details/macro.njk"             import govukDetails %}
 
 {% block beforeContent %}
   <a id='detailsBackLink' href="/results?searchString={{ searchString }}&page={{ page }}" class="govuk-back-link">Back to results</a>
@@ -70,6 +70,21 @@
             {% endfor %}  
         </details>
       </div>
+
+      {{ govukDetails({
+      summaryText: 'Report a problem',
+      id: 'reportProblem',
+      html: "<p>If you're the agreement holder for this business, you can contact the Rural Payments Agency.</p>
+
+      <div>
+      Email: <a href='mailto:ruralpayments@defra.gov.uk'>ruralpayments@defra.gov.uk</a><br>
+      Telephone: 03000 200 301<br>
+      Monday to Friday, 9am to 5pm<br>
+      <a id='callCharges' href='https://www.gov.uk/call-charges'>Find out more about call charges</a>
+      </div>
+      <br>
+      <p>Sustainable Farming Incentive pilot <a id='sfiQueryForm' href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1088945/SFI-query-form.pdf'>query form</a></p>"
+    }) }}
     </div>
   </div>
 </div>
