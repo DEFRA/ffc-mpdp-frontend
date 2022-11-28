@@ -2,7 +2,7 @@ import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import Joi from "joi";
 
 import config from '../../config'
-import { search } from '../../backend/api'
+import { getPaymentData } from '../../backend/api'
 
 import { getReadableAmount } from '../../utils/helper'
 
@@ -28,22 +28,22 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
   return { previous, next }
 }
 
-const performSearch = (searchString: string, requestedPage: number) => {
+const performSearch = async (searchString: string, requestedPage: number) => {
   // Get results from api and provice limit and offset as parameters
   // expect results <= limit from offset, and totalResults
   // {results: [], total: 20}
 
   const offset = (requestedPage - 1) * config.search.limit
-  const { results, total } = search(searchString, offset)
+  const { results, total } = await getPaymentData(searchString, offset)
 
-  const matches = results.map(x => ({...x, amount: getReadableAmount(parseFloat(x.amount))}))
+  const matches = results.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
   return {
     matches,
     total: total
   }
 }
 
-const createModel = (payload: any, error?: any) => {
+const createModel = async (payload: any, error?: any) => {
   if(error) {
     return {
       errorList: [{
@@ -57,7 +57,7 @@ const createModel = (payload: any, error?: any) => {
   const searchString = decodeURIComponent(payload.searchString)
   const requestedPage = payload.page
   
-  const { matches, total } = performSearch(searchString, requestedPage)
+  const { matches, total } = await performSearch(searchString, requestedPage)
   
   return {
     searchString,
@@ -91,8 +91,8 @@ module.exports = [
           return h.view('search/index', { ...(request.query as Object), errorList: [{ text: error.details[0].message }] }).code(400).takeover()
         }
       },
-      handler: (request: Request, h: ResponseToolkit): ResponseObject => {
-        return h.view('search/results', createModel(request.query))
+      handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
+        return h.view('search/results', await createModel(request.query))
       }
     }
   }
