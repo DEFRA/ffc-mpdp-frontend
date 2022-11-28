@@ -4,6 +4,13 @@ import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions } from '../../../../utils/helpers'
 
+jest.mock('../../../../../app/backend/api', () => ({
+  getPaymentData: () => ({
+    results: [],
+    total: 0
+  })
+}))
+
 describe('MPDP Search page test', () => {
   test('GET /search route returns search landing page when no query parameters are sent', async () => {
     const res = await global.__SERVER__.inject(getOptions('search'))

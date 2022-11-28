@@ -84,7 +84,7 @@ module.exports = [
           if(!(request.query as any).searchString.trim()) {
             return h.view(
               `search/${(request.query as any).pageId || 'index'}`,
-              createModel(request.query, error)
+              await createModel(request.query, error)
             ).code(400).takeover()
           }
 

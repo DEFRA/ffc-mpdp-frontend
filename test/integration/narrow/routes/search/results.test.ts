@@ -2,9 +2,12 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
-import { getOptions } from '../../../../utils/helpers'
+import { getOptions, mockSearch } from '../../../../utils/helpers'
+import mockData from '../../../../data/mockResults'
 
-import mockData from '../../../../../app/backend/data/mockResults'
+jest.mock('../../../../../app/backend/api', () => ({
+  getPaymentData: mockSearch
+}))
 
 describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
@@ -13,7 +16,7 @@ describe('GET /results route with query parameters return results page', () => {
 
   beforeEach(async () => {
     if(res) { return }
-
+    
     res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
     $ = cheerio.load(res.payload)
   })
