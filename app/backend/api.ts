@@ -5,7 +5,7 @@ import { getUrlParams } from '../utils/helper'
 
 export const get = async (url: string) => { 
 	try {
-		return wreck.get(`${config.backendEndpoint}${url}`) 
+		return (await wreck.get(`${config.backendEndpoint}${url}`))
 	}
 	catch (err) {
 		console.error(`failed to get payment data for request ${url}`, err)
