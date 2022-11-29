@@ -2,11 +2,11 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
-import { getOptions, mockSearch } from '../../../../utils/helpers'
+import { getOptions, mockGetPaymentData } from '../../../../utils/helpers'
 import mockData from '../../../../data/mockResults'
 
 jest.mock('../../../../../app/backend/api', () => ({
-  getPaymentData: mockSearch
+  getPaymentData: mockGetPaymentData
 }))
 
 describe('GET /results route with query parameters return results page', () => {
