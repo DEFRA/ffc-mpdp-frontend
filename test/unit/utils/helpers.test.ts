@@ -1,4 +1,4 @@
-import { getReadableAmount, getSchemeStaticData } from '../../../app/utils/helper'
+import { getReadableAmount, getSchemeStaticData, getUrlParams } from '../../../app/utils/helper'
 
 describe('helper module tests', () => {
     test('getReadableAmount returns a 0 if number is undefined', () => {
@@ -28,5 +28,16 @@ describe('helper module tests', () => {
     test('getSchemeStaticData returns correct static data', () => {
         const schemeData = getSchemeStaticData('Farming Equipment and Technology Fund')
         expect(schemeData).toBeDefined()
+    })
+
+    test('getUrlParams returns correct value', () => {
+        const page = '__TEST_ROUTE__'
+        const obj = {
+            val: '__VALUE__',
+            anotherVal: '__ANOTHER_VALUE__'
+        }
+
+        const url = getUrlParams(page, obj)
+        expect(url).toMatch(`/${page}?val=${obj.val}&anotherVal=${obj.anotherVal}`)
     })
 })

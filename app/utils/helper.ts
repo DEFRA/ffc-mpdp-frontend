@@ -9,4 +9,6 @@ export const getReadableAmount = (amount: number | undefined) => {
 }
 
 export const getSchemeStaticData = (schemeName: string) => schemeStaticData.find(x => x.name === schemeName)
+
+export const getUrlParams = (page: string, params: any = {}) => `/${page}?${new URLSearchParams(params).toString()}`
   
