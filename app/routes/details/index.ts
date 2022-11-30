@@ -84,9 +84,9 @@ module.exports = [
       auth: false,
       validate: {
         query: Joi.object({
-					payeeName: Joi.string().strict().trim().min(1).required(),
-          partPostcode: Joi.string().min(1).required(),
-          searchString: Joi.string().strict().trim().min(1).required(),
+					payeeName: Joi.string().trim().min(1).required(),
+          partPostcode: Joi.string().trim().min(1).required(),
+          searchString: Joi.string().trim().min(1).required(),
           page: Joi.number().default(1),
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
