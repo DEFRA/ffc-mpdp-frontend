@@ -1,4 +1,5 @@
 import dummyResults from '../data/mockResults'
+import mockDetails from '../data/mockDetails'
 
 export const getOptions = (page: string, method: string = 'GET', params: any = {}) => {
 	return {
@@ -22,4 +23,8 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, limit: n
 		results: results.slice(offset, offset + limit),
 		total: results.length
 	}
+}
+
+export const mockGetPaymentDetails = (payee_name: string) => {
+	return mockDetails.find(x => x.payee_name.toLowerCase().includes(payee_name.toLowerCase()))
 }

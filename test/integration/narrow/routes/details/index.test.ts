@@ -2,7 +2,11 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
-import { getOptions } from '../../../../utils/helpers'
+import { getOptions, mockGetPaymentDetails } from '../../../../utils/helpers'
+
+jest.mock('../../../../../app/backend/api', () => ({
+	getPaymentDetails: mockGetPaymentDetails
+  }))
 
 describe('MPDP Details page tests', () => {
 	let res: any
@@ -15,6 +19,7 @@ describe('MPDP Details page tests', () => {
 	
 		const options = getOptions('details', 'GET', {
 			payeeName: 'Carter',
+			partPostcode: 'SD1',
 			searchString,
 			page
 		})

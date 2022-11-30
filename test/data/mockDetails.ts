@@ -11,7 +11,7 @@ export default [
       scheme_detail: "Horticulture",
       activity_detail: "",
       amount: '120000'
-    },
+  },
     {
       scheme: "Farming Equipment and Technology Fund",
       scheme_detail: "forestry",

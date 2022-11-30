@@ -2,7 +2,7 @@ const endpoint = 'http://__TEST_ENDPOINT__'
 process.env.MPDP_BACKEND_ENDPOINT = endpoint
 
 import wreck from '@hapi/wreck'
-import { get, getPaymentData } from '../../../app/backend/api'
+import { get, getPaymentData, getPaymentDetails } from '../../../app/backend/api'
 import { getUrlParams } from '../../../app/utils/helper'
 
 describe('Backend API tests', () => {
@@ -79,6 +79,43 @@ describe('Backend API tests', () => {
             limit: 10,
             offset
         })
+
+        expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
+    })
+
+    test('getPaymentDetails returns null if no response is received', async () => {
+        const mockGet = jest.fn().mockResolvedValue(null)
+        jest.spyOn(wreck, 'get').mockImplementation(mockGet)
+
+        const payeeName = '__PAYEE_NAME__'
+        const partPostcode = '__POST_CODE'
+        const res = await getPaymentDetails(payeeName, partPostcode)
+        expect(res).toBe(null)
+
+        const route = getUrlParams('paymentdetails', { payeeName, partPostcode })
+
+        expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
+    })
+
+    test('getPaymentDetails returns results', async () => {
+        const mockData = [{
+            payee_name: 'T R Carter & Sons 1',
+            part_postcode: 'RG1',
+            town: 'Reading',
+            county_council: 'Berkshire',
+            amount: '11142000.95'
+        }]
+        const mockGet = jest.fn().mockResolvedValue({
+            payload: JSON.stringify(mockData)
+        })
+        jest.spyOn(wreck, 'get').mockImplementation(mockGet)
+
+        const payeeName = '__PAYEE_NAME__'
+        const partPostcode = '__POST_CODE'
+        const res = await getPaymentDetails(payeeName, partPostcode)
+        expect(res).toMatchObject(mockData)
+
+        const route = getUrlParams('paymentdetails', { payeeName, partPostcode })
 
         expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
     })
