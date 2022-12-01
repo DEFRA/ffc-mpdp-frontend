@@ -3,39 +3,17 @@ import Joi from "joi";
 
 import { getPaymentDetails } from '../../backend/api'
 import { getReadableAmount, getSchemeStaticData } from '../../utils/helper'
+import type { Scheme, SchemeDetail, queryParams } from '../../types'
 
-type queryParams = {
-  payeeName: string, 
-  searchString: string, 
-  page: string 
+const getSchemLevel = (level: string) => {
+  if(!level || level.toLowerCase() === 'n/a') return null
+
+  return level
 }
 
-type Summary = {
-  payee_name: string,
-  part_postcode: string,
-  town: string,
-  county_council: string,
-  parliamentary_constituency: string,
-  financial_year: string,
-  total: string,
-  startYear?: string,
-  endYear?: string,
-  schemes: [{
-    name: string,
-    description: string,
-    link: string,
-    total?: string,
-    schemeTypes: [{
-      name: string,
-      amount?: string,
-      activityLevel: string
-    }]
-  }] | any[]
-}
+const createModel = async ({ payeeName, partPostcode, searchString, page } : queryParams) => {
+	const farmerDetails = await getPaymentDetails(payeeName, partPostcode)
 
-const createModel = ({ payeeName, searchString, page } : queryParams) => {
-	const farmerDetails = getPaymentDetails(payeeName)
-  
   if(!farmerDetails) {
     return {
       searchString: searchString,
@@ -45,7 +23,7 @@ const createModel = ({ payeeName, searchString, page } : queryParams) => {
 
   const { payee_name, part_postcode, town, county_council, parliamentary_constituency, financial_year } = farmerDetails
   const [startYear, endYear] = farmerDetails.financial_year.split('/')
-  const summary: Summary = { 
+  const summary = { 
     payee_name, 
     part_postcode, 
     town, 
@@ -53,7 +31,7 @@ const createModel = ({ payeeName, searchString, page } : queryParams) => {
     parliamentary_constituency,
     financial_year, 
     total: '',
-    schemes: [],
+    schemes: [] as Scheme[],
     startYear: `20${startYear}`,
     endYear: `20${endYear}`
   }
@@ -66,9 +44,9 @@ const createModel = ({ payeeName, searchString, page } : queryParams) => {
     farmerTotal += amount
     schemeTotal += amount
 
-    const schemeDetails = {
+    const schemeDetails: SchemeDetail = {
       name: scheme.scheme_detail,
-      activityLevel: scheme.activity_detail,
+      activityLevel: getSchemLevel(scheme.activity_level),
       amount: getReadableAmount(amount),
     }
 
@@ -91,7 +69,6 @@ const createModel = ({ payeeName, searchString, page } : queryParams) => {
   })
 
   summary.total = getReadableAmount(farmerTotal)
-
   return {
 		summary,
     searchString: searchString,
@@ -107,16 +84,17 @@ module.exports = [
       auth: false,
       validate: {
         query: Joi.object({
-					payeeName: Joi.string().strict().trim().min(1).required(),
-          searchString: Joi.string().strict().trim().min(1).required(),
+					payeeName: Joi.string().trim().min(1).required(),
+          partPostcode: Joi.string().trim().min(1).required(),
+          searchString: Joi.string().trim().min(1).required(),
           page: Joi.number().default(1),
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           return h.view('search/index', { ...(request.query as Object), errorList: [{ text: error.details[0].message }] }).code(400).takeover()
         }
       },
-      handler: (request: Request, h: ResponseToolkit): ResponseObject => {
-        return h.view('details/index', createModel(request.query as queryParams))
+      handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
+        return h.view('details/index', await createModel(request.query as queryParams))
       }
     }
   }

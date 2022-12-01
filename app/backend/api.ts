@@ -1,7 +1,7 @@
 import wreck from '@hapi/wreck'
 import config from '../config'
-import devData from './data/devData'
 import { getUrlParams } from '../utils/helper'
+import { Summary } from '../types'
 
 export const get = async (url: string) => { 
 	try {
@@ -35,6 +35,16 @@ export const getPaymentData = async (searchString: string, offset: number, limit
 	}
 }
 
-export const getPaymentDetails = (payee_name: string) => {
-	return devData.find(x => x.payee_name.toLowerCase().includes(payee_name.toLowerCase()))
+export const getPaymentDetails = async (payeeName: string, partPostcode: string): Promise<Summary | null> => {
+	const url = getUrlParams('paymentdetails', {
+		payeeName,
+		partPostcode
+	})
+
+	const response: any = await get(url)
+	if(!response) {
+		return null;
+	}
+
+	return JSON.parse(response.payload)
 }
