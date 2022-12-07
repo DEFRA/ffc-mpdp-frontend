@@ -4,6 +4,7 @@ import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { getOptions } from '../../../../utils/helpers'
+import { getPageTitle } from '../../../../../app/utils/helper'
 
 describe('MPDP layout test', () => {
   test('Primary url route returns 200', async () => {
@@ -11,9 +12,7 @@ describe('MPDP layout test', () => {
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
-    expect($('h1').text()).toEqual(
-      'Find data on farm and land payments'
-    )
+    expect($('h1').text()).toEqual(getPageTitle('/'))
     const button = $('.govuk-main-wrapper .govuk-button')
     expect(button.attr('href')).toMatch('/search')
     expect(button.text()).toMatch('Start now')

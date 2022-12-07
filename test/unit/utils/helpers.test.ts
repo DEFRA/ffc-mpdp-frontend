@@ -1,4 +1,10 @@
-import { getReadableAmount, getSchemeStaticData, getUrlParams } from '../../../app/utils/helper'
+import config from '../../../app/config'
+import { 
+    getReadableAmount, 
+    getSchemeStaticData, 
+    getUrlParams, 
+    getPageTitle 
+} from '../../../app/utils/helper'
 
 describe('helper module tests', () => {
     test('getReadableAmount returns a 0 if number is undefined', () => {
@@ -39,5 +45,12 @@ describe('helper module tests', () => {
 
         const url = getUrlParams(page, obj)
         expect(url).toMatch(`/${page}?val=${obj.val}&anotherVal=${obj.anotherVal}`)
+    })
+
+    test('getPageTitle returns correct value', () => {
+        expect(getPageTitle('/')).toEqual(config.routes['/'].title)
+        expect(getPageTitle('/service-start')).toEqual(config.routes['/service-start'].title)
+        expect(getPageTitle('/search')).toEqual(config.routes['/search'].title)
+        expect(getPageTitle('__INVALID__')).toEqual('')
     })
 })

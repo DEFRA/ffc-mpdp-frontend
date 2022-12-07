@@ -1,4 +1,5 @@
 import config from '../config'
+import { getPageTitle } from '../utils/helper'
 
 module.exports = {
   plugin: {
@@ -12,6 +13,9 @@ module.exports = {
           ctx.serviceName = config.serviceName
           ctx.serviceUrl = config.startPageLink
 
+          const { path } = request
+          ctx.pageTitle = getPageTitle(path)
+          
           response.source.context = ctx
         }
 

@@ -3,9 +3,10 @@ import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions } from '../../../../utils/helpers'
+import { getPageTitle } from '../../../../../app/utils/helper'
 
 describe('MPDP service start page test', () => {
-
+  const path = 'service-start'
   const expectLinks = ($: cheerio.CheerioAPI) => {
     const expectedLinks = [
       '/downloadall',
@@ -24,14 +25,12 @@ describe('MPDP service start page test', () => {
     ).toEqual(true)
   }
 
-  test('GET /service-start route returns 200', async () => {
-    const res = await global.__SERVER__.inject(getOptions('service-start'))
+  test(`GET /${path} route returns 200`, async () => {
+    const res = await global.__SERVER__.inject(getOptions(path))
     expect(res.statusCode).toBe(200)
 
     const $ = cheerio.load(res.payload)
-    expect($('h1').text()).toEqual(
-      'Find data on farm and land payments'
-    )
+    expect($('h1').text()).toEqual(getPageTitle(`/${path}`))
 
     const button = $('.govuk-main-wrapper .govuk-button')
     expect(button.attr('href')).toMatch('/search')

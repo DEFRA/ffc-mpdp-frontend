@@ -1,3 +1,4 @@
+import config from '../config';
 import { schemeStaticData } from '../data/schemeStaticData'
 
 export const getReadableAmount = (amount: number | undefined) => {
@@ -11,4 +12,5 @@ export const getReadableAmount = (amount: number | undefined) => {
 export const getSchemeStaticData = (schemeName: string) => schemeStaticData.find(x => x.name === schemeName)
 
 export const getUrlParams = (page: string, params: any = {}) => `/${page}?${new URLSearchParams(params).toString()}`
-  
+
+export const getPageTitle = (route: string) => config.routes[route]?.title || ''
