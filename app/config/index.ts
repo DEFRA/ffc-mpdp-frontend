@@ -6,6 +6,11 @@ type config = {
   backendEndpoint: string,
   search: {
     limit: number
+  },
+  routes: {
+    [key: string]: {
+      title: string
+    }
   }
 }
 
@@ -17,5 +22,19 @@ export default {
   backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
   search: {
     limit: process.env.NODE_ENV === 'production'? 20 : 10
+  },
+  routes: {
+    '/': {
+      title: 'Find data on farm and land payments'
+    },
+    '/service-start': {
+      title: 'Find data on farm and land payments'
+    },
+    '/search': {
+      title: 'Search for a business or agreement holder'
+    },
+    '/results': {
+      title: 'Search for a business or agreement holder'
+    }
   }
 } as config

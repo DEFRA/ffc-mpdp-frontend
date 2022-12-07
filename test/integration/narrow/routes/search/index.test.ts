@@ -3,6 +3,7 @@ import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions } from '../../../../utils/helpers'
+import { getPageTitle } from '../../../../../app/utils/helper'
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: () => ({
@@ -12,14 +13,13 @@ jest.mock('../../../../../app/backend/api', () => ({
 }))
 
 describe('MPDP Search page test', () => {
-  test('GET /search route returns search landing page when no query parameters are sent', async () => {
-    const res = await global.__SERVER__.inject(getOptions('search'))
+  const path = 'search'
+  test(`GET /${path} route returns search landing page when no query parameters are sent`, async () => {
+    const res = await global.__SERVER__.inject(getOptions(path))
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
-    expect($('h1').text()).toEqual(
-      'Enter a business or payee name'
-    )
+    expect($('h1').text()).toEqual(getPageTitle(`/${path}`))
 
     const button = $('.govuk-button')
     expect(button).toBeDefined()
@@ -68,9 +68,7 @@ describe('MPDP Search page test', () => {
   
     expect(res.statusCode).toBe(400)
     const $ = cheerio.load(res.payload)
-    expect($('h1').text()).toEqual(
-      'Enter a business or payee name'
-    )
+    expect($('h1').text()).toEqual(getPageTitle(`/${path}`))
     const errorSummary = $('#error-summary-title')
     expect(errorSummary).toBeDefined()
     expect(errorSummary.text()).toContain('There is a problem')

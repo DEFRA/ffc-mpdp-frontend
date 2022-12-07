@@ -4,7 +4,7 @@ import Joi from "joi";
 import config from '../../config'
 import { getPaymentData } from '../../backend/api'
 
-import { getReadableAmount } from '../../utils/helper'
+import { getPageTitle, getReadableAmount } from '../../utils/helper'
 
 const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string) => {
   const encodedSearchString = encodeURIComponent(searchString)
@@ -87,8 +87,8 @@ module.exports = [
               await createModel(request.query, error)
             ).code(400).takeover()
           }
-
-          return h.view('search/index', { ...(request.query as Object), errorList: [{ text: error.details[0].message }] }).code(400).takeover()
+        
+          return h.view('search/index', { ...(request.query as Object), errorList: [{ text: error.details[0].message }]}).code(400).takeover()
         }
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {

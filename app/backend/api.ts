@@ -8,7 +8,7 @@ export const get = async (url: string) => {
 		return (await wreck.get(`${config.backendEndpoint}${url}`))
 	}
 	catch (err) {
-		console.error(`failed to get payment data for request ${url}`, err)
+		console.error(`Encountered error while calling the backend with url: ${url}`, err)
 		return null
 	}
 }
