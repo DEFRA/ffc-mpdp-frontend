@@ -43,7 +43,7 @@ describe('Backend API tests', () => {
 
         const route = getUrlParams('paymentdata',{
             searchString,
-            limit: 10,
+            limit: 20,
             offset
         })
 
@@ -76,7 +76,7 @@ describe('Backend API tests', () => {
 
         const route = getUrlParams('paymentdata',{
             searchString,
-            limit: 10,
+            limit: 20,
             offset
         })
 
