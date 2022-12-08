@@ -4,7 +4,7 @@ import Joi from "joi";
 import config from '../../config'
 import { getPaymentData } from '../../backend/api'
 
-import { getPageTitle, getReadableAmount } from '../../utils/helper'
+import { getReadableAmount } from '../../utils/helper'
 
 const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string) => {
   const encodedSearchString = encodeURIComponent(searchString)
