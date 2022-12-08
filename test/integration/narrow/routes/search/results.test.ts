@@ -9,6 +9,34 @@ jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: mockGetPaymentData
 }))
 
+jest.mock('../../../../../app/config', () => ({
+  __esModule: true,
+  default: {
+    env: process.env.NODE_ENV,
+    port: process.env.PORT? parseInt(process.env.PORT) : 3001,
+    serviceName: 'Find data on farm and land payments',
+    startPageLink: '/service-start',
+    backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
+    search: {
+      limit: 10
+    },
+    routes: {
+      '/': {
+        title: 'Find data on farm and land payments'
+      },
+      '/service-start': {
+        title: 'Find data on farm and land payments'
+      },
+      '/search': {
+        title: 'Search for a business or agreement holder'
+      },
+      '/results': {
+        title: 'Search for a business or agreement holder'
+      }
+    }
+  }
+}));
+
 describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
   let res: any
