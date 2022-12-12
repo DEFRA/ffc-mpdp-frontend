@@ -4,10 +4,27 @@ import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions, mockGetPaymentData } from '../../../../utils/helpers'
 import mockData from '../../../../data/mockResults'
+import config from '../../../../../app/config'
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: mockGetPaymentData
 }))
+
+beforeAll(() => {
+  jest.mock('../../../../../app/config', () => ({
+    __esModule: true,
+    default: {
+      ...config,
+      search: {
+        limit: 10
+      }
+    }
+  }));
+})
+
+afterAll(() => {
+  jest.resetAllMocks()
+})
 
 describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
