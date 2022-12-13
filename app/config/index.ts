@@ -21,7 +21,7 @@ export default {
   startPageLink: '/service-start',
   backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
   search: {
-    limit: process.env.NODE_ENV === 'production'? 20 : 10
+    limit: 20
   },
   routes: {
     '/': {
