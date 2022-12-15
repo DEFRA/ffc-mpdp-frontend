@@ -27,7 +27,6 @@ module.exports = [{
       })
     },
     handler: (request: Request, h: ResponseToolkit) => {
-      console.log((request.payload as any).analytics)
       updatePolicy(request, h, (request.payload as any).analytics)
       if ((request.payload as any).async) {
         return h.response('ok')

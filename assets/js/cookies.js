@@ -1,3 +1,12 @@
+const setupCookiesLinkListener = () => {
+  const cookiesLink = document.querySelector("a[href='/cookies']")
+  cookiesLink?.addEventListener('click', (event) => {
+    if(location.pathname.includes('/cookies')) {
+      event.preventDefault()
+    }
+  })
+}
+
 const setupListeners = () => {
   const acceptButton = document.querySelector('.js-cookies-button-accept')
   const rejectButton = document.querySelector('.js-cookies-button-reject')
@@ -55,4 +64,6 @@ const setupListeners = () => {
     cookieContainer.style.display = 'block'
     setupListeners()
   }
+
+  setupCookiesLinkListener()
 })()
