@@ -35,7 +35,8 @@ module.exports = {
     context: {
       appVersion: version,
       assetPath: '/assets',
-      pageTitle: config.serviceName
+      pageTitle: config.serviceName,
+      googleTagManagerKey: config.googleTagManagerKey
     }
   }
 }
