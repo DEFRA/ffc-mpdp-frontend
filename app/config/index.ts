@@ -4,15 +4,13 @@ type config = {
     cookieNameAuth: string,
     cookieNameSession: string,
     isSameSite: string,
-    isSecure: boolean,
-    password: string,
+    isSecure: boolean
   },
   cookiePolicy: {
     clearInvalid: boolean,
     encoding: string,
     isSameSite: string,
-    isSecure: boolean,
-    password: string
+    isSecure: boolean
   },
   env: string,
   googleTagManagerKey: string | null,
@@ -36,15 +34,13 @@ export default {
     cookieNameAuth: 'ffc_mpdp_auth',
     cookieNameSession: 'ffc_mpdp_session',
     isSameSite: 'Lax',
-    isSecure: process.env.NODE_ENV === 'production',
-    password: process.env.COOKIE_PASSWORD
+    isSecure: process.env.NODE_ENV === 'production'
   },
   cookiePolicy: {
     clearInvalid: false,
     encoding: 'base64json',
     isSameSite: 'Lax',
-    isSecure: process.env.NODE_ENV === 'production',
-    password: process.env.COOKIE_PASSWORD
+    isSecure: process.env.NODE_ENV === 'production'
   },
   env: process.env.NODE_ENV,
   googleTagManagerKey: process.env.GOOGLE_TAG_MANAGER_KEY,
