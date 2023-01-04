@@ -8,10 +8,8 @@ import config from '../../config'
 module.exports = [{
   method: 'GET',
   path: '/cookies',
-  handler: (request: Request, h: ResponseToolkit): ResponseObject => {
-    console.log(request.query.updated)
-    return h.view('cookies/cookie-policy', cookieModel(request.state[config.cookie.cookieNameCookiePolicy], false, request.headers.referer))
-  }
+  handler: (request: Request, h: ResponseToolkit): ResponseObject => 
+    h.view('cookies/cookie-policy', cookieModel(request.state[config.cookie.cookieNameCookiePolicy], false, request.headers.referer))
 },
 {
   method: 'POST',
