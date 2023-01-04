@@ -1,7 +1,7 @@
 const setupCookiesLinkListener = () => {
   const cookiesLink = document.querySelector("a[href='/cookies']")
   cookiesLink?.addEventListener('click', (event) => {
-    if(location.pathname.includes('/cookies')) {
+    if (location.pathname.includes('/cookies')) {
       event.preventDefault()
     }
   })

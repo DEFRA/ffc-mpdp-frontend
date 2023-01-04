@@ -23,15 +23,21 @@ describe('Cookies route', () => {
     expect((result.request.response as any)._payload._data).toContain('Cookies')
   })
 
-  test('POST /cookies returns 302 if not async', async () => {
+  test('POST /cookies returns cookie page with updated settings if not async', async () => {
     const options = {
       method: 'POST',
       url: '/cookies',
       payload: { analytics: true }
     }
 
-    const result = await global.__SERVER__.inject(options)
-    expect(result.statusCode).toBe(302)
+    const response = await global.__SERVER__.inject(options)
+
+    const $ = cheerio.load(response.payload)
+    expect($('#govuk-notification-banner-title').text()).toContain('Success')
+    expect($('.govuk-notification-banner__heading').text()).toEqual('You’ve set your cookie preferences.')
+    expect($('#analytics').val()).toEqual('true')
+
+    expect(response.statusCode).toBe(200)
   })
 
   test('POST /cookies returns 200 if async', async () => {
@@ -54,18 +60,6 @@ describe('Cookies route', () => {
 
     const result = await global.__SERVER__.inject(options)
     expect(result.statusCode).toBe(400)
-  })
-
-  test('POST /cookies redirects to GET with querystring', async () => {
-    const options = {
-      method: 'POST',
-      url: '/cookies',
-      payload: { analytics: true }
-    }
-
-    const result = await global.__SERVER__.inject(options)
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/cookies?updated=true')
   })
 
   test('Cookie banner appears when no cookie option selected', async () => {

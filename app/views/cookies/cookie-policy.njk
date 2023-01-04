@@ -118,6 +118,7 @@
         <div class="govuk-grid-column-two-thirds">
           <form action="/cookies" method="post" novalidate>
             <input type="hidden" name="async" value="false"/>
+            <input type="hidden" name="referer" value={{ referer }}/>
             {{ govukRadios(analytics) }}
             {{ govukButton({
                 text: "Save cookie settings",

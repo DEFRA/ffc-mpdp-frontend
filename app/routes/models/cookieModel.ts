@@ -1,4 +1,6 @@
-export const cookieModel = (cookiesPolicy: any = {}, updated: boolean = false) => ({
+import { removeTrailingSlash } from "../../utils/helper";
+
+export const cookieModel = (cookiesPolicy: any = {}, updated: boolean, referer: string = '') => ({
 	analytics: {
 		classes: 'govuk-radios--inline',
 		idPrefix: 'analytics',
@@ -26,6 +28,7 @@ export const cookieModel = (cookiesPolicy: any = {}, updated: boolean = false) =
 			}
 		]
 	},
-	updated
+	updated,
+	referer: removeTrailingSlash(referer)
 })
 	

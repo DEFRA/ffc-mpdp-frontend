@@ -9,8 +9,9 @@ module.exports = [{
   method: 'GET',
   path: '/cookies',
   handler: (request: Request, h: ResponseToolkit): ResponseObject => {
-    return h.view('cookies/cookie-policy', cookieModel(request.state[config.cookie.cookieNameCookiePolicy], request.query.updated))
-  },
+    console.log(request.query.updated)
+    return h.view('cookies/cookie-policy', cookieModel(request.state[config.cookie.cookieNameCookiePolicy], false, request.headers.referer))
+  }
 },
 {
   method: 'POST',
@@ -23,15 +24,18 @@ module.exports = [{
     validate: {
       payload: Joi.object({
         analytics: Joi.boolean(),
-        async: Joi.boolean().default(false)
+        async: Joi.boolean().default(false),
+        referer: Joi.string().optional()
       })
     },
     handler: (request: Request, h: ResponseToolkit) => {
-      updatePolicy(request, h, (request.payload as any).analytics)
-      if ((request.payload as any).async) {
+      const payload: any = request.payload
+      updatePolicy(request, h, payload.analytics)
+      if (payload.async) {
         return h.response('ok')
       }
-      return h.redirect('/cookies?updated=true')
+      
+      return h.view('cookies/cookie-policy', cookieModel(request.state[config.cookie.cookieNameCookiePolicy], true, payload.referer))
     }
   }
 }]

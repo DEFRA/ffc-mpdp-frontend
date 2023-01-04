@@ -7,7 +7,7 @@ module.exports = {
     register: (server: any, _: any) => {
       server.ext('onPreResponse', function (request: any, h: any) {
         const response = request.response
-
+        
         if (response.variety === 'view') {
           const ctx = response.source.context || {}
           ctx.serviceName = config.serviceName
