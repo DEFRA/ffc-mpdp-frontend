@@ -45,7 +45,7 @@ export default {
   env: process.env.NODE_ENV,
   googleTagManagerKey: process.env.GOOGLE_TAG_MANAGER_KEY,
   port: process.env.PORT? parseInt(process.env.PORT) : 3001,
-  serviceName: 'Find data on farm and land payments',
+  serviceName: 'Find farm and land payment data',
   startPageLink: '/service-start',
   backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
   search: {
@@ -53,10 +53,10 @@ export default {
   },
   routes: {
     '/': {
-      title: 'Find data on farm and land payments'
+      title: 'Find farm and land payment data'
     },
     '/service-start': {
-      title: 'Find data on farm and land payments'
+      title: 'Find farm and land payment data'
     },
     '/search': {
       title: 'Search for a business or agreement holder'
