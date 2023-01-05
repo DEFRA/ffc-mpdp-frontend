@@ -42,6 +42,8 @@ describe('MPDP Details page tests', () => {
 		expect($('#mpdpSummaryBreakdown')).toBeDefined()
 		expect($('#mpdpMoreActions')).toBeDefined()
 		expect($('#reportProblem')).toBeDefined()
+		expect($('#dateRange').text()).toMatch('From 1 April 2021 to 31 March 2022')
+
 	})
 
 	test.each([
