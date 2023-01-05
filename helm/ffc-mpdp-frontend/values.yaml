@@ -35,7 +35,7 @@ container:
   limitCpu: 120m
   port: 3001
   mpdpBackendEndpoint: http://ffc-mpdp-backend.ffc-mpdp
-  googleTagManagerKey:
+  googleTagManagerKey: dummy
 
 service:
   port: 80
