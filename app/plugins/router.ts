@@ -5,7 +5,7 @@ const routes = [].concat(
   require('../routes/healthy'),
   require('../routes/healthz'),
   require('../routes/service-start'),
-  require('../routes/cookies'),
+  require('../routes/cookies/cookies'),
   require('../routes/privacy'),
   require('../routes/accessibility'),
   require('../routes/backendHealthy'),

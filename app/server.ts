@@ -24,6 +24,7 @@ const init = async function(): Promise<Server> {
     await server.register(require('./plugins/views'))
     await server.register(require('./plugins/logging'))
     await server.register(require('./plugins/errors'))
+    await server.register(require('./plugins/cookies'))
     
     return server;
 };
