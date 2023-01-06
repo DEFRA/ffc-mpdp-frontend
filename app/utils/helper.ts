@@ -14,3 +14,5 @@ export const getSchemeStaticData = (schemeName: string) => schemeStaticData.find
 export const getUrlParams = (page: string, params: any = {}) => `/${page}?${new URLSearchParams(params).toString()}`
 
 export const getPageTitle = (route: string) => config.routes[route]?.title || ''
+
+export const removeTrailingSlash = (url: string) => url.replace(/\/$/, "")
