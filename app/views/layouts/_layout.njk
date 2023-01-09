@@ -19,6 +19,9 @@
 {% block pageTitle %}{{ serviceName }} - GOV.UK{% endblock %}
 
 {% block head %}
+  {% if cookiesPolicy.analytics %}
+    {% include "../tag-manager/_head-content.njk" %}
+  {% endif %}
   <!--[if !IE 8]><!-->
   <% htmlWebpackPlugin.files.css.forEach(file => { %>
     <link href="<%= file %>" rel="stylesheet">
@@ -46,6 +49,16 @@
     html: 'This is a new service – your <a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_1FcBVO6IMkfHmbs" target="_blank" rel="noopener noreferrer">feedback</a> will help us to improve it.'
     }) }}
   </div>
+{% endblock %}
+
+{% block bodyStart %}
+  {% if not cookiesPolicy.confirmed %}
+    {% include "../cookies/cookie-banner.njk" %}
+  {% endif %}
+
+  {% if cookiesPolicy.analytics %}
+    {% include "../tag-manager/_body-content.njk" %}
+  {% endif %}
 {% endblock %}
 
 {% block footer %}

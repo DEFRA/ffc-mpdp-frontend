@@ -3,7 +3,8 @@ import {
     getReadableAmount, 
     getSchemeStaticData, 
     getUrlParams, 
-    getPageTitle 
+    getPageTitle, 
+    removeTrailingSlash
 } from '../../../app/utils/helper'
 
 describe('helper module tests', () => {
@@ -52,5 +53,11 @@ describe('helper module tests', () => {
         expect(getPageTitle('/service-start')).toEqual(config.routes['/service-start'].title)
         expect(getPageTitle('/search')).toEqual(config.routes['/search'].title)
         expect(getPageTitle('__INVALID__')).toEqual('')
+    })
+
+    test('removeTrailingSlash returns correct value', () => {
+        expect(removeTrailingSlash('/service-start/')).toEqual('/service-start')
+        expect(removeTrailingSlash('/search')).toEqual('/search')
+        expect(removeTrailingSlash('')).toEqual('')
     })
 })
