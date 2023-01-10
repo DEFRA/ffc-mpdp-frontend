@@ -5,8 +5,6 @@
 {% from "govuk/components/pagination/macro.njk"         import govukPagination %}
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
 
-{% block pageTitle %}{{ serviceName }}{% endblock %}
-
 {% block beforeContent %}
   {% if errorList %}
     {{govukErrorSummary ({
