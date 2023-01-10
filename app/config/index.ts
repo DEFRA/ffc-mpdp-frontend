@@ -66,6 +66,9 @@ export default {
     },
     '/cookies': {
       title: 'Cookies'
+    },
+    '/privacy': {
+      title: 'Privacy notice'
     }
   }
 } as config
