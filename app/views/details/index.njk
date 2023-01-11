@@ -3,6 +3,8 @@
 {% from "govuk/components/inset-text/macro.njk"          import govukInsetText %}
 {% from "govuk/components/details/macro.njk"             import govukDetails %}
 
+{% block pageTitle %}{{ summary.payee_name }} - {{ serviceName }} - GOV.UK{% endblock %}
+
 {% block beforeContent %}
   <a id='detailsBackLink' href="/results?searchString={{ searchString }}&page={{ page }}" class="govuk-back-link">Back to results</a>
 {% endblock %}

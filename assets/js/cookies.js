@@ -1,9 +1,12 @@
-const setupCookiesLinkListener = () => {
-  const cookiesLink = document.querySelector("a[href='/cookies']")
-  cookiesLink?.addEventListener('click', (event) => {
-    if (location.pathname.includes('/cookies')) {
-      event.preventDefault()
-    }
+const setupLinkListeners = () => {
+  const links = ['/cookies', '/privacy']
+  links.forEach((link) => {
+    const element = document.querySelector(`a[href='${link}']`)
+    element?.addEventListener('click', (event) => {
+      if (location.pathname.includes(link)) {
+        event.preventDefault()
+      }
+    })  
   })
 }
 
@@ -65,5 +68,5 @@ const setupListeners = () => {
     setupListeners()
   }
 
-  setupCookiesLinkListener()
+  setupLinkListeners()
 })()

@@ -66,6 +66,12 @@ export default {
     },
     '/cookies': {
       title: 'Cookies'
+    },
+    '/privacy': {
+      title: 'Privacy notice'
+    },
+    '/accessibility': {
+      title: 'Accessibility policy'
     }
   }
 } as config

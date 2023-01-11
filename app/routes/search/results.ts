@@ -56,7 +56,6 @@ const createModel = async (payload: any, error?: any) => {
 
   const searchString = decodeURIComponent(payload.searchString)
   const requestedPage = payload.page
-  
   const { matches, total } = await performSearch(searchString, requestedPage)
   
   return {
@@ -64,7 +63,8 @@ const createModel = async (payload: any, error?: any) => {
     ...getPaginationAttributes(total, requestedPage, searchString),
     results: matches,
     total,
-    currentPage: requestedPage
+    currentPage: requestedPage,
+    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`
   }
 }
 

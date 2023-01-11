@@ -25,6 +25,7 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, limit: n
 	}
 }
 
-export const mockGetPaymentDetails = (payee_name: string) => {
-	return mockDetails.find(x => x.payee_name.toLowerCase().includes(payee_name.toLowerCase()))
-}
+export const mockGetPaymentDetails = (payee_name: string) => 
+	mockDetails.find(x => x.payee_name.toLowerCase().includes(payee_name.toLowerCase()))
+
+export const trimExtraSpaces = (str: string) => str.trim().replace(/\s{2,}/g, ' ')

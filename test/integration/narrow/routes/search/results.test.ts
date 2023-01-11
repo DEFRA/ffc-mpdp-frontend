@@ -5,6 +5,7 @@ import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions, mockGetPaymentData } from '../../../../utils/helpers'
 import mockData from '../../../../data/mockResults'
 import config from '../../../../../app/config'
+import { expectTitle } from '../../../../utils/title-expect'
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: mockGetPaymentData
@@ -47,9 +48,9 @@ describe('GET /results route with query parameters return results page', () => {
   })
 
   test('Results heading contains search string', () => {
-    expect($('.govuk-heading-l').text()).toEqual(
-      `Results for ‘${searchString}’`
-    )
+    const pageTitle = `Results for ‘${searchString}’`
+    expect($('.govuk-heading-l').text()).toEqual(pageTitle)
+    expectTitle($, pageTitle)
   })
 
   test('Search box is present on the results page', () => {
@@ -165,9 +166,9 @@ describe('Seach results page shows no results message', () => {
   })
 
   test('Results heading contains no results found with searchString', () => {
-    expect($('.govuk-heading-l').text()).toEqual(
-      `We found no results for ‘${searchString}’`
-    )
+    const pageTitle = `We found no results for ‘${searchString}’`
+    expect($('.govuk-heading-l').text()).toEqual(pageTitle)
+    expectTitle($, pageTitle)
   })
 
   test('Search box is present on the results page', () => {
