@@ -24,7 +24,8 @@
 {% set mainClasses = "govuk-!-padding-top-2" %}
 {% block content %}
 
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ headingTitle }}</h1>
+  {% set resultsText = ('Results for' if total > 0 or errorList else 'We found no results for') %}
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ resultsText }} ‘{{ searchString }}’</h1>
 
   <p>Check results or search again.</p>
 
