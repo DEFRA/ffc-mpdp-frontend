@@ -53,15 +53,12 @@ export default {
   },
   routes: {
     '/': {
-      title: 'Find farm and land payment data'
+      title: ''
     },
     '/service-start': {
-      title: 'Find farm and land payment data'
+      title: ''
     },
     '/search': {
-      title: 'Search for a business or agreement holder'
-    },
-    '/results': {
       title: 'Search for a business or agreement holder'
     },
     '/cookies': {
@@ -69,6 +66,9 @@ export default {
     },
     '/privacy': {
       title: 'Privacy notice'
+    },
+    '/accessibility': {
+      title: 'Accessibility policy'
     }
   }
 } as config

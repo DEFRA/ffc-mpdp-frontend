@@ -5,6 +5,8 @@
 {% from "govuk/components/pagination/macro.njk"         import govukPagination %}
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
 
+{% block pageTitle %}{{ headingTitle }} - {{ serviceName }} - GOV.UK{% endblock %}
+
 {% block beforeContent %}
   {% if errorList %}
     {{govukErrorSummary ({
@@ -22,8 +24,7 @@
 {% set mainClasses = "govuk-!-padding-top-2" %}
 {% block content %}
 
-  {% set resultsText = ('Results for' if total > 0 or errorList else 'We found no results for') %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ resultsText }} ‘{{ searchString }}’</h1>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ headingTitle }}</h1>
 
   <p>Check results or search again.</p>
 
