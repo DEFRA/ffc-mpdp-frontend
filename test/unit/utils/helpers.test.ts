@@ -25,6 +25,15 @@ describe('helper module tests', () => {
 
         const amount4 = getReadableAmount(10000000)
         expect(amount4).toMatch('10,000,000')
+
+        const amount5 = getReadableAmount(10000000.05)
+        expect(amount5).toMatch('10,000,000.05')
+
+        const amount6 = getReadableAmount(10000000.50)
+        expect(amount6).toMatch('10,000,000.50')
+
+        const amount7 = getReadableAmount(10000000.67)
+        expect(amount7).toMatch('10,000,000.67')
     })
 
     test('getSchemeStaticData returns undefined if no matching schemeName is found', () => {
