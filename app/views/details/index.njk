@@ -3,6 +3,8 @@
 {% from "govuk/components/inset-text/macro.njk"          import govukInsetText %}
 {% from "govuk/components/details/macro.njk"             import govukDetails %}
 
+{% block pageTitle %}{{ summary.payee_name }} - {{ serviceName }} - GOV.UK{% endblock %}
+
 {% block beforeContent %}
   <a id='detailsBackLink' href="/results?searchString={{ searchString }}&page={{ page }}" class="govuk-back-link">Back to results</a>
 {% endblock %}
@@ -26,7 +28,7 @@
             <p id='dateRange' class='govuk-body govuk-!-font-size-16 mpdp-margin-top-negative-3 mpdp-text-color-white' >From 1 April {{summary.startYear}} to 31 March {{summary.endYear}}</p>
           </div>
           <div> 
-            <h2 class="govuk-heading-m mpdp-text-color-white mpdp-text-align-right">£{{ summary.total }}</h2>
+            <p class="govuk-heading-m mpdp-text-color-white mpdp-text-align-right">£{{ summary.total }}</p>
           </div>
         </div>
         <div>
@@ -54,19 +56,18 @@
                 <div class="grid-column-three-one govuk-body-m govuk-!-margin-bottom-1"><div>{{scheme.name}}</div> <div class='mpdp-text-align-right'>£{{scheme.total}}</div></div>
                 <div class='toggle-details'>
                   <div class="grid-column-three-one"><div class='mpdp-details-summary'>{{scheme.description}}</div><div></div></div>
-
                   <p class='govuk-caption-s govuk-!-margin-top-3 govuk-!-margin-bottom-1 mpdp-text-color-dark-grey mpdp-details-summary'>Payments for:</p>
                   <ul class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 govuk-caption-s mpdp-text-color-dark-grey'>
                     {% for schemeType in scheme.schemeTypes %}
                       <li class='mpdp-list-marker-small'><div class="grid-column-three-one mpdp-details-summary"><div>{{schemeType.name}} {%if schemeType.activityLevel %} ({{schemeType.activityLevel}} level) {% endif %}</div> <div class='mpdp-text-align-right'>£{{schemeType.amount}}</div></div></li>
                       {% if not loop.last %}
-                        <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey">
+                        <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey" role="presentation">
                       {% endif %}
                     {% endfor %}  
                   </ul>
                   <p class='govuk-!-margin-top-4 mpdp-details-summary'><a href='{{scheme.link}}' target='_blank'>Read more about the {{scheme.name}} </a></p>
                 </div>
-                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible" role="presentation">
               </div>
               
             {% endfor %}  
