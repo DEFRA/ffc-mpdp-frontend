@@ -4,11 +4,16 @@ import * as cheerio from 'cheerio'
 import { getOptions } from '../../../../utils/helpers'
 import config from '../../../../../app/config'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
+import { getPageTitle } from '../../../../../app/utils/helper'
+import { expectTitle } from '../../../../utils/title-expect'
 
 describe('Cookies route', () => {
   test('GET /cookies route returns 200', async () => {
     const res = await global.__SERVER__.inject(getOptions('cookies'))
+    const $ = cheerio.load(res.payload)
+    
     expect(res.statusCode).toBe(200)
+    expectTitle($, `${getPageTitle('/cookies')}`)
   })
 
   test('GET /cookies returns cookie policy', async () => {

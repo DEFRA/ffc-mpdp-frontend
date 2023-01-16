@@ -38,6 +38,7 @@ describe('MPDP Details page tests', () => {
 
 	test('Check for common elements to be present', () => {
 		expect($('h1').text()).toContain(searchString)
+		expect($('title').text()).toContain(searchString)
 		expect($('#mpdpSummaryPanel')).toBeDefined()
 		expect($('#mpdpSummaryBreakdown')).toBeDefined()
 		expect($('#mpdpMoreActions')).toBeDefined()

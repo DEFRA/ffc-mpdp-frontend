@@ -1,26 +1,30 @@
 import * as cheerio from 'cheerio'
+import { getPageTitle } from '../../../../../app/utils/helper';
 import { getOptions } from '../../../../utils/helpers'
+import { expectTitle } from '../../../../utils/title-expect';
 
 describe('MPDP Privacy page test', () => {
-  let res: any;
-  let $: cheerio.CheerioAPI
+	const path = '/privacy'
+	let res: any;
+	let $: cheerio.CheerioAPI
 
-  beforeEach(async () => {
-		if(res) { return }
+	beforeEach(async () => {
+	if(res) { return }
 
-    res = await global.__SERVER__.inject(getOptions('privacy'))
-    $ = cheerio.load(res.payload)
-  })
+		res = await global.__SERVER__.inject(getOptions('privacy'))
+		$ = cheerio.load(res.payload)
+	})
 
-  afterAll(() => {
+	afterAll(() => {
 		jest.resetAllMocks()
 	})
 
-  test('GET /privacy route returns 200', async () => {
-    expect(res.statusCode).toBe(200)
-  })
+	test(`GET ${path} route returns 200`, async () => {
+		expect(res.statusCode).toBe(200)
+		expectTitle($, getPageTitle(path))
+	})
 
-  test.each([
+	test.each([
 		{id: '#ppGovLink', href: `https://www.gov.uk/`, text: 'GOV.UK'},
 		{id: '#charterLink', href: `https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs/about/personal-information-charter`, text: 'personal information charter'},
 		{id: '#ppMailToLink', href: 'mailto:defra.helpline@defra.gov.uk', text: 'defra.helpline@defra.gov.uk'},
@@ -35,4 +39,4 @@ describe('MPDP Privacy page test', () => {
 		expect(linkElement.text()).toMatch(text)
 	})
 })
-  
+	
