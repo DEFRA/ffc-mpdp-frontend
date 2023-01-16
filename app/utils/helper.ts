@@ -6,7 +6,10 @@ export const getReadableAmount = (amount: number | undefined) => {
 		return '0'
 	}
 
-	return amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	return amount.toLocaleString('en-GB', {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2
+	});
 }
 
 export const getSchemeStaticData = (schemeName: string) => schemeStaticData.find(x => x.name === schemeName)
