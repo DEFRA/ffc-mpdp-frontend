@@ -10,7 +10,27 @@ const setupLinkListeners = () => {
   })
 }
 
-const setupListeners = () => {
+const setupShowHideButton = () => {
+  const showHideButton = document.querySelector('#toggleButton')
+  if(!showHideButton) { return }
+
+  const detailsElements = document.querySelectorAll('.toggle-details')
+
+  showHideButton?.addEventListener('click', () => {
+    const currentText = showHideButton.innerText
+    
+    detailsElements.forEach((element) => {
+      element.style.display = element.style.display === 'none'? 'block' : 'none'
+    })
+
+    showHideButton.innerText = currentText === 'Show Details'? 'Hide Details' : 'Show Details'
+  }) 
+}
+
+const setupCookieComponentListeners = () => {
+  const cookieContainer = document.querySelector('.js-cookies-container')
+  if (!cookieContainer) { return }
+
   const acceptButton = document.querySelector('.js-cookies-button-accept')
   const rejectButton = document.querySelector('.js-cookies-button-reject')
   const acceptedBanner = document.querySelector('.js-cookies-accepted')
@@ -40,6 +60,8 @@ const setupListeners = () => {
     })
   }
 
+  cookieContainer.style.display = 'block'
+  
   acceptButton?.addEventListener('click', (event) => {
     showBanner(acceptedBanner)
     event.preventDefault()
@@ -58,15 +80,11 @@ const setupListeners = () => {
 
   rejectedBanner?.querySelector('.js-hide').addEventListener('click', () => {
     cookieBanner.setAttribute('hidden', 'hidden')
-  })
+  }) 
 }
 
 (() => {
-  const cookieContainer = document.querySelector('.js-cookies-container')
-  if (cookieContainer) {
-    cookieContainer.style.display = 'block'
-    setupListeners()
-  }
-
+  setupCookieComponentListeners()
   setupLinkListeners()
+  setupShowHideButton()
 })()
