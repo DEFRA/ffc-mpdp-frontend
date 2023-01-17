@@ -38,12 +38,13 @@ describe('MPDP Details page tests', () => {
 
 	test('Check for common elements to be present', () => {
 		expect($('h1').text()).toContain(searchString)
+		expect($('title').text()).toContain(searchString)
 		expect($('#mpdpSummaryPanel')).toBeDefined()
 		expect($('#mpdpSummaryBreakdown')).toBeDefined()
 		expect($('#mpdpMoreActions')).toBeDefined()
 		expect($('#reportProblem')).toBeDefined()
+		expect($('#toggleButton').text()).toBeDefined()
 		expect($('#dateRange').text()).toMatch('From 1 April 2021 to 31 March 2022')
-
 	})
 
 	test.each([
@@ -54,7 +55,6 @@ describe('MPDP Details page tests', () => {
 		{id: '#newSearchLink', href: '/search', text: 'start a new search'},
 		{id: '#printLink', href: 'window.print()', text: 'print this page'}
 	])('All links are present', async ({id, href, text}) => {
-		
 		const linkElement = $(id)
 		expect(linkElement).toBeDefined()
 		expect(linkElement.attr('href')).toContain(href)
