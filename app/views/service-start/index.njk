@@ -17,7 +17,7 @@
     </ul>
 
     {{ govukInsetText({
-      html: "This service only shows payments received between 1 April 2021 and 31 March 2022."
+      html: "This service shows payments made between 1 April 2021 and 31 March 2022."
     }) }}
 
    {{ govukDetails({
@@ -47,7 +47,7 @@
     }) }}
 
     {{ govukButton({
-      classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+      classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-7",
       href: "/search",
       isStartButton: true,
       text: "Start now",
@@ -56,14 +56,13 @@
       }
     }) }}
 
-    <p>You can also <a id='downloadAllLink' href="/downloadall">download all scheme payment data (.CSV, 193KB)</a> from the:</p>
-    <ul class='govuk-!-margin-left-4'>
-      <li>Tree Health Pilot Scheme</li>
-      <li>Sustainable Farming Incentive pilot</li>
-      <li>Farming Equipment and Technology Fund</li>
-    </ul>
+    <p class='govuk-!-margin-bottom-5'><b>More data is available</b></p>
 
-    <p>Search for payments from other <a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx" target="_blank">Common Agricultural Policy (CAP) <br>schemes</a>.</p>
+    <p>You can <a id='downloadAllLink' href="/downloadall">download all scheme data (.CSV, 193KB)</a> in a table.<br>
+      This includes Tree Health Pilot payments.
+    </p>
+
+    <p><a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx" target="_blank">Search the UK Co-ordinating Body service for other Common Agricultural Policy (CAP) schemes</a></p>
 
   </div>
 </div>

@@ -69,6 +69,9 @@ export default {
     },
     '/privacy': {
       title: 'Privacy notice'
+    },
+    '/accessibility': {
+      title: 'Accessibility policy'
     }
   }
 } as config
