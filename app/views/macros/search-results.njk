@@ -14,7 +14,7 @@
             <div class="govuk-heading-s search-results-amount">£{{ item.amount }}</div>
           </div>
         </div>
-        <div class="govuk-body subtitle govuk-!-margin-bottom-4 govuk-!-font-size-16">Location: {{item.county_council}}, {{item.town}}, {{ item.part_postcode }}</div>
+        <div class="govuk-body subtitle govuk-!-margin-bottom-4 govuk-!-font-size-16">Business Location: {{item.county_council}}, {{item.town}}, {{ item.part_postcode }}</div>
         <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
       </div>
     {% else %}
@@ -22,7 +22,7 @@
       <p>Improve your search results by:</p>
       <ul class='govuk-list govuk-list--bullet'>
         <li>double-checking your spelling</li>
-        <li>using fewer keywords</li>
+        <li>entering a single search term</li>
         <li>searching for something less specific</li>
       </ul>
     {% endfor %}  
