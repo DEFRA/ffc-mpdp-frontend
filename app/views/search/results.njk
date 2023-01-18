@@ -51,16 +51,12 @@
       }) }}
 
      {{ govukPagination({
-        previous: {
-          href: "/results?searchString=" + searchString + "&page=" + (currentPage - 1),
-          labelText: "Go to previous page of results: " + (currentPage - 1) + " of " +  (total/20)
-        },
-        next: {
-          href: "/results?searchString=" + searchString + "&page=" + (currentPage + 1),
-          labelText: "Go to next page of results: " + (currentPage + 1) + " of " +  (total/20)
+        previous: previous,
+        next: next,
+        attributes: {
+          "aria-label": 'Pagination Navigation'
         }
-      })
-     }}
+      }) }}
     </div>
   </div>
 {% endblock %}
