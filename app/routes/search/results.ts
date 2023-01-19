@@ -13,7 +13,8 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
     href: `/results?searchString=${encodedSearchString}&page=${requestedPage - 1}`,
     labelText: `${requestedPage - 1} of ${totalPages} `,
     attributes: {
-      id: 'prevOption'
+      id: 'prevOption',
+      "aria-label": "Go to previous page of results: " + `${requestedPage - 1} of ${totalPages} `
     }
   }
   
@@ -21,7 +22,8 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
     href: `/results?searchString=${encodedSearchString}&page=${requestedPage + 1}`,
     labelText: `${requestedPage + 1} of ${totalPages} `,
     attributes: {
-      id: 'nextOption'
+      id: 'nextOption',
+      "aria-label": "Go to next page of results: " + `${requestedPage + 1} of ${totalPages} `
     }
   }
 

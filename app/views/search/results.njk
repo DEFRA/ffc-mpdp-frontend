@@ -51,9 +51,11 @@
         page: currentPage,
         searchString: searchString
       }) }}
-      {{ govukPagination({
+
+     {{ govukPagination({
         previous: previous,
-        next: next
+        next: next,
+        landmarkLabel: 'Pagination Navigation'
       }) }}
     </div>
   </div>
