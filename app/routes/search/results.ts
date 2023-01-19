@@ -27,11 +27,7 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
     }
   }
 
-  const attributes = {
-    "aria-label": 'Pagination Navigation'
-  }
-
-  return { previous, next, attributes }
+  return { previous, next }
 }
 
 const performSearch = async (searchString: string, requestedPage: number) => {
