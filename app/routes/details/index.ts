@@ -46,7 +46,6 @@ const createModel = async ({ payeeName, partPostcode, searchString, page } : que
 
     const schemeDetails: SchemeDetail = {
       name: scheme.scheme_detail,
-      activityLevel: getSchemLevel(scheme.activity_level),
       amount: getReadableAmount(amount),
     }
 

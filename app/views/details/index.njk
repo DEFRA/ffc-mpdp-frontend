@@ -59,7 +59,7 @@
                   <p class='govuk-caption-s govuk-!-margin-top-3 govuk-!-margin-bottom-1 mpdp-text-color-dark-grey mpdp-details-summary'>Payments for:</p>
                   <ul class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 govuk-caption-s mpdp-text-color-dark-grey'>
                     {% for schemeType in scheme.schemeTypes %}
-                      <li class='mpdp-list-marker-small'><div class="grid-column-three-one mpdp-details-summary"><div>{{schemeType.name}} {%if schemeType.activityLevel %} ({{schemeType.activityLevel}} level) {% endif %}</div> <div class='mpdp-text-align-right'>£{{schemeType.amount}}</div></div></li>
+                      <li class='mpdp-list-marker-small'><div class="grid-column-three-one mpdp-details-summary"><div>{{schemeType.name}}</div> <div class='mpdp-text-align-right'>£{{schemeType.amount}}</div></div></li>
                       {% if not loop.last %}
                         <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey" role="presentation">
                       {% endif %}
