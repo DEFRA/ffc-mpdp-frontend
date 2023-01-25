@@ -47,6 +47,7 @@ const performSearch = async (searchString: string, requestedPage: number) => {
 
 const createModel = async (payload: any, error?: any) => {
   if(error) {
+    console.log(error)
     return {
       errorList: [{
         text: "Enter a search term",
@@ -78,7 +79,7 @@ module.exports = [
       auth: false,
       validate: {
         query: Joi.object({
-          searchString: Joi.string().trim().min(1).required(),
+          searchString: Joi.string().trim().min(3).required(),
           page: Joi.number().default(1),
           pageId: Joi.string().default('')
         }),
