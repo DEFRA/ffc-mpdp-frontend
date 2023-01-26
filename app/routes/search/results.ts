@@ -47,7 +47,6 @@ const performSearch = async (searchString: string, requestedPage: number) => {
 
 const createModel = async (payload: any, error?: any) => {
   if(error) {
-    console.log(error)
     return {
       errorList: [{
         text: "Enter a search term",
