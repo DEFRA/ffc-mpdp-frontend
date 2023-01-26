@@ -54,7 +54,7 @@ describe('MPDP Search page test', () => {
       `We found no results for ‘${searchString}’`
     )
 
-    const searchBox = $('#searchInput')
+    const searchBox = $('#resultsSearchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
 
@@ -77,7 +77,7 @@ describe('MPDP Search page test', () => {
     const errorSummary = $('#error-summary-title')
     expect(errorSummary).toBeDefined()
     expect(errorSummary.text()).toContain('There is a problem')
-    expect($('#searchInput')).toBeDefined()
+    expect($('#resultsSearchInput')).toBeDefined()
 
     expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
     expect($('#search-input-error').text()).toContain('Enter a search term')
