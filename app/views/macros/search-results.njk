@@ -2,6 +2,48 @@
   <div>
     <h2 class="govuk-heading-s" id='totalResults' {{ model.total }} results>{{ model.total }} results</h2>
     <hr class="govubk-section-break govuk-section-reak--visible section-break-heading" role="presentation">
+    <div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <p></P>
+        </div>
+        <div class="govuk-grid-column-one-half">
+          {% from "govuk/components/select/macro.njk" import govukSelect %}
+          {{ govukSelect({
+            id: "sort",
+            name: "sort",
+            label: {
+              text: "Sort by ",
+              attributes: {
+                style: "display:contents"
+              }
+            },
+            attributes: {
+              "style": "min-width:8em"
+            },
+            items: [
+              {
+                value: "payee_name",
+                text: "Payee name"
+              },
+              {
+                value: "part_postcode",
+                text: "Part postcode",
+                selected: true
+              },
+              {
+                value: "town",
+                text: "Town"
+              },
+              {
+                value: "county_council",
+                text: "County council"
+              }
+            ]
+          }) }}
+      </div>
+    </div>
+
     {% for item in model.results %}
       <div>
         <div class='grid-column-two-one'>
