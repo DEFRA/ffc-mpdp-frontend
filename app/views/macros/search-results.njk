@@ -8,39 +8,49 @@
           <p></P>
         </div>
         <div class="govuk-grid-column-one-half">
-          {% from "govuk/components/select/macro.njk" import govukSelect %}
-          {{ govukSelect({
-            id: "sort",
-            name: "sort",
-            label: {
-              text: "Sort by ",
+          <form method="get" action="/results">
+            <input type="hidden" id="searchString" name="searchString" value="{{model.searchString}}">
+            <input type="hidden" id="pageId" name="pageId" value="{{model.page}}">
+            {% from "govuk/components/select/macro.njk" import govukSelect %}
+            {{ govukSelect({
+              id: "sortBy",
+              name: "sortBy",
+              href: '/results',
+              value: model.sortBy,
+              label: {
+                text: "Sort by",
+                attributes: {
+                  style: "display:contents"
+                }
+              },
               attributes: {
-                style: "display:contents"
-              }
-            },
-            attributes: {
-              "style": "min-width:8em"
-            },
-            items: [
-              {
-                value: "payee_name",
-                text: "Payee name"
+                "style": "min-width:8em",
+                "onchange":"this.form.submit()"
               },
-              {
-                value: "part_postcode",
-                text: "Part postcode",
-                selected: true
-              },
-              {
-                value: "town",
-                text: "Town"
-              },
-              {
-                value: "county_council",
-                text: "County council"
-              }
-            ]
-          }) }}
+              items: [
+                {
+                  value: "score",
+                  text: "Relevance"
+                },
+                {
+                  value: "payee_name",
+                  text: "Payee name"
+                },
+                {
+                  value: "part_postcode",
+                  text: "Part postcode"
+                },
+                {
+                  value: "town",
+                  text: "Town"
+                },
+                {
+                  value: "county_council",
+                  text: "County council"
+                }
+              ]
+            }) }}
+          </form>
       </div>
     </div>
 

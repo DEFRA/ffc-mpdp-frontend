@@ -30,13 +30,13 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
   return { previous, next }
 }
 
-const performSearch = async (searchString: string, requestedPage: number) => {
+const performSearch = async (searchString: string, requestedPage: number,sortBy:string) => {
   // Get results from api and provice limit and offset as parameters
   // expect results <= limit from offset, and totalResults
   // {results: [], total: 20}
 
   const offset = (requestedPage - 1) * config.search.limit
-  const { results, total } = await getPaymentData(searchString, offset)
+  const { results, total } = await getPaymentData(searchString, offset,sortBy)
 
   const matches = results.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
   return {
@@ -57,8 +57,9 @@ const createModel = async (payload: any, error?: any) => {
   }
 
   const searchString = decodeURIComponent(payload.searchString)
+  const sortBy = decodeURIComponent(payload.sortBy)
   const requestedPage = payload.page
-  const { matches, total } = await performSearch(searchString, requestedPage)
+  const { matches, total } = await performSearch(searchString, requestedPage,sortBy)
   
   return {
     searchString,
@@ -66,7 +67,8 @@ const createModel = async (payload: any, error?: any) => {
     results: matches,
     total,
     currentPage: requestedPage,
-    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`
+    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`,
+    sortBy
   }
 }
 
@@ -80,7 +82,8 @@ module.exports = [
         query: Joi.object({
           searchString: Joi.string().trim().min(1).required(),
           page: Joi.number().default(1),
-          pageId: Joi.string().default('')
+          pageId: Joi.string().default(''),
+          sortBy: Joi.string().trim().min(1).optional(),
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           if(!(request.query as any).searchString.trim()) {
