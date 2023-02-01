@@ -50,7 +50,7 @@ const createModel = async (payload: any, error?: any) => {
     return {
       errorList: [{
         text: "Enter a search term",
-        href: "#searchInput"
+        href: "#resultsSearchInput"
       }],
       total: 0 
     }
