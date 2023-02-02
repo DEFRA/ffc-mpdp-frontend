@@ -5,6 +5,7 @@ import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions } from '../../../../utils/helpers'
 import { getPageTitle } from '../../../../../app/utils/helper'
 import { expectTitle } from '../../../../utils/title-expect'
+import { expectRelatedContent } from '../../../../utils/related-content-expects'
 
 describe('MPDP service start page test', () => {
   const path = 'service-start'
@@ -45,5 +46,6 @@ describe('MPDP service start page test', () => {
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)
+    expectRelatedContent($)
   })
 })
