@@ -3,6 +3,8 @@
 {% from "./macros/search-box.njk"                       import searchBox %}
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
 
+{% block pageTitle %}{%if errorList %} Error - {%endif%} {{ pageTitle }} - {{ serviceName }} - GOV.UK{% endblock %}
+
 {% block content %}
 {% if errorList %}
   {{govukErrorSummary ({

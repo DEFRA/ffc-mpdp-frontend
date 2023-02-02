@@ -243,4 +243,8 @@ describe('Seach results page shows error message when searchString is empty', ()
     expect(noResults).toBeDefined()
     expect(noResults.text()).toMatch('There are no matching results')
   })
+
+  test('Page title contains error text', () => {
+    expect($('title').text()).toContain('Error')
+  })
 })
