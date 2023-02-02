@@ -13,7 +13,7 @@ export const get = async (url: string) => {
 	}
 }
 
-export const getPaymentData = async (searchString: string, offset: number, sortBy:string, limit: number = config.search.limit) => {
+export const getPaymentData = async (searchString: string, offset: number, sortBy : string, limit: number = config.search.limit) => {
 	const url = getUrlParams('paymentdata', {
 		searchString,
 		limit,

@@ -35,7 +35,8 @@ describe('Backend API tests', () => {
 
         const searchString = '__TEST_STRING__'
         const offset = 0
-        const res = await getPaymentData(searchString, offset)
+        const sortBy = 'score'
+        const res = await getPaymentData(searchString, offset,sortBy)
         expect(res).toMatchObject({
 			results: [],
 			total: 0
@@ -44,7 +45,7 @@ describe('Backend API tests', () => {
         const route = getUrlParams('paymentdata',{
             searchString,
             limit: 20,
-            offset
+            offset,sortBy
         })
 
         expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
@@ -67,8 +68,9 @@ describe('Backend API tests', () => {
         jest.spyOn(wreck, 'get').mockImplementation(mockGet)
 
         const searchString = '__TEST_STRING__'
-        const offset = 0
-        const res = await getPaymentData(searchString, offset)
+        const offset = 1
+        const sortBy = 'score'
+        const res = await getPaymentData(searchString, offset,sortBy)
         expect(res).toMatchObject({
 			results: mockData,
 			total: mockData.length
@@ -77,7 +79,8 @@ describe('Backend API tests', () => {
         const route = getUrlParams('paymentdata',{
             searchString,
             limit: 20,
-            offset
+            offset,
+            sortBy
         })
 
         expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
