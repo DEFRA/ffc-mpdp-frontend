@@ -5,12 +5,6 @@ import { getPaymentDetails } from '../../backend/api'
 import { getReadableAmount, getSchemeStaticData } from '../../utils/helper'
 import type { Scheme, SchemeDetail, queryParams } from '../../types'
 
-const getSchemLevel = (level: string) => {
-  if(!level || level.toLowerCase() === 'n/a') return null
-
-  return level
-}
-
 const createModel = async ({ payeeName, partPostcode, searchString, page } : queryParams) => {
 	const farmerDetails = await getPaymentDetails(payeeName, partPostcode)
 
