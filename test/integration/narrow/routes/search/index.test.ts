@@ -5,6 +5,7 @@ import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions } from '../../../../utils/helpers'
 import { getPageTitle } from '../../../../../app/utils/helper'
 import { expectTitle } from '../../../../utils/title-expect'
+import { expectRelatedContent } from '../../../../utils/related-content-expects'
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: () => ({
@@ -41,6 +42,7 @@ describe('MPDP Search page test', () => {
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)
+    expectRelatedContent($)
   })
 
   test('GET /results route returns results page', async () => {
@@ -82,5 +84,6 @@ describe('MPDP Search page test', () => {
     expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
     expect($('#search-input-error').text()).toContain('Enter a search term')
     expect($('title').text()).toContain('Error')
+    expectRelatedContent($)
   })
 })

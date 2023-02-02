@@ -2,6 +2,7 @@
 
 {% from "./macros/search-box.njk"                       import searchBox %}
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
+{% from "./macros/related-content.njk"                   import relatedContent %}
 
 {% block pageTitle %}{%if errorList %} Error: {%endif%} {{ pageTitle }} - {{ serviceName }} - GOV.UK{% endblock %}
 
@@ -32,6 +33,9 @@
     }) }}
 
     <p>You can also <a id='downloadAllLink' href="/downloadall">download all scheme payment data (.CSV, 193KB)</a></p>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {{relatedContent()}}
   </div>
 </div>
 {% endblock %}

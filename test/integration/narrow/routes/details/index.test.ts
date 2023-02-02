@@ -3,6 +3,7 @@ import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions, mockGetPaymentDetails } from '../../../../utils/helpers'
+import { expectRelatedContent } from '../../../../utils/related-content-expects'
 
 jest.mock('../../../../../app/backend/api', () => ({
 	getPaymentDetails: mockGetPaymentDetails
@@ -61,9 +62,10 @@ describe('MPDP Details page tests', () => {
 		expect(linkElement.text()).toMatch(text)
 	})
 
-	test('Check for header and footer', () => {
+	test('Check for for common elements', () => {
 		expectPhaseBanner($)
 		expectFooter($)
 		expectHeader($)
+		expectRelatedContent($)
 	})
 })
