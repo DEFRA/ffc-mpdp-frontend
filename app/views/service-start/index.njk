@@ -2,10 +2,11 @@
 
 {% from "govuk/components/details/macro.njk"             import govukDetails %}
 {% from "govuk/components/inset-text/macro.njk"          import govukInsetText %}
+{% from "./macros/related-content.njk"                   import relatedContent %}
 
 {% block content %}
-<div class="govuk-grid-row govuk-prose-scope">
-  <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-prose-scope">
     <h1>{{pageTitle}}</h1>
 
     <p>Check agricultural scheme payments to farmers and land managers in England</p>
@@ -64,6 +65,9 @@
 
     <p><a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx" target="_blank">Search the UK Co-ordinating Body service for other Common Agricultural Policy (CAP) schemes</a></p>
 
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {{relatedContent()}}
   </div>
 </div>
 {% endblock %}

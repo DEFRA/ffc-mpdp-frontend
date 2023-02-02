@@ -225,3 +225,11 @@ button.mpdp-link-btn {
 .mpdp-overflow-wrap {
   overflow-wrap: anywhere;
 }
+
+.mpdp-link-bg {
+  background-color: govuk-colour("blue");
+}
+
+.mpdp-no-bullet {
+  list-style-type: none !important;
+}
