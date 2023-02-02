@@ -21,7 +21,7 @@
   }) }}
 {% endblock %}
 
-{% set mainClasses = "govuk-!-padding-top-2" %}
+{% set mainClasses = "govuk-!-padding-top-2 mpdp-overflow-wrap" %}
 {% block content %}
 
   {% set resultsText = ('Results for' if total > 0 or errorList else 'We found no results for') %}
@@ -33,7 +33,7 @@
     <div class="govuk-grid-column-one-third" style="padding-top: 15px">
       {{ searchBox({
         inputClass: 'govuk-input',
-        id: 'searchInput',
+        id: 'resultsSearchInput',
         name: 'searchString',
         inputmode: 'string',
         buttonText: 'Search',
