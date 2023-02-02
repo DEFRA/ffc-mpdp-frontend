@@ -46,17 +46,18 @@ const performSearch = async (searchString: string, requestedPage: number) => {
 }
 
 const createModel = async (payload: any, error?: any) => {
+  const searchString = decodeURIComponent(payload.searchString)
   if(error) {
     return {
       errorList: [{
         text: "Enter a search term",
         href: "#resultsSearchInput"
       }],
-      total: 0 
+      headingTitle: `Results for ‘${searchString}’`,
+      total: 0
     }
   }
-
-  const searchString = decodeURIComponent(payload.searchString)
+  
   const requestedPage = payload.page
   const { matches, total } = await performSearch(searchString, requestedPage)
   
