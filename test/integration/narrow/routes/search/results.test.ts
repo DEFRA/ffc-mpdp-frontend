@@ -31,11 +31,11 @@ describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
   let res: any
   let $: cheerio.CheerioAPI
-
+  const sortBy='score'
   beforeEach(async () => {
     if(res) { return }
     
-    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString,sortBy }))
     $ = cheerio.load(res.payload)
   })
 

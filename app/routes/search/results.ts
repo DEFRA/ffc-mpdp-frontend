@@ -83,7 +83,7 @@ module.exports = [
           searchString: Joi.string().trim().min(1).required(),
           page: Joi.number().default(1),
           pageId: Joi.string().default(''),
-          sortBy: Joi.string().trim().min(1).optional(),
+          sortBy: Joi.string().trim().optional().default('')
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           if(!(request.query as any).searchString.trim()) {
