@@ -30,7 +30,7 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
   return { previous, next }
 }
 
-const performSearch = async (searchString: string, requestedPage: number,sortBy:string) => {
+const performSearch = async (searchString: string, requestedPage: number, sortBy:string) => {
   // Get results from api and provice limit and offset as parameters
   // expect results <= limit from offset, and totalResults
   // {results: [], total: 20}
