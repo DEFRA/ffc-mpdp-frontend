@@ -244,3 +244,48 @@ describe('Seach results page shows error message when searchString is empty', ()
     expect(noResults.text()).toMatch('There are no matching results')
   })
 })
+
+describe('GET /results route with schemes parameter works', () => {
+  const searchString = 'Sons'
+
+  afterAll(() => {
+    jest.resetAllMocks()
+  })
+
+  test('Get /result works with single scheme in query params', async () => {
+    const schemes = 'Sustainable Farming Incentive pilot' 
+    const res = await global.__SERVER__.inject(
+      getOptions(
+        'results',
+        'GET',
+        { 
+          searchString, 
+          schemes
+        }
+      )
+    )
+
+    const filteredData = mockData.filter(x => x.scheme === schemes)
+    const $ = cheerio.load(res.payload)
+    expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
+  })
+
+  test('Get /results work with multiple schemes in query params', async () => {
+    const schemes = ['Sustainable Farming Incentive pilot', 'Farming Equipment and Technology Fund']
+    const options = getOptions(
+      'results',
+      'GET',
+      { 
+        searchString, 
+        schemes: 'Sustainable Farming Incentive pilot'
+      }
+    )
+    options.url += '&schemes=Farming Equipment and Technology Fund'
+    
+    const res = await global.__SERVER__.inject(options)
+
+    const dataMatchingSchemes = mockData.filter(x => schemes.includes(x.scheme))
+    const $ = cheerio.load(res.payload)
+    expect($('#totalResults').text()).toMatch(`${dataMatchingSchemes.length} results`)
+  })
+})

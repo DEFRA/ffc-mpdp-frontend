@@ -1,7 +1,7 @@
 {% extends './layouts/layout.njk' %}
 
 {% from "govuk/components/checkboxes/macro.njk"         import govukCheckboxes %}
-{% from "./macros/search-box.njk"                       import searchBox %}
+{% from "./macros/search-form.njk"                       import searchForm %}
 {% from "./macros/search-results.njk"                   import searchResults %}
 {% from "govuk/components/pagination/macro.njk"         import govukPagination %}
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
@@ -31,8 +31,8 @@
   <p>Check results or search again.</p>
 
   <div class="govuk-grid-row">    
-    <div class="govuk-grid-column-one-third" style="padding-top: 15px">
-      {{ searchBox({
+    <div class="govuk-grid-column-one-third">
+      {{ searchForm({
         inputClass: 'govuk-input',
         id: 'resultsSearchInput',
         name: 'searchString',
@@ -42,41 +42,9 @@
         labelText: 'Search',
         value: searchString,
         errorList: errorList,
-        pageId: 'results'
+        hiddenInputs: hiddenInputs,
+        filters: filters
       }) }}
-      <div class="govuk-body">
-        <div style='height: 10px; margin-bottom: 25px;'>
-          <div class="govuk-grid-column-one-half govuk-!-padding-left-0">
-            <span>Filters</span>
-          </div>
-          <div class="govuk-grid-column-one-half govuk-!-padding-right-0">
-            <button id='clearAllFilters' class='govuk-link mpdp-link-btn govuk-!-font-size-16 nojs-hidden' style='padding-top: 4px !important; float:right;' aria-live='polite'>Clear all filters</button>
-          </div>
-        </div>
-        
-        <div style='margin: 15px;'>
-          <details>
-            <summary>Scheme</summary>
-            <div class="description">
-              <div id='schemeSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>1 Selected</div>
-              {{ govukCheckboxes({
-                name: "Schemes",
-                classes: "govuk-checkboxes--small",
-                items: [
-                  {
-                    value: "Scheme1",
-                    text: "Scheme1"
-                  },
-                  {
-                    value: "Scheme2",
-                    text: "Scheme2"
-                  }
-                ]
-              }) }}
-            </div>
-          </details>
-        </div>
-      </div>
     </div>
     <div class="govuk-grid-column-two-thirds">
       {{ searchResults({

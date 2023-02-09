@@ -8,10 +8,18 @@ export const getOptions = (page: string, method: string = 'GET', params: any = {
 	}
 }
 
-export const mockGetPaymentData = (searchQuery: string, offset: number, limit: number = 10) => {
-	const results = dummyResults.filter(x =>
+const removeFilterFields = (searchResults: typeof dummyResults) => searchResults.map(({scheme, ...rest}) => rest)
+
+export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy: any, limit: number = 10) => {
+	let searchResults = dummyResults.filter(x =>
 		x.payee_name.toLowerCase().includes(searchQuery.toLowerCase()))
 
+	if(filterBy.schemes && filterBy.schemes.length) {
+		searchResults = searchResults.filter(x => filterBy.schemes.includes(x.scheme))
+	}
+
+	const results = removeFilterFields(searchResults)
+	
 	if(!results) {
 		return {
 			results: [],
