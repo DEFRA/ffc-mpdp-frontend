@@ -6,7 +6,8 @@
     {% for input in model.hiddenInputs %}
       <input type="hidden" id="{{input.id}}" name="{{input.name}}" value="{{input.value}}"/>
     {% endfor %}
-    <label class="govuk-label {{'govuk-visually-hidden' if model.labelText === undefined}}" for="{{model.id}}">{{model.labelText|safe if model.labelText else 'Search'}}</label>
+    <label class="govuk-label {{'govuk-visually-hidden' if model.labelHTML === undefined}}" for="{{model.id}}">{{model.labelHTML|safe if model.labelHTML else 'Search'}}</label>
+    <p class="{{'govuk-visually-hidden' if model.hintHTML === undefined}}">{{model.hintHTML|safe}}</p>
     {% if model.errorList %}
       <span id="error-message" class="govuk-error-message">{{model.errorMessage.text}}</span>
       <p id="search-input-error" class="govuk-error-message govuk-!-font-weight-regular">
@@ -19,7 +20,8 @@
         name="{{model.name}}"
         inputmode="{{model.inputmode}}"
         type="text"
-        value="{{model.value}}"/>
+        value="{{model.value}}"
+        {{model.inputAttributes|safe}}/>
       <button class="govuk-button" data-module="govuk-button" type="submit" aria-label='{{model.buttonText}}'>{{model.buttonText}}</button>
     </div>
     {%if model.filters %}
