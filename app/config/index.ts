@@ -12,6 +12,9 @@ type config = {
     isSameSite: string,
     isSecure: boolean
   },
+  cookieConfig: {
+    ttl: number
+  },
   env: string,
   googleTagManagerKey: string | null,
   port: number,
@@ -41,6 +44,9 @@ export default {
     encoding: 'base64json',
     isSameSite: 'Lax',
     isSecure: process.env.NODE_ENV === 'production'
+  },
+  cookieConfig: {
+    ttl: 1000 * 60 * 60 * 24 * 365
   },
   env: process.env.NODE_ENV,
   googleTagManagerKey: process.env.GOOGLE_TAG_MANAGER_KEY,
