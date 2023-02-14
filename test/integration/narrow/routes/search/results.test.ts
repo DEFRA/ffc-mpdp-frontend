@@ -31,11 +31,10 @@ describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
   let res: any
   let $: cheerio.CheerioAPI
-  const sortBy='score'
   beforeEach(async () => {
     if(res) { return }
     
-    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString,sortBy }))
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
     $ = cheerio.load(res.payload)
   })
 
@@ -254,12 +253,6 @@ describe('GET /results route with sortBy parameters return results page', () => 
 
   test('/results returns status 200 with sortBy parameter', async () => {
     res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString,sortBy }))
-    $ = cheerio.load(res.payload)
-    expect(res.statusCode).toBe(200)
-  })
-
-  test('/results returns status 200 without sortBy parameter', async () => {
-    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
     $ = cheerio.load(res.payload)
     expect(res.statusCode).toBe(200)
   })

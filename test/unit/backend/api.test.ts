@@ -45,7 +45,8 @@ describe('Backend API tests', () => {
         const route = getUrlParams('paymentdata',{
             searchString,
             limit: 20,
-            offset,sortBy
+            offset,
+            sortBy
         })
 
         expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)

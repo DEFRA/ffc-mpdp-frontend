@@ -23,7 +23,7 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, sortBy:s
 	// Sort the results by the sortBy field
 	const keys = ['payee_name', 'part_postcode', 'town', 'county_council']
   	if (keys.includes(sortBy)) {
-		results = results.sort((r1, r2) => r1[sortBy as keyof typeof object] > r2[sortBy as keyof typeof object] ? 1 : -1)
+		results = results.sort((r1, r2) => r1[sortBy as keyof typeof object] > r2[sortBy as keyof typeof dummyResults[0]] ? 1 : -1)
   	}
 
 	// split the results into pages
