@@ -14,6 +14,8 @@ export const getReadableAmount = (amount: number | undefined) => {
 
 export const getSchemeStaticData = (schemeName: string) => schemeStaticData.find(x => x.name === schemeName)
 
+export const getAllSchemesNames = () => schemeStaticData.map(x => x.name)
+
 export const getUrlParams = (page: string, params: any = {}) => `/${page}?${new URLSearchParams(params).toString()}`
 
 export const getPageTitle = (route: string) => config.routes[route]?.title || ''

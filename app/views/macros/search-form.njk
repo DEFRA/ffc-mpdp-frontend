@@ -1,9 +1,11 @@
-{% macro searchBox(model) %}
+{% from "./search-filters.njk" import searchFilters %}
+
+{% macro searchForm(model) %}
 <form id='searchForm' action="{{model.href}}" method="get">
   <div class="govuk-form-group {% if model.errorList %}govuk-form-group--error{% endif %}">
-    {% if model.pageId %}
-      <input type="hidden" id="pageId" name="pageId" value="{{model.pageId}}">
-    {% endif %}
+    {% for input in model.hiddenInputs %}
+      <input type="hidden" id="{{input.id}}" name="{{input.name}}" value="{{input.value}}"/>
+    {% endfor %}
     <label class="govuk-label {{'govuk-visually-hidden' if model.labelHTML === undefined}}" for="{{model.id}}">{{model.labelHTML|safe if model.labelHTML else 'Search'}}</label>
     <p class="{{'govuk-visually-hidden' if model.hintHTML === undefined}}">{{model.hintHTML|safe}}</p>
     {% if model.errorList %}
@@ -22,7 +24,9 @@
         {{model.inputAttributes|safe}}/>
       <button class="govuk-button" data-module="govuk-button" type="submit" aria-label='{{model.buttonText}}'>{{model.buttonText}}</button>
     </div>
-    
+    {%if model.filters %}
+      {{searchFilters(model)}}
+    {% endif %}
   </div>
 </form>
 {% endmacro %}
