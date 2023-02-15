@@ -22,12 +22,19 @@ const getFilters = (query: any) => {
   }
 }
 
-const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string, schemes: []) => {
+const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string, schemes: [], sortBy:string) => {
   const encodedSearchString = encodeURIComponent(searchString)
   const totalPages = Math.ceil(totalResults / config.search.limit)
 
   let prevHref = `/results?searchString=${encodedSearchString}&page=${requestedPage - 1}`
   let nextHref = `/results?searchString=${encodedSearchString}&page=${requestedPage + 1}`
+  // Add sortby to href if it exists in query params
+  if(sortBy) {
+    const encodedSortBy = encodeURIComponent(sortBy)
+    prevHref += `&sortBy=${encodedSortBy}`
+    nextHref += `&sortBy=${encodedSortBy}`
+  }
+
   if(schemes.length) {
     const schemesPart = `&schemes=${schemes.join('&schemes=')}` 
     prevHref += schemesPart
@@ -42,7 +49,7 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
       "aria-label": "Go to previous page of results: " + `${requestedPage - 1} of ${totalPages} `
     }
   }
-  
+
   const next = totalPages <= 1 || totalPages === requestedPage ? null : {
     href: nextHref,
     labelText: `${requestedPage + 1} of ${totalPages} `,
@@ -92,7 +99,7 @@ const createModel = async (query: any, error?: any) => {
   return {
     ...defaultReturn,
     searchString,
-    ...getPaginationAttributes(total, requestedPage, searchString, schemes),
+    ...getPaginationAttributes(total, requestedPage, searchString, schemes, sortBy),
     results: matches,
     total,
     currentPage: requestedPage,

@@ -259,7 +259,7 @@ describe('GET /results route with sortBy parameters return results page', () => 
   test('sortBy selection box is present on the results page', async() => {
     res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString,sortBy }))
     $ = cheerio.load(res.payload)
-    const selection = $('#sortBy')
+    const selection = $('#sortBySelection')
     expect(selection).toBeDefined()
     expect(selection.text()).toContain('Relevance')
     expect(selection.text()).toContain('Payee name')

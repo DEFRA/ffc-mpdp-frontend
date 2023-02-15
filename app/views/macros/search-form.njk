@@ -6,6 +6,7 @@
     {% for input in model.hiddenInputs %}
       <input type="hidden" id="{{input.id}}" name="{{input.name}}" value="{{input.value}}"/>
     {% endfor %}
+    <input type="hidden" id="sortBy" name="sortBy" value="score"/>
     <label class="govuk-label {{'govuk-visually-hidden' if model.labelHTML === undefined}}" for="{{model.id}}">{{model.labelHTML|safe if model.labelHTML else 'Search'}}</label>
     <p class="{{'govuk-visually-hidden' if model.hintHTML === undefined}}">{{model.hintHTML|safe}}</p>
     {% if model.errorList %}

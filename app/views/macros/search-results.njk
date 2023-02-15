@@ -8,13 +8,10 @@
           <p></P>
         </div>
         <div class="govuk-grid-column-one-half">
-          <form method="get" action="/results">
-            <input type="hidden" id="searchString" name="searchString" value="{{model.searchString}}">
-            <input type="hidden" id="pageId" name="pageId" value="{{model.page}}">
-            {% from "govuk/components/select/macro.njk" import govukSelect %}
-            {{ govukSelect({
-              id: "sortBy",
-              name: "sortBy",
+          {% from "govuk/components/select/macro.njk" import govukSelect %}
+          {{ govukSelect({
+              id: "sortBySelection",
+              name: "sortBySelection",
               href: '/results',
               value: model.sortBy,
               label: {
@@ -25,7 +22,7 @@
               },
               attributes: {
                 "style": "min-width:8em",
-                "onchange":"this.form.submit()"
+                "onchange": "document.forms[0].sortBy.value=this.value; document.forms[0].submit();"
               },
               items: [
                 {
@@ -49,8 +46,7 @@
                   text: "County council"
                 }
               ]
-            }) }}
-          </form>
+          }) }}
       </div>
     </div>
 
