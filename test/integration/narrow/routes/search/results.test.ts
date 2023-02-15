@@ -267,6 +267,11 @@ describe('GET /results route with schemes parameter works', () => {
 
     const filteredData = mockData.filter(x => x.scheme === schemes)
     const $ = cheerio.load(res.payload)
+
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(filteredData.find(x => x.payee_name === $(elem).text()))
+    })
+
     expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
   })
 
@@ -286,6 +291,11 @@ describe('GET /results route with schemes parameter works', () => {
 
     const dataMatchingSchemes = mockData.filter(x => schemes.includes(x.scheme))
     const $ = cheerio.load(res.payload)
+    
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(dataMatchingSchemes.find(x => x.payee_name === $(elem).text()))
+    })
+    
     expect($('#totalResults').text()).toMatch(`${dataMatchingSchemes.length} results`)
   })
 })
