@@ -1,7 +1,8 @@
 import config from '../../../app/config'
 import { 
     getReadableAmount, 
-    getSchemeStaticData, 
+    getSchemeStaticData,
+    getAllSchemesNames,
     getUrlParams, 
     getPageTitle, 
     removeTrailingSlash
@@ -44,6 +45,11 @@ describe('helper module tests', () => {
     test('getSchemeStaticData returns correct static data', () => {
         const schemeData = getSchemeStaticData('Farming Equipment and Technology Fund')
         expect(schemeData).toBeDefined()
+    })
+
+    test('getAllSchemesNames returns all scheme names', () => {
+        const allSchemeNames = getAllSchemesNames()
+        expect(allSchemeNames.length).toBe(2)
     })
 
     test('getUrlParams returns correct value', () => {
