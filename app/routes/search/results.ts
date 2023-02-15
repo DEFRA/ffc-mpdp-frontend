@@ -3,22 +3,34 @@ import Joi from "joi";
 
 import config from '../../config'
 import { getPaymentData } from '../../backend/api'
+import { amounts } from '../../data/filters/amounts'
 
 import { getReadableAmount, getAllSchemesNames } from '../../utils/helper'
 
 const getFilters = (query: any) => {
   const schemesLength = !query.schemes? 0 : (typeof query.schemes === 'string'? 1: query.schemes?.length)
-  
+  const amountsLength = !query.amounts? 0 : (typeof query.amounts === 'string'? 1: query.amounts?.length)
+  const attributes = {
+    onchange: "this.form.submit()"
+  }
+
   return {
     schemes: getAllSchemesNames().map(x => ({ 
       text: x, 
       value: x,
       checked: query.schemes?.includes(x),
-      attributes: {
-        onchange: "this.form.submit()"
-      }
+      attributes
     })),
-    selected: schemesLength
+    amounts: amounts.map(({text, value}) => ({
+      text,
+      value,
+      checked: (typeof query.amounts === 'string')? query.amounts === value : query.amounts?.includes(value),
+      attributes
+    })),
+    selected: {
+      schemesLength,
+      amountsLength
+    }
   }
 }
 
@@ -87,7 +99,8 @@ const createModel = async (query: any, error?: any) => {
   const requestedPage = query.page
   
   const schemes = typeof query.schemes === 'string' ? [query.schemes]: query.schemes
-  const { matches, total } = await performSearch(searchString, requestedPage, { schemes })
+  const amounts = typeof query.amounts === 'string' ? [query.amounts]: query.amounts
+  const { matches, total } = await performSearch(searchString, requestedPage, { schemes, amounts })
   
   return {
     ...defaultReturn,
@@ -111,7 +124,8 @@ module.exports = [
           searchString: Joi.string().trim().min(1).required(),
           page: Joi.number().default(1),
           pageId: Joi.string().default(''),
-          schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([])
+          schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
+          amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([])
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           if(!(request.query as any).searchString.trim()) {

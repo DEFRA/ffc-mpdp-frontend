@@ -15,11 +15,29 @@
 		<details open>
 		<summary>Scheme</summary>
 		<div class="description">
-			<div id='schemeSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected}} Selected</div>
+			<div id='schemeSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.schemesLength}} Selected</div>
 			{{ govukCheckboxes({
 					name: "schemes",
 					classes: "govuk-checkboxes--small",
 					items: model.filters.schemes,
+					attributes: {
+						 "onchange": "this.form.submit()"
+					}
+				}) 
+			}}
+		</div>
+		</details>
+	</div>
+	<hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
+	<div style='margin: 15px;'>
+		<details open>
+		<summary>Amount</summary>
+		<div class="description">
+			<div id='amountSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.amountsLength}} Selected</div>
+			{{ govukCheckboxes({
+					name: "amounts",
+					classes: "govuk-checkboxes--small",
+					items: model.filters.amounts,
 					attributes: {
 						 "onchange": "this.form.submit()"
 					}
