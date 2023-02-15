@@ -96,7 +96,7 @@ const createModel = async (query: any, error?: any) => {
     results: matches,
     total,
     currentPage: requestedPage,
-    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`,
+    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`
   }
 }
 
