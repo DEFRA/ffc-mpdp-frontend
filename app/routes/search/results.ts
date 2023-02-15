@@ -34,16 +34,19 @@ const getFilters = (query: any) => {
   }
 }
 
-const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string, schemes: []) => {
+const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string, filterBy: any) => {
   const encodedSearchString = encodeURIComponent(searchString)
   const totalPages = Math.ceil(totalResults / config.search.limit)
 
   let prevHref = `/results?searchString=${encodedSearchString}&page=${requestedPage - 1}`
   let nextHref = `/results?searchString=${encodedSearchString}&page=${requestedPage + 1}`
-  if(schemes.length) {
-    const schemesPart = `&schemes=${schemes.join('&schemes=')}` 
-    prevHref += schemesPart
-    nextHref += schemesPart 
+  for(let key in filterBy) {
+    if(filterBy[key].length) {
+      const urlParam = `&${key}=`
+      const urlPart = `${urlParam}${filterBy[key].join(urlParam)}`
+      prevHref += urlPart
+      nextHref += urlPart 
+    }
   }
   
   const previous = requestedPage <= 1 ? null : {
@@ -98,14 +101,17 @@ const createModel = async (query: any, error?: any) => {
   const searchString = decodeURIComponent(query.searchString)
   const requestedPage = query.page
   
-  const schemes = typeof query.schemes === 'string' ? [query.schemes]: query.schemes
-  const amounts = typeof query.amounts === 'string' ? [query.amounts]: query.amounts
-  const { matches, total } = await performSearch(searchString, requestedPage, { schemes, amounts })
+  const filterBy = {
+    schemes: typeof query.schemes === 'string' ? [query.schemes]: query.schemes,
+    amounts: typeof query.amounts === 'string' ? [query.amounts]: query.amounts
+  }
+
+  const { matches, total } = await performSearch(searchString, requestedPage, filterBy)
   
   return {
     ...defaultReturn,
     searchString,
-    ...getPaginationAttributes(total, requestedPage, searchString, schemes),
+    ...getPaginationAttributes(total, requestedPage, searchString, filterBy),
     results: matches,
     total,
     currentPage: requestedPage,

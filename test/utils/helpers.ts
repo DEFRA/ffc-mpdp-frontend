@@ -1,10 +1,17 @@
 import dummyResults from '../data/mockResults'
 import mockDetails from '../data/mockDetails'
 
-export const getOptions = (page: string, method: string = 'GET', params: any = {}) => {
+export const getOptions = (page: string, method: string = 'GET', params: any = {}, listParams: {[key: string]: string[]} = {}) => {
+	const urlParams = new URLSearchParams(params);
+	for(let key in listParams) {
+		listParams[key].forEach(value => {
+			urlParams.append(key, value)
+		})
+	}
+
 	return {
 		method,
-		url: `/${page}?${new URLSearchParams(params).toString()}`
+		url: `/${page}?${urlParams.toString()}`
 	}
 }
 
@@ -14,9 +21,8 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy
 	let searchResults = dummyResults.filter(x =>
 		x.payee_name.toLowerCase().includes(searchQuery.toLowerCase()))
 
-	if(filterBy.schemes && filterBy.schemes.length) {
-		searchResults = searchResults.filter(x => filterBy.schemes.includes(x.scheme))
-	}
+	searchResults = filterBySchemes(searchResults, filterBy.schemes)
+	searchResults = filterByAmounts(searchResults, filterBy.amounts)
 
 	const results = removeFilterFields(searchResults)
 	
@@ -32,6 +38,40 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy
 		total: results.length
 	}
 }
+
+export const filterBySchemes = (results: any, schemes: string[]) => {
+	if (!schemes || !schemes.length) {
+	  return results
+	}
+	
+	return results.filter((x: any) => schemes.includes(x.scheme))
+  }
+
+export const filterByAmounts = (results: any, amounts: string[]) => {
+	if(!amounts || !amounts.length) {
+	  return results
+	}
+  
+	const amountRanges = amounts.map(x => {
+	  const [_from, _to] = x.split('-')
+	  return { from: parseFloat(_from), to: parseFloat(_to)}
+	})
+  
+	return results.filter((x: any) => {
+	  return amountRanges.some(({ from, to }) => {
+		const totalAmount = parseFloat(x.amount)
+  
+		if(!to) {
+		  return totalAmount >= from
+		}
+		else if(totalAmount >= from && totalAmount <= to) {
+		  return true;
+		}
+  
+		return false
+	  })
+	})
+  }
 
 export const mockGetPaymentDetails = (payee_name: string) => 
 	mockDetails.find(x => x.payee_name.toLowerCase().includes(payee_name.toLowerCase()))
