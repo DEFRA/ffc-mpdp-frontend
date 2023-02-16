@@ -65,7 +65,7 @@
               <dd class='toggle-details grid-column-three-one govuk-!-margin-left-6 mpdp-grid-column-1-span-2'>
                 <dl class='govuk-!-margin-0 grid-column-three-one mpdp-dl-list mpdp-grid-column-1-span-2'>
                   {% for schemeType in scheme.schemeTypes %}
-                    <dt class='mpdp-list-marker-small'><span class='mpdp-details-summary'>{{schemeType.name}} {%if schemeType.activityLevel %} ({{schemeType.activityLevel}} level) {% endif %}</span></dt>
+                    <dt class='mpdp-list-marker-small'><span class='mpdp-details-summary'>{{schemeType.name}}</span></dt>
                     <dd class='mpdp-text-align-right'>£{{schemeType.amount}}</dd>
                     {% if not loop.last %}
                       <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey mpdp-grid-column-1-span-2 mpdp-hr" role="presentation">

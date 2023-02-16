@@ -13,19 +13,26 @@ export const get = async (url: string) => {
 	}
 }
 
-export const getPaymentData = async (searchString: string, offset: number, limit: number = config.search.limit) => {
-	const url = getUrlParams('paymentdata', {
+export const post = async (url: string, payload: any) => { 
+	try {
+		return (await wreck.post(`${config.backendEndpoint}${url}`, { payload }))
+	}
+	catch (err) {
+		console.error(`Encountered error while calling the backend with url: ${url}`, err)
+		return null
+	}
+}
+
+export const getPaymentData = async (searchString: string, offset: number, filterBy: any, limit: number = config.search.limit) => {
+	const response: any = await post('/paymentdata', {
 		searchString,
 		limit,
-		offset
+		offset,
+		filterBy
 	})
 
-	const response: any = await get(url)
 	if(!response) {
-		return {
-			results: [],
-			total: 0
-		}
+		return { results: [], total: 0 }
 	}
 
 	const result = JSON.parse(response.payload)

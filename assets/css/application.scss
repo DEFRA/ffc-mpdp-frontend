@@ -192,6 +192,7 @@ button.mpdp-link-btn {
   box-shadow: none;
   height: 40px;
   margin-bottom: govuk-spacing(0) !important;
+  overflow-wrap: normal !important;
 }
 
 @media (max-width: 640px) {
