@@ -75,7 +75,10 @@ const performSearch = async (searchString: string, requestedPage: number, filter
 
 const createModel = async (query: any, error?: any) => {
   const defaultReturn = {
-    hiddenInputs: [{ id: 'pageId', name: 'pageId', value: 'results' }],
+    hiddenInputs: [
+      { id: 'pageId', name: 'pageId', value: 'results' },
+      { id: 'sortBy', name: 'sortBy', value: 'score' }
+    ],
     filters: getFilters(query)
   }
   

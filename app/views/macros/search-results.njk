@@ -12,7 +12,6 @@
           {{ govukSelect({
               id: "sortBySelection",
               name: "sortBySelection",
-              href: '/results',
               value: model.sortBy,
               label: {
                 text: "Sort by",
@@ -22,7 +21,7 @@
               },
               attributes: {
                 "style": "min-width:8em",
-                "onchange": "document.forms[0].sortBy.value=this.value; document.forms[0].submit();"
+                "onchange": "const searchForm = document.getElementById('searchForm'); searchForm.sortBy.value=this.value; searchForm.submit()"
               },
               items: [
                 {
