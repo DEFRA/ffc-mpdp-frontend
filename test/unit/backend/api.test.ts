@@ -52,14 +52,15 @@ describe('Backend API tests', () => {
 
         const searchString = '__TEST_STRING__'
         const offset = 0
+        const sortBy = 'score'
         const filterBy = { schemes: [] }
-        const res = await getPaymentData(searchString, offset, filterBy)
+        const res = await getPaymentData(searchString, offset, filterBy, sortBy)
         expect(res).toMatchObject({
 			results: [],
 			total: 0
 		})
 
-        expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: {filterBy, limit: 20, offset, searchString } })
+        expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: {filterBy, limit: 20, offset, searchString ,sortBy} })
     })
 
     test('getPaymentData returns results from the payload in the right format', async () => {
@@ -81,13 +82,14 @@ describe('Backend API tests', () => {
         const searchString = '__TEST_STRING__'
         const offset = 0
         const filterBy = { schemes: [] }
-        const res = await getPaymentData(searchString, offset, filterBy)
+        const sortBy = 'score'
+        const res = await getPaymentData(searchString, offset, filterBy, sortBy)
         expect(res).toMatchObject({
 			results: mockData,
 			total: mockData.length
 		})
 
-        expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: {filterBy, limit: 20, offset, searchString } })
+        expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: {filterBy, limit: 20, offset, searchString, sortBy } })
     })
 
     test('getPaymentDetails returns null if no response is received', async () => {
