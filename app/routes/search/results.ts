@@ -34,7 +34,7 @@ const getFilters = (query: any) => {
   }
 }
 
-const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string, filterBy: any) => {
+const getPaginationAttributes = (totalResults: number, requestedPage: number, searchString: string, filterBy: any, sortBy: string) => {
   const encodedSearchString = encodeURIComponent(searchString)
   const totalPages = Math.ceil(totalResults / config.search.limit)
 
@@ -48,6 +48,12 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
       nextHref += urlPart 
     }
   }
+
+  if(sortBy) {
+    const encodedSortBy = encodeURIComponent(sortBy)
+    prevHref += `&sortBy=${encodedSortBy}`
+    nextHref += `&sortBy=${encodedSortBy}`
+  }
   
   const previous = requestedPage <= 1 ? null : {
     href: prevHref,
@@ -57,7 +63,7 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
       "aria-label": "Go to previous page of results: " + `${requestedPage - 1} of ${totalPages} `
     }
   }
-  
+
   const next = totalPages <= 1 || totalPages === requestedPage ? null : {
     href: nextHref,
     labelText: `${requestedPage + 1} of ${totalPages} `,
@@ -70,9 +76,9 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
   return { previous, next }
 }
 
-const performSearch = async (searchString: string, requestedPage: number, filterBy: any) => {
+const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
   const offset = (requestedPage - 1) * config.search.limit
-  const { results, total } = await getPaymentData(searchString, offset, filterBy)
+  const { results, total } = await getPaymentData(searchString, offset, filterBy, sortBy)
 
   const matches = results.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
   return {
@@ -83,7 +89,10 @@ const performSearch = async (searchString: string, requestedPage: number, filter
 
 const createModel = async (query: any, error?: any) => {
   const defaultReturn = {
-    hiddenInputs: [{ id: 'pageId', name: 'pageId', value: 'results' }],
+    hiddenInputs: [
+      { id: 'pageId', name: 'pageId', value: 'results' },
+      { id: 'sortBy', name: 'sortBy', value: 'score' }
+    ],
     filters: getFilters(query)
   }
   
@@ -99,23 +108,24 @@ const createModel = async (query: any, error?: any) => {
   }
 
   const searchString = decodeURIComponent(query.searchString)
+  const sortBy = decodeURIComponent(query.sortBy)
   const requestedPage = query.page
-  
   const filterBy = {
     schemes: typeof query.schemes === 'string' ? [query.schemes]: query.schemes,
     amounts: typeof query.amounts === 'string' ? [query.amounts]: query.amounts
   }
 
-  const { matches, total } = await performSearch(searchString, requestedPage, filterBy)
+  const { matches, total } = await performSearch(searchString, requestedPage, filterBy, sortBy)
   
   return {
     ...defaultReturn,
     searchString,
-    ...getPaginationAttributes(total, requestedPage, searchString, filterBy),
+    ...getPaginationAttributes(total, requestedPage, searchString, filterBy, sortBy),
     results: matches,
     total,
     currentPage: requestedPage,
-    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`
+    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`,
+    sortBy
   }
 }
 
@@ -131,7 +141,8 @@ module.exports = [
           page: Joi.number().default(1),
           pageId: Joi.string().default(''),
           schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
-          amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([])
+          amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
+          sortBy: Joi.string().trim().optional().default('score')
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           if(!(request.query as any).searchString.trim()) {

@@ -1,5 +1,6 @@
 import dummyResults from '../data/mockResults'
 import mockDetails from '../data/mockDetails'
+import { object } from 'joi'
 
 export const getOptions = (page: string, method: string = 'GET', params: any = {}, listParams: {[key: string]: string[]} = {}) => {
 	const urlParams = new URLSearchParams(params);
@@ -17,14 +18,14 @@ export const getOptions = (page: string, method: string = 'GET', params: any = {
 
 const removeFilterFields = (searchResults: typeof dummyResults) => searchResults.map(({scheme, ...rest}) => rest)
 
-export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy: any, limit: number = 10) => {
+export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy: any, sortBy: string, limit: number = 10) => {
 	let searchResults = dummyResults.filter(x =>
 		x.payee_name.toLowerCase().includes(searchQuery.toLowerCase()))
 
 	searchResults = filterBySchemes(searchResults, filterBy.schemes)
 	searchResults = filterByAmounts(searchResults, filterBy.amounts)
 
-	const results = removeFilterFields(searchResults)
+	let results = removeFilterFields(searchResults)
 	
 	if(!results) {
 		return {
@@ -33,6 +34,12 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy
 		}
 	}
 
+	// Sort the results by the sortBy field
+	const keys = ['payee_name', 'part_postcode', 'town', 'county_council']
+  	if (keys.includes(sortBy)) {
+		results = results.sort((r1, r2) => r1[sortBy as keyof typeof object] > r2[sortBy as keyof typeof results[0]] ? 1 : -1)
+  	}
+	// split the results into pages
 	return { 
 		results: results.slice(offset, offset + limit),
 		total: results.length
