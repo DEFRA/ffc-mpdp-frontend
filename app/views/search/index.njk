@@ -4,6 +4,8 @@
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
 {% from "./macros/related-content.njk"                   import relatedContent %}
 
+{% block pageTitle %}{%if errorList %} Error: {%endif%} {{ pageTitle }} - {{ serviceName }} - GOV.UK{% endblock %}
+
 {% block content %}
 {% if errorList %}
   {{govukErrorSummary ({

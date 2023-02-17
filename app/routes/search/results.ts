@@ -74,6 +74,7 @@ const performSearch = async (searchString: string, requestedPage: number, filter
 }
 
 const createModel = async (query: any, error?: any) => {
+  const searchString = decodeURIComponent(query.searchString)
   const defaultReturn = {
     hiddenInputs: [
       { id: 'pageId', name: 'pageId', value: 'results' },
@@ -89,11 +90,11 @@ const createModel = async (query: any, error?: any) => {
         text: "Enter a search term",
         href: "#resultsSearchInput"
       }],
-      total: 0 
+      headingTitle: `Results for ‘${searchString}’`,
+      total: 0
     }
   }
 
-  const searchString = decodeURIComponent(query.searchString)
   const requestedPage = query.page
   const sortBy = decodeURIComponent(query.sortBy)
   const schemes = typeof query.schemes === 'string' ? [query.schemes]: query.schemes
