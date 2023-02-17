@@ -1,6 +1,7 @@
 {% extends './layouts/layout.njk' %}
 
-{% from "./macros/search-box.njk"                       import searchBox %}
+{% from "govuk/components/checkboxes/macro.njk"         import govukCheckboxes %}
+{% from "./macros/search-form.njk"                       import searchForm %}
 {% from "./macros/search-results.njk"                   import searchResults %}
 {% from "govuk/components/pagination/macro.njk"         import govukPagination %}
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
@@ -30,18 +31,19 @@
   <p>Check results or search again.</p>
 
   <div class="govuk-grid-row">    
-    <div class="govuk-grid-column-one-third" style="padding-top: 15px">
-      {{ searchBox({
+    <div class="govuk-grid-column-one-third">
+      {{ searchForm({
         inputClass: 'govuk-input',
         id: 'resultsSearchInput',
         name: 'searchString',
         inputmode: 'string',
         buttonText: 'Search',
         href: '/results',
-        labelText: 'Search',
+        labelHTML: 'Search',
         value: searchString,
         errorList: errorList,
-        pageId: 'results'
+        hiddenInputs: hiddenInputs,
+        filters: filters
       }) }}
     </div>
     <div class="govuk-grid-column-two-thirds">
@@ -49,7 +51,8 @@
         results: results,
         total: total,
         page: currentPage,
-        searchString: searchString
+        searchString: searchString,
+        sortBy: sortBy
       }) }}
 
      {{ govukPagination({

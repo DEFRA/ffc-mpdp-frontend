@@ -31,7 +31,6 @@ describe('GET /results route with query parameters return results page', () => {
   const searchString = 'Sons'
   let res: any
   let $: cheerio.CheerioAPI
-
   beforeEach(async () => {
     if(res) { return }
     
@@ -246,5 +245,147 @@ describe('Seach results page shows error message when searchString is empty', ()
 
   test('Page title contains error text', () => {
     expect($('title').text()).toContain('Error')
+  })
+})
+
+describe('GET /results route with sortBy parameters return results page', () => {
+  const searchString = 'Sons'
+  let res: any
+  let $: cheerio.CheerioAPI
+  const sortBy='score'
+
+  test('/results returns status 200 with sortBy parameter', async () => {
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString,sortBy }))
+    $ = cheerio.load(res.payload)
+    expect(res.statusCode).toBe(200)
+  })
+
+  test('sortBy selection box is present on the results page', async() => {
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString,sortBy }))
+    $ = cheerio.load(res.payload)
+    const selection = $('#sortBySelection')
+    expect(selection).toBeDefined()
+    expect(selection.text()).toContain('Relevance')
+    expect(selection.text()).toContain('Payee name')
+    expect(selection.text()).toContain('Part postcode')
+    expect(selection.text()).toContain('County council')
+  })
+
+  test('/results returns payment with 10 rows', async () => {
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString,sortBy }))
+    $ = cheerio.load(res.payload)
+    const resElements = $('.govuk-link.govuk-link--no-visited-state')
+    expect(resElements.length).toBe(10)
+  })
+
+  test('The result displayed is sorted by score', async () => {
+    const sortBy = 'score'
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString, sortBy }))
+    $ = cheerio.load(res.payload)
+
+    const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+    expect(resElements.length).toBe(10)
+    const data=resElements.first().text()
+    expect(data).toContain('T R Carter & Sons 1')
+  })
+
+  test('The result displayed is sorted by payee_name', async () => {
+    const sortBy = 'payee_name'
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString, sortBy }))
+    $ = cheerio.load(res.payload)
+
+    const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+    expect(resElements.length).toBe(10)
+    const data=resElements.first().text()
+    expect(data).toContain('Adan Brandt Sons')
+  })
+
+  test('The result displayed is sorted by town', async () => {
+    const sortBy = 'town'
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString, sortBy }))
+    $ = cheerio.load(res.payload)
+
+    const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+    expect(resElements.length).toBe(10)
+    const data=resElements.first().text()
+    expect(data).toContain('T R Carter & Sons 22')
+  })
+
+  test('The result displayed is sorted by town', async () => {
+    const sortBy = 'county_council'
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString, sortBy }))
+    $ = cheerio.load(res.payload)
+
+    const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+    expect(resElements.length).toBe(10)
+    const data=resElements.first().text()
+    expect(data).toContain('T R Carter & Sons 10')
+  })
+
+  test('The result displayed is sorted by score when no sortBy passed', async () => {
+    const sortBy = 'score'
+    res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
+    $ = cheerio.load(res.payload)
+
+    const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+    expect(resElements.length).toBe(10)
+    const data=resElements.first().text()
+    expect(data).toContain('T R Carter & Sons 1')
+  })
+
+})
+
+describe('GET /results route with schemes parameter works', () => {
+  const searchString = 'Sons'
+
+  afterAll(() => {
+    jest.resetAllMocks()
+  })
+
+  test('Get /result works with single scheme in query params', async () => {
+    const schemes = 'Sustainable Farming Incentive pilot' 
+    const res = await global.__SERVER__.inject(
+      getOptions(
+        'results',
+        'GET',
+        { 
+          searchString, 
+          schemes
+        }
+      )
+    )
+
+    const filteredData = mockData.filter(x => x.scheme === schemes)
+    const $ = cheerio.load(res.payload)
+
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(filteredData.find(x => x.payee_name === $(elem).text()))
+    })
+
+    expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
+  })
+
+  test('Get /results work with multiple schemes in query params', async () => {
+    const schemes = ['Sustainable Farming Incentive pilot', 'Farming Equipment and Technology Fund']
+    const options = getOptions(
+      'results',
+      'GET',
+      { 
+        searchString, 
+        schemes: 'Sustainable Farming Incentive pilot'
+      }
+    )
+    options.url += '&schemes=Farming Equipment and Technology Fund'
+    
+    const res = await global.__SERVER__.inject(options)
+
+    const dataMatchingSchemes = mockData.filter(x => schemes.includes(x.scheme))
+    const $ = cheerio.load(res.payload)
+    
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(dataMatchingSchemes.find(x => x.payee_name === $(elem).text()))
+    })
+    
+    expect($('#totalResults').text()).toMatch(`${dataMatchingSchemes.length} results`)
   })
 })
