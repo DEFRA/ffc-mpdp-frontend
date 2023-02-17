@@ -1,8 +1,10 @@
 {% extends './layouts/layout.njk' %}
 
-{% from "./macros/search-box.njk"                       import searchBox %}
+{% from "./macros/search-form.njk"                       import searchForm %}
 {% from "govuk/components/error-summary/macro.njk"      import govukErrorSummary %}
 {% from "./macros/related-content.njk"                   import relatedContent %}
+
+{% block pageTitle %}{%if errorList %} Error: {%endif%} {{ pageTitle }} - {{ serviceName }} - GOV.UK{% endblock %}
 
 {% block content %}
 {% if errorList %}
@@ -16,7 +18,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{pageTitle}}</h1>
 
-    {{ searchBox({
+    {{ searchForm({
       inputClass: 'govuk-input',
       id: 'searchInput',
       name: 'searchString',
@@ -24,7 +26,11 @@
       buttonText: 'Search',
       href: '/results',
       errorList: errorList,
-      pageId: 'index',
+      hiddenInputs: [{
+        id: 'pageId',
+        name: 'pageId',
+        value: 'index'
+      }],
       labelHTML: '<p>Enter either a name or a location</p>',
       hintHTML: '<span class="subtitle" id="searchHint">Example: Pine Grove Farm or Gloucestershire or GL55</span>',
       inputAttributes: "aria-describedby='searchHint'"

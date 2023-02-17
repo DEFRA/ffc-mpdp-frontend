@@ -83,6 +83,7 @@ describe('MPDP Search page test', () => {
 
     expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
     expect($('#search-input-error').text()).toContain('Enter a search term')
+    expect($('title').text()).toContain('Error')
     expectRelatedContent($)
   })
 })
