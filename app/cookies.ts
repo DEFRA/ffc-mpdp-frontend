@@ -13,7 +13,7 @@ export const getCurrentPolicy = (request: Request, h: ResponseToolkit) => {
 
 const createDefaultPolicy = (h: ResponseToolkit) => {
   const cookiesPolicy = { confirmed: false, essential: true, analytics: false }
-  h.state(cookieNameCookiePolicy, cookiesPolicy)
+  h.state(cookieNameCookiePolicy, cookiesPolicy, config.cookieConfig)
   return cookiesPolicy
 }
 
@@ -22,7 +22,7 @@ export const updatePolicy = (request: Request, h: ResponseToolkit, analytics: an
   cookiesPolicy.analytics = analytics
   cookiesPolicy.confirmed = true
 
-  h.state(cookieNameCookiePolicy, cookiesPolicy)
+  h.state(cookieNameCookiePolicy, cookiesPolicy, config.cookieConfig)
 
   if (!analytics) {
     removeAnalytics(request, h)
