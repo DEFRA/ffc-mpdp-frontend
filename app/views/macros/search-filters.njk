@@ -46,5 +46,23 @@
 		</div>
 		</details>
 	</div>
+	<hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
+	<div style='margin: 15px;'>
+		<details open>
+		<summary>County</summary>
+		<div class="description">
+			<div id='countiesSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.countiesLength}} Selected</div>
+			{{ govukCheckboxes({
+					name: "counties",
+					classes: "govuk-checkboxes--small",
+					items: model.filters.counties,
+					attributes: {
+						 "onchange": "this.form.submit()"
+					}
+				}) 
+			}}
+		</div>
+		</details>
+	</div>
 </div>
 {% endmacro %}

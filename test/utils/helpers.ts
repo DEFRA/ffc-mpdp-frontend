@@ -24,6 +24,7 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy
 
 	searchResults = filterBySchemes(searchResults, filterBy.schemes)
 	searchResults = filterByAmounts(searchResults, filterBy.amounts)
+	searchResults = filterByCounties(searchResults, filterBy.counties)
 
 	let results = removeFilterFields(searchResults)
 	
@@ -52,7 +53,7 @@ export const filterBySchemes = (results: any, schemes: string[]) => {
 	}
 	
 	return results.filter((x: any) => schemes.includes(x.scheme))
-  }
+}
 
 export const filterByAmounts = (results: any, amounts: string[]) => {
 	if(!amounts || !amounts.length) {
@@ -79,6 +80,14 @@ export const filterByAmounts = (results: any, amounts: string[]) => {
 	  })
 	})
   }
+
+export const filterByCounties = (results: any, counties: string[]) => {
+	if (!counties || !counties.length) {
+	  return results
+	}
+	
+	return results.filter((x: any) => counties.includes(x.county_council))
+}
 
 export const mockGetPaymentDetails = (payee_name: string) => 
 	mockDetails.find(x => x.payee_name.toLowerCase().includes(payee_name.toLowerCase()))

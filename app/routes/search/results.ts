@@ -4,12 +4,14 @@ import Joi from "joi";
 import config from '../../config'
 import { getPaymentData } from '../../backend/api'
 import { amounts } from '../../data/filters/amounts'
+import { counties } from '../../data/filters/counties'
 
 import { getReadableAmount, getAllSchemesNames } from '../../utils/helper'
 
 const getFilters = (query: any) => {
   const schemesLength = !query.schemes? 0 : (typeof query.schemes === 'string'? 1: query.schemes?.length)
   const amountsLength = !query.amounts? 0 : (typeof query.amounts === 'string'? 1: query.amounts?.length)
+  const countiesLength = !query.counties? 0 : (typeof query.counties === 'string'? 1: query.counties?.length)
   const attributes = {
     onchange: "this.form.submit()"
   }
@@ -27,9 +29,16 @@ const getFilters = (query: any) => {
       checked: (typeof query.amounts === 'string')? query.amounts === value : query.amounts?.includes(value),
       attributes
     })),
+    counties: counties.map((county) => ({
+      text: county,
+      value: county,
+      checked: (typeof query.counties === 'string')? query.counties === county : query.counties?.includes(county),
+      attributes
+    })),
     selected: {
       schemesLength,
-      amountsLength
+      amountsLength,
+      countiesLength
     }
   }
 }
@@ -113,7 +122,8 @@ const createModel = async (query: any, error?: any) => {
   const requestedPage = query.page
   const filterBy = {
     schemes: typeof query.schemes === 'string' ? [query.schemes]: query.schemes,
-    amounts: typeof query.amounts === 'string' ? [query.amounts]: query.amounts
+    amounts: typeof query.amounts === 'string' ? [query.amounts]: query.amounts,
+    counties: typeof query.counties === 'string' ? [query.counties]: query.counties
   }
 
   const { matches, total } = await performSearch(searchString, requestedPage, filterBy, sortBy)
@@ -143,6 +153,7 @@ module.exports = [
           pageId: Joi.string().default(''),
           schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
+          counties: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           sortBy: Joi.string().trim().optional().default('score')
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
