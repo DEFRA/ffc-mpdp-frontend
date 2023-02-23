@@ -12,7 +12,7 @@ export const getReadableAmount = (amount: number | undefined) => {
 	});
 }
 
-export const getSchemeStaticData = (schemeName: string) => schemeStaticData.find(x => x.name === schemeName)
+export const getSchemeStaticData = (schemeName: string) => schemeStaticData.find(x => x.name.toLowerCase() === schemeName.toLowerCase())
 
 export const getAllSchemesNames = () => schemeStaticData.map(x => x.name)
 
