@@ -1,4 +1,3 @@
-import config from '../../../../../app/config'
 import * as cheerio from 'cheerio'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { expectFooter } from '../../../../utils/footer-expects'
@@ -16,7 +15,7 @@ describe('MPDP layout test', () => {
     const button = $('.govuk-main-wrapper .govuk-button')
     expect(button.attr('href')).toMatch('/search')
     expect(button.text()).toMatch('Start now')
-    expect($('title').text()).toEqual(config.serviceName)
+    expect($('title').text()).toMatch(`${getPageTitle('/')} - GOV.UK`)
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)

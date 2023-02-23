@@ -22,8 +22,7 @@ export type Summary = {
       total?: string,
       schemeTypes: [{
         name: string,
-        amount?: string,
-        activityLevel: string
+        amount?: string
       }]
     }] | any[]
 }
@@ -38,6 +37,5 @@ export type Scheme = {
 
 export type SchemeDetail = {
   name: string,
-  activityLevel: string | null,
   amount: string,
 }

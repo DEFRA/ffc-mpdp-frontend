@@ -16,9 +16,12 @@
 {% from "govuk/components/table/macro.njk"               import govukTable %}
 {% from "govuk/components/warning-text/macro.njk"        import govukWarningText %}
 
-{% block pageTitle %}{{ serviceName }} - GOV.UK{% endblock %}
+{% block pageTitle %}{%if pageTitle and pageTitle != serviceName %} {{pageTitle}} - {%endif%} {{serviceName }} - GOV.UK{% endblock %}
 
 {% block head %}
+  {% if cookiesPolicy.analytics %}
+    {% include "../tag-manager/_head-content.njk" %}
+  {% endif %}
   <!--[if !IE 8]><!-->
   <% htmlWebpackPlugin.files.css.forEach(file => { %>
     <link href="<%= file %>" rel="stylesheet">
@@ -48,6 +51,16 @@
   </div>
 {% endblock %}
 
+{% block bodyStart %}
+  {% if not cookiesPolicy.confirmed %}
+    {% include "../cookies/cookie-banner.njk" %}
+  {% endif %}
+
+  {% if cookiesPolicy.analytics %}
+    {% include "../tag-manager/_body-content.njk" %}
+  {% endif %}
+{% endblock %}
+
 {% block footer %}
   {{ govukFooter({
     meta: {
@@ -65,14 +78,9 @@
           text: "Accessibility"
         }
       ],
-      html: '<h2 class="govuk-visually-hidden">Support links</h2>
-            <ul class="govuk-footer__inline-list">
-              <li class="govuk-footer__inline-list-item">
-                Built by the <a class="govuk-footer__link" href="https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs" target="_blank" rel="noopener noreferrer">
+      html: 'Built by the <a class="govuk-footer__link" href="https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs" target="_blank" rel="noopener noreferrer">
                   Department for Environment, Food & Rural Affairs
-                </a>
-              </li>
-            </ul>'
+                </a>'
     }
   }) }}
 {% endblock %}

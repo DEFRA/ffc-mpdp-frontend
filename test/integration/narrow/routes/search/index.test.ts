@@ -4,6 +4,8 @@ import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
 import { getOptions } from '../../../../utils/helpers'
 import { getPageTitle } from '../../../../../app/utils/helper'
+import { expectTitle } from '../../../../utils/title-expect'
+import { expectRelatedContent } from '../../../../utils/related-content-expects'
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: () => ({
@@ -14,12 +16,16 @@ jest.mock('../../../../../app/backend/api', () => ({
 
 describe('MPDP Search page test', () => {
   const path = 'search'
+  const pageTitle = getPageTitle(`/${path}`);
+
   test(`GET /${path} route returns search landing page when no query parameters are sent`, async () => {
     const res = await global.__SERVER__.inject(getOptions(path))
 
     expect(res.statusCode).toBe(200)
     const $ = cheerio.load(res.payload)
-    expect($('h1').text()).toEqual(getPageTitle(`/${path}`))
+    
+    expect($('h1').text()).toEqual(pageTitle)
+    expectTitle($, pageTitle)
 
     const button = $('.govuk-button')
     expect(button).toBeDefined()
@@ -36,6 +42,7 @@ describe('MPDP Search page test', () => {
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)
+    expectRelatedContent($)
   })
 
   test('GET /results route returns results page', async () => {
@@ -49,7 +56,7 @@ describe('MPDP Search page test', () => {
       `We found no results for ‘${searchString}’`
     )
 
-    const searchBox = $('#searchInput')
+    const searchBox = $('#resultsSearchInput')
     expect(searchBox).toBeDefined()
     expect(searchBox.val()).toMatch(searchString)
 
@@ -68,13 +75,15 @@ describe('MPDP Search page test', () => {
   
     expect(res.statusCode).toBe(400)
     const $ = cheerio.load(res.payload)
-    expect($('h1').text()).toEqual(getPageTitle(`/${path}`))
+    expect($('h1').text()).toEqual(pageTitle)
     const errorSummary = $('#error-summary-title')
     expect(errorSummary).toBeDefined()
     expect(errorSummary.text()).toContain('There is a problem')
-    expect($('#searchInput')).toBeDefined()
+    expect($('#resultsSearchInput')).toBeDefined()
 
     expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
     expect($('#search-input-error').text()).toContain('Enter a search term')
+    expect($('title').text()).toContain('Error')
+    expectRelatedContent($)
   })
 })
