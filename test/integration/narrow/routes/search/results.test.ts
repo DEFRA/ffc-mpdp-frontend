@@ -2,7 +2,7 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
-import { getOptions, mockGetPaymentData } from '../../../../utils/helpers'
+import { getOptions, mockGetPaymentData, filterByAmounts, filterBySchemes } from '../../../../utils/helpers'
 import mockData from '../../../../data/mockResults'
 import config from '../../../../../app/config'
 import { expectTitle } from '../../../../utils/title-expect'
@@ -370,12 +370,9 @@ describe('GET /results route with schemes parameter works', () => {
     const options = getOptions(
       'results',
       'GET',
-      { 
-        searchString, 
-        schemes: 'Sustainable Farming Incentive pilot'
-      }
+      { searchString },
+      { schemes }
     )
-    options.url += '&schemes=Farming Equipment and Technology Fund'
     
     const res = await global.__SERVER__.inject(options)
 
@@ -387,5 +384,64 @@ describe('GET /results route with schemes parameter works', () => {
     })
     
     expect($('#totalResults').text()).toMatch(`${dataMatchingSchemes.length} results`)
+  })
+})
+
+describe('GET /results route with amounts parameter works', () => {
+  const searchString = 'Sons'
+
+  afterAll(() => {
+    jest.resetAllMocks()
+  })
+
+  test('Get /result works with single amount in query params', async () => {
+    const schemes = 'Sustainable Farming Incentive pilot'
+    const amounts = '10000-14999'
+    const res = await global.__SERVER__.inject(
+      getOptions(
+        'results',
+        'GET',
+        { 
+          searchString, 
+          schemes,
+          amounts
+        }
+      )
+    )
+
+    let filteredData = filterBySchemes(mockData, [schemes])
+    filteredData = filterByAmounts(filteredData, [amounts])
+
+    const $ = cheerio.load(res.payload)
+
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(filteredData.find((x: any) => x.payee_name === $(elem).text()))
+    })
+
+    expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
+  })
+
+  test('Get /results work with multiple amounts in query params', async () => {
+    const schemes = ['Sustainable Farming Incentive pilot', 'Farming Equipment and Technology Fund']
+    const amounts = ['10000-14999', '30000-']
+    const options = getOptions(
+      'results',
+      'GET',
+      { searchString },
+      { schemes, amounts }
+    )
+    
+    const res = await global.__SERVER__.inject(options)
+
+    let dataMatchingSchemesAndAmounts = filterBySchemes(mockData, schemes)
+    dataMatchingSchemesAndAmounts = filterByAmounts(dataMatchingSchemesAndAmounts, amounts)
+    console.log(dataMatchingSchemesAndAmounts.length)
+    const $ = cheerio.load(res.payload)
+    
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(dataMatchingSchemesAndAmounts.find((x: any) => x.payee_name === $(elem).text()))
+    })
+    
+    expect($('#totalResults').text()).toMatch(`${dataMatchingSchemesAndAmounts.length} results`)
   })
 })

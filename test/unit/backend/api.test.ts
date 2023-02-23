@@ -89,7 +89,7 @@ describe('Backend API tests', () => {
 			total: mockData.length
 		})
 
-        expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: {filterBy, limit: 20, offset, searchString, sortBy } })
+        expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: { filterBy, limit: 20, offset, searchString, sortBy } })
     })
 
     test('getPaymentDetails returns null if no response is received', async () => {
