@@ -47,6 +47,11 @@ describe('helper module tests', () => {
         expect(schemeData).toBeDefined()
     })
 
+    test('getSchemeStaticData performs case insensitive search', () => {
+        const schemeData = getSchemeStaticData('Farming Equipment and technology fund')
+        expect(schemeData?.name).toEqual('Farming Equipment and Technology Fund')
+    })
+
     test('getAllSchemesNames returns all scheme names', () => {
         const allSchemeNames = getAllSchemesNames()
         expect(allSchemeNames.length).toBe(2)
