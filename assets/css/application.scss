@@ -234,3 +234,36 @@ button.mpdp-link-btn {
 .mpdp-no-bullet {
   list-style-type: none !important;
 }
+
+.mpdp-tag-filter-cross {
+  font-size: 17px;
+  font-family: sans-serif;
+  cursor: default;
+}
+
+.tagFilterCross :hover {
+  font-weight: bold;
+}
+
+.mpdp-tag-filter-item { 
+  border: 1px solid black; 
+  border-radius: 5px; 
+  padding: 4px 10px;
+}
+
+.mpdp-float-left {
+  float: left;
+}
+
+.mpdp-display-inline {
+  display: inline;
+}
+
+.mpdp-display-inline-block {
+  display: inline-block;
+}
+
+.mpdp-display-grid {
+  display: grid;
+}
+

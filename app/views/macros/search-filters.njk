@@ -7,7 +7,14 @@
 			<span>Filters</span>
 		</div>
 		<div class="govuk-grid-column-one-half govuk-!-padding-right-0">
-			<button id='clearAllFilters' class='govuk-link mpdp-link-btn govuk-!-font-size-16 nojs-hidden' style='padding-top: 4px !important; float:right;' aria-live='polite'>Clear all filters</button>
+			<button 
+				id='clearAllFilters' 
+				class='govuk-link mpdp-link-btn govuk-!-font-size-16 nojs-hidden' 
+				style='padding-top: 4px !important; float:right;' 
+				aria-live='polite'
+				onClick='this.form.querySelectorAll("input[type=\"checkbox\"]").forEach(x => x.checked=false); this.form.submit();'>
+					Clear all filters
+				</button>
 		</div>
 	</div>
 		
