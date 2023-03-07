@@ -510,7 +510,3 @@ describe('GET /results route with counties parameter works', () => {
     
   })
 })
-
-describe('Filter tags test', () => {
-
-})
