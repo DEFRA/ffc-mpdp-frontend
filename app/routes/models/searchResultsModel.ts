@@ -24,7 +24,7 @@ const getTags = (query: any) => {
     Amount: amounts.reduce((acc, amount) => {
       if((typeof query.amounts === 'string')? query.amounts === amount.value : query.amounts?.includes(amount.value)) {
         const amountParts = amount.text.split('to')
-        const text = (amountParts[1] === undefined) ? amountParts[0] : `Between ${amountParts[0]} and ${amountParts[1]}`
+        const text = (amountParts[1] === undefined) ? amountParts[0] : `Between ${amountParts[0].trim()} and ${amountParts[1].trim()}`
         acc.push({
 					text,
 					value: amount.value

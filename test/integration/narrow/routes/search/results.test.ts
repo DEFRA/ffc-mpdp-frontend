@@ -6,6 +6,7 @@ import { getOptions, mockGetPaymentData, filterByAmounts, filterBySchemes, filte
 import mockData from '../../../../data/mockResults'
 import config from '../../../../../app/config'
 import { expectTitle } from '../../../../utils/title-expect'
+import { expectTags } from '../../../../utils/tags-expects'
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: mockGetPaymentData
@@ -343,7 +344,7 @@ describe('GET /results route with schemes parameter works', () => {
   })
 
   test('Get /result works with single scheme in query params', async () => {
-    const schemes = 'Sustainable Farming Incentive pilot' 
+    const schemes = 'Sustainable Farming Incentive Pilot' 
     const res = await global.__SERVER__.inject(
       getOptions(
         'results',
@@ -366,7 +367,7 @@ describe('GET /results route with schemes parameter works', () => {
   })
 
   test('Get /results work with multiple schemes in query params', async () => {
-    const schemes = ['Sustainable Farming Incentive pilot', 'Farming Equipment and Technology Fund']
+    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund']
     const options = getOptions(
       'results',
       'GET',
@@ -384,6 +385,7 @@ describe('GET /results route with schemes parameter works', () => {
     })
     
     expect($('#totalResults').text()).toMatch(`${dataMatchingSchemes.length} results`)
+    expectTags($, schemes)
   })
 })
 
@@ -395,7 +397,7 @@ describe('GET /results route with amounts parameter works', () => {
   })
 
   test('Get /result works with single amount in query params', async () => {
-    const schemes = 'Sustainable Farming Incentive pilot'
+    const schemes = 'Sustainable Farming Incentive Pilot'
     const amounts = '10000-14999'
     const res = await global.__SERVER__.inject(
       getOptions(
@@ -419,10 +421,11 @@ describe('GET /results route with amounts parameter works', () => {
     })
 
     expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
+    expectTags($, [schemes, 'Between £10,000 and £14,999'])
   })
 
   test('Get /results work with multiple amounts in query params', async () => {
-    const schemes = ['Sustainable Farming Incentive pilot', 'Farming Equipment and Technology Fund']
+    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund']
     const amounts = ['10000-14999', '30000-']
     const options = getOptions(
       'results',
@@ -443,6 +446,7 @@ describe('GET /results route with amounts parameter works', () => {
     })
     
     expect($('#totalResults').text()).toMatch(`${dataMatchingSchemesAndAmounts.length} results`)
+    expectTags($, [...schemes, 'Between £10,000 and £14,999', '£30,000 or more'])
   })
 })
 
@@ -478,10 +482,11 @@ describe('GET /results route with counties parameter works', () => {
     })
 
     expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
+    expectTags($, [schemes, counties])
   })
 
   test('Get /results work with multiple amounts in query params', async () => {
-    const schemes = ['Sustainable Farming Incentive pilot', 'Farming Equipment and Technology Fund']
+    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund']
     const counties = ['Durham', 'Berkshire']
     const options = getOptions(
       'results',
@@ -502,5 +507,10 @@ describe('GET /results route with counties parameter works', () => {
     })
     
     expect($('#totalResults').text()).toMatch(`${dataMatchingSchemesAndCounties.length} results`)
+    
   })
+})
+
+describe('Filter tags test', () => {
+
 })
