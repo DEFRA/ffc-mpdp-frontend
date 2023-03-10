@@ -36,7 +36,7 @@
           <dl class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 mpdp-text-color-white grid-column-three-one mpdp-dl-list'>
             {% for scheme in summary.schemes %}
               <dt class='govuk-!-margin-bottom-1'>{{scheme.name}}</dt>
-              <dd>£{{scheme.total}}</dd>
+              <dd>£{{scheme.readableTotal}}</dd>
             {% endfor %}  
           </dl>
         </div>
@@ -59,7 +59,7 @@
                 <div class='govuk-caption-m mpdp-text-color-black'>{{scheme.name}}</div>
                 <div class='mpdp-details-summary govuk-!-margin-top-1 toggle-details'>{{scheme.description}}</div>
               </dt>
-              <dd class='govuk-caption-m mpdp-text-align-right mpdp-text-color-black'>£{{scheme.total}}</dd>
+              <dd class='govuk-caption-m mpdp-text-align-right mpdp-text-color-black'>£{{scheme.readableTotal}}</dd>
 
               <dt class='toggle-details govuk-!-margin-top-3 govuk-!-margin-bottom-1 mpdp-details-summary mpdp-grid-column-1-span-2'>Payments for:</dt>
               <dd class='toggle-details grid-column-three-one govuk-!-margin-left-6 mpdp-grid-column-1-span-2'>
