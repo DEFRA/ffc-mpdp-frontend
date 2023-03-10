@@ -7,7 +7,7 @@ import { sortByItems } from '../../data/sortByItems'
 import { getReadableAmount, getAllSchemesNames } from '../../utils/helper'
 
 const getTags = (query: any) => {
-  return {
+  const tags = {
     Scheme: getAllSchemesNames().reduce((acc, scheme) => {
       if(query.schemes?.includes(scheme)) {
         acc.push({
@@ -33,9 +33,9 @@ const getTags = (query: any) => {
 
       return acc
     }, new Array<{
-			text: string, 
-			value: string
-	}>),
+        text: string, 
+        value: string
+	  }>),
     County: counties.reduce((acc, county) => {
       if((typeof query.counties === 'string')? query.counties === county : query.counties?.includes(county)) {
         acc.push({
@@ -45,11 +45,20 @@ const getTags = (query: any) => {
       }
 
       return acc
-    },  new Array<{
-			text: string, 
-			value: string
-	}>)
+    }, new Array<{
+        text: string, 
+        value: string
+	  }>)
   }
+
+  let key: keyof typeof tags
+  for(key in tags) {
+    if(tags[key].length == 0) {
+      delete tags[key]
+    }
+  }
+
+  return tags;
 }
 
 const getFilters = (query: any) => {

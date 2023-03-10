@@ -3,17 +3,18 @@
   <div class='govuk-body mpdp-display-grid'>
       {% for key, items in model.tags %}
         {% if items.length %}
-          <div class='{% if loop.index % 2 != 0 %}mpdp-bg-color-light-grey{% endif %}'>
-            <div class='mpdp-float-left govuk-!-margin-1 govuk-!-padding-1 govuk-!-font-weight-bold'>{{key}}</div>
+          <div class='govuk-!-padding-1 mpdp-font-size-17 {% if loop.index % 2 != 0 %}mpdp-bg-color-light-grey{% endif %}'>
+            <div class='mpdp-float-left govuk-!-margin-1 govuk-!-font-weight-bold govuk-!-padding-top-1'>{{key}}</div>
             {% for item in items %}
               <div class='mpdp-display-inline-block'>
                 {%if loop.first === false%}
-                  <div class='mpdp-float-left govuk-!-margin-1 govuk-!-padding-1'><span>or</span></div>
+                  <div class='mpdp-float-left govuk-!-margin-1'><span>or</span></div>
                 {%endif%} 
-                <div class='mpdp-tag-filter-item mpdp-float-left mpdp-bg-color-light-grey govuk-!-margin-1'>
-                  <div class='mpdp-tag-filter-cross govuk-!-margin-right-1 mpdp-display-inline' onMouseUp='const searchForm=document.getElementById("searchForm");searchForm.querySelectorAll("input[type=\"checkbox\"][value=\"{{item.value}}\"]")[0].checked=false;searchForm.submit()'>X</div>
-                  <span>{{item.text}}</span>
-                </div>
+                <button type='button' class='govuk-button govuk-button--secondary mpdp-button' onClick='const searchForm=document.getElementById("searchForm");searchForm.querySelectorAll("input[type=\"checkbox\"][value=\"{{item.value}}\"]")[0].checked=false;searchForm.submit()'>
+                  <span class='mpdp-font-size-25 mpdp-tag-filter-cross'>&times;</span>
+                  <span class='govuk-!-margin-left-5'>{{item.text}}</span>
+                </button>
+               
               </div>
             {% endfor %}
           </div>
