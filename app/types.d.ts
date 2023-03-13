@@ -31,7 +31,8 @@ export type Scheme = {
   name: string,
   description: string,
   link: string,
-  total: string,
+  total: number,
+  readableTotal: string,
   schemeTypes: SchemeDetail[]
 }
 
