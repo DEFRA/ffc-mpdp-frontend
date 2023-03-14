@@ -1,73 +1,9 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import Joi from "joi";
 
-import { getPaymentDetails } from '../../backend/api'
-import { getReadableAmount, getSchemeStaticData } from '../../utils/helper'
-import type { Scheme, SchemeDetail, queryParams } from '../../types'
+import { detailsModel } from "../models/detailsModel";
 
-const createModel = async ({ payeeName, partPostcode, searchString, page } : queryParams) => {
-	const farmerDetails = await getPaymentDetails(payeeName, partPostcode)
-
-  if(!farmerDetails) {
-    return {
-      searchString: searchString,
-      page: page
-    }
-  }
-
-  const { payee_name, part_postcode, town, county_council, parliamentary_constituency, financial_year } = farmerDetails
-  const [startYear, endYear] = farmerDetails.financial_year.split('/')
-  const summary = { 
-    payee_name, 
-    part_postcode, 
-    town, 
-    county_council,
-    parliamentary_constituency,
-    financial_year, 
-    total: '',
-    schemes: [] as Scheme[],
-    startYear: `20${startYear}`,
-    endYear: `20${endYear}`
-  }
-  
-  let farmerTotal = 0
-  let schemeTotal = 0
-  farmerDetails.schemes.forEach((scheme) => {
-    const amount = parseFloat(scheme.amount)
-    
-    farmerTotal += amount
-    schemeTotal += amount
-
-    const schemeDetails: SchemeDetail = {
-      name: scheme.scheme_detail,
-      amount: getReadableAmount(amount),
-    }
-
-    const index = summary.schemes?.findIndex(x => x?.name === scheme.scheme)
-    if(index === -1) {
-      const schemeData = getSchemeStaticData(scheme.scheme)
-      schemeTotal = amount;
-      summary.schemes.push({
-        name: scheme.scheme,
-        description: schemeData?.description || '',
-        link: schemeData?.link || '',
-        total: getReadableAmount(schemeTotal),
-        schemeTypes: [schemeDetails]
-      })
-    }
-    else {
-      summary.schemes[index].total = getReadableAmount(schemeTotal)
-      summary.schemes[index].schemeTypes.push(schemeDetails)
-    }
-  })
-
-  summary.total = getReadableAmount(farmerTotal)
-  return {
-		summary,
-    searchString: searchString,
-    page: page
-	}
-}
+import type { queryParams } from '../../types'
 
 module.exports = [
   {
@@ -87,7 +23,7 @@ module.exports = [
         }
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
-        return h.view('details/index', await createModel(request.query as queryParams))
+        return h.view('details/index', await detailsModel(request.query as queryParams))
       }
     }
   }
