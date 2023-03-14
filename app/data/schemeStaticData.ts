@@ -1,7 +1,7 @@
 export const schemeStaticData = [
 	{
 		name: 'Sustainable Farming Incentive Pilot',
-		description: 'Funding for farmers and land managers to improve productivity and efficiency for farming, horticultural and forestry businesses.',
+		description: 'Funding for farmers to manage their land in an environmentally sustainable way.',
 		link: 'https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance'
 	},
 	{
