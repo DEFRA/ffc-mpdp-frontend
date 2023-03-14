@@ -29,7 +29,7 @@ export const updatePolicy = (request: Request, h: ResponseToolkit, analytics: an
   }
 }
 
-const removeAnalytics = (request: Request, h: ResponseToolkit) => {
+export const removeAnalytics = (request: Request, h: ResponseToolkit) => {
   const googleCookiesRegex = /^_ga$|^_ga_*$|^_gid$|^_ga_.*$|^_gat_.*$/g
   Object.keys(request.state).forEach(cookieName => {
     if (cookieName.search(googleCookiesRegex) === 0) {

@@ -1,5 +1,5 @@
 import config from '../config'
-import { getCurrentPolicy } from '../cookies'
+import { getCurrentPolicy, removeAnalytics } from '../cookies'
 
 const { cookie: { cookieNameCookiePolicy }, cookiePolicy } = config
 
@@ -20,7 +20,13 @@ module.exports = {
           const cookiesPolicy = getCurrentPolicy(request, h)
           request.response.source.manager._context.cookiesPolicy =
             cookiesPolicy
+
+          // @ts-ignore
+          if((!cookiesPolicy.analytics)) {
+            removeAnalytics(request, h)
+          }
         }
+
         return h.continue
       })
     }
