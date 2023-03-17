@@ -1,0 +1,20 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% macro sortByDropdown(model) %}
+  {{ govukSelect({
+    id: "sortBySelection",
+    name: "sortBySelection",
+    value: model.selected,
+    label: {
+			text: "Sort by",
+			attributes: {
+				style: "display:contents"
+			}
+    },
+    attributes: {
+			"style": "min-width:8em",
+			"onchange": "const searchForm = document.getElementById('searchForm'); searchForm.sortBy.value=this.value; searchForm.submit()"
+    },
+    items: model.items
+}) }}
+{% endmacro %}

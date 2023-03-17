@@ -19,9 +19,6 @@
     "start:nodemon": "nodemon --inspect=0.0.0.0 --ext css,js,njk --legacy-watch app/dist/main.js",
     "pre-commit": "echo \"Running pre-commit hook\" && npm run lint:fix && docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up --build"
   },
-  "pre-commit": [
-    "pre-commit"
-  ],
   "author": "Defra",
   "contributors": [],
   "license": "OGL-UK-3.0",
