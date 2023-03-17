@@ -7,7 +7,14 @@
 			<span>Filters</span>
 		</div>
 		<div class="govuk-grid-column-one-half govuk-!-padding-right-0">
-			<button id='clearAllFilters' class='govuk-link mpdp-link-btn govuk-!-font-size-16 nojs-hidden' style='padding-top: 4px !important; float:right;' aria-live='polite'>Clear all filters</button>
+			<button 
+				id='clearAllFilters' 
+				class='govuk-link mpdp-link-btn govuk-!-font-size-16 nojs-hidden' 
+				style='padding-top: 4px !important; float:right;' 
+				aria-live='polite'
+				onClick='this.form.querySelectorAll("input[type=\"checkbox\"]").forEach(x => x.checked=false); this.form.submit();'>
+					Clear all filters
+				</button>
 		</div>
 	</div>
 		
@@ -15,7 +22,9 @@
 		<details open>
 		<summary>Scheme</summary>
 		<div class="description">
-			<div id='schemeSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.schemesLength}} Selected</div>
+			{% if model.filters.selected.schemesLength %}
+				<div id='schemeSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.schemesLength}} Selected</div>
+			{% endif %}
 			{{ govukCheckboxes({
 					name: "schemes",
 					classes: "govuk-checkboxes--small",
@@ -33,7 +42,9 @@
 		<details open>
 		<summary>Amount</summary>
 		<div class="description">
-			<div id='amountSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.amountsLength}} Selected</div>
+			{% if model.filters.selected.amountsLength %}
+				<div id='amountSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.amountsLength}} Selected</div>
+			{% endif %}
 			{{ govukCheckboxes({
 					name: "amounts",
 					classes: "govuk-checkboxes--small",
@@ -51,7 +62,9 @@
 		<details open>
 		<summary>County</summary>
 		<div class="description">
-			<div id='countiesSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.countiesLength}} Selected</div>
+			{% if model.filters.selected.countiesLength %}
+				<div id='countiesSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.countiesLength}} Selected</div>
+			{% endif %}
 			{{ govukCheckboxes({
 					name: "counties",
 					classes: "govuk-checkboxes--small",
