@@ -234,3 +234,63 @@ button.mpdp-link-btn {
 .mpdp-no-bullet {
   list-style-type: none !important;
 }
+
+.mpdp-tag-filter-cross {
+  margin: -3px 3px;
+  position: absolute;
+}
+
+.mpdp-tag-filter-item { 
+  border: 1px solid black; 
+  border-radius: 5px; 
+  padding: 4px 10px;
+  font-size: 17px;
+}
+
+.mpdp-float-left {
+  float: left;
+}
+
+.mpdp-display-inline {
+  display: inline;
+}
+
+.mpdp-display-inline-block {
+  display: inline-block;
+}
+
+.mpdp-display-grid {
+  display: grid;
+}
+
+.mpdp-font-size-17 {
+  font-size: 17px;
+}
+
+.mpdp-font-size-25 {
+  font-size: 25px;
+}
+
+.mpdp-button {
+  display: inline-block;
+  font-size: 17px;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid black; 
+  border-radius: 5px; 
+  box-shadow: none !important;
+}
+
+.mpdp-button:hover {
+  border: 1px solid #4F5A5F;
+  outline: 1px solid #4F5A5F;
+}
+
+.mpdp-button:focus, .mpdp-button:active {
+  border: 3px solid #4F5A5F !important;
+  outline: 3px solid #ffdd00;
+  margin: 3px;
+  background-color: #F1F0EF !important;
+  top: 0 !important;
+}
