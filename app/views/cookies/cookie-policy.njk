@@ -60,6 +60,48 @@
         ]
       }) }}
 
+      <h3 class='govuk-heading-m'>Strictly necessary cookies</h3>
+
+      <p>When you use the service, we’ll set cookies to protect the integrity of other cookies and protect the service from attackers.</p>
+
+      {{ govukTable({
+        head: [
+          {
+            text: "Name"
+          },
+          {
+            text: "Purpose"
+          },
+          {
+            text: "Expires"
+          }
+        ],
+        rows: [
+          [
+            {
+              text: "TS01xxxxxx"
+            },
+            {
+              text: "Ensures cookies are not altered"
+            },
+            {
+              text: "Browser closed"
+            }
+          ],
+          [
+            {
+              text: "TSPD_101"
+            },
+            {
+              text: "Proactive bot defence"
+            },
+            {
+              text: "Browser closed"
+            }
+          ]
+        ]
+      }) }}
+
       <h3 class="govuk-heading-m">Analytics cookies (optional)</h3>
 
       <p class="govuk-body">With your permission, we use Google Analytics to collect data about how you use the service. This information helps us to improve our service.</p>
