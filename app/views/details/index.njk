@@ -21,11 +21,17 @@
       text: "The business location may not match the location of the land itself."
     }) }}
 
-    <div id='mpdpDownloadResult' class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">
-      <a id='downloadAllLink'
-        class='mpdp-link-btn nojs-hidden'
-      href="/downloadall">Downlod this data (.CSV)</a>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p> </p>
     </div>
+    <div class="govuk-grid-column-one-third">
+      <a id='downloadAllLink' class='mpdp-link-btn nojs-hidden'
+        href="/downloaddetails?payeeName={{summary.payee_name}}&partPostcode={{summary.part_postcode}}">
+        Downlod this data (.CSV)
+      </a>
+    </div>
+  </div>
 
     <div>
       <div class='mpdp-panel' id='mpdpSummaryPanel'>

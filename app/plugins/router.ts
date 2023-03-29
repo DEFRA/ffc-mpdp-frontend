@@ -12,7 +12,8 @@ const routes = [].concat(
   require('../routes/downloadall'),
   require('../routes/search'),
   require('../routes/search/results'),
-  require('../routes/details')
+  require('../routes/details'),
+  require('../routes/downloaddetails')
 )
 
 module.exports = {
