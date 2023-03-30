@@ -8,7 +8,7 @@ module.exports = {
   handler: async (_request: Request, h: ResponseToolkit) => {
     const {payeeName, partPostcode} = _request.query
     const urlcsv =  `${config.backendEndpoint}`+'/downloaddetails'
-      + '?payeeName=' +payeeName + '&partPostcode=' + partPostcode
+      + '?payeeName=' + payeeName + '&partPostcode=' + partPostcode
     console.log(urlcsv)
     try {
       const content = await utils.getBuffer(urlcsv)
