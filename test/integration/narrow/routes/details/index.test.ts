@@ -14,13 +14,15 @@ describe('MPDP Details page tests', () => {
 	let $: cheerio.CheerioAPI
 	const searchString = 'Carter'
 	const page = '1'
-	
+	const payeeNameResult = 'T R Carter & Sons 1'
+	const partPostcodeResult= 'RG1'
+
 	beforeEach(async () => {
 		if(res) { return }
 	
 		const options = getOptions('details', 'GET', {
 			payeeName: 'Carter',
-			partPostcode: 'SD1',
+			partPostcode: 'RG1',
 			searchString,
 			page
 		})
@@ -46,6 +48,7 @@ describe('MPDP Details page tests', () => {
 		expect($('#reportProblem')).toBeDefined()
 		expect($('#toggleButton').text()).toBeDefined()
 		expect($('#dateRange').text()).toMatch('From 1 April 2021 to 31 March 2022')
+		expect($('#downloaddetailsLink')).toBeDefined()
 	})
 
 	test.each([
@@ -54,7 +57,8 @@ describe('MPDP Details page tests', () => {
 		{id: '#callCharges', href: 'https://www.gov.uk/call-charges', text: 'Find out more about call charges'},
 		{id: '#sfiQueryForm', href: 'https://www.gov.uk/government/publications/sustainable-farming-incentive-pilot-query-form', text: 'use the Sustainable Farming Incentive pilot query form'},
 		{id: '#newSearchLink', href: '/search', text: 'start a new search'},
-		{id: '#printLink', href: 'window.print()', text: 'print this page'}
+		{id: '#printLink', href: 'window.print()', text: 'print this page'},
+		{id: '#downloaddetailsLink', href: `/downloaddetails?payeeName=${payeeNameResult}&partPostcode=${partPostcodeResult}`, text: 'Downlod this data (.CSV)'}
 	])('All links are present', async ({id, href, text}) => {
 		const linkElement = $(id)
 		expect(linkElement).toBeDefined()
