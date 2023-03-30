@@ -11,7 +11,7 @@ module.exports = [
       auth: false,
       validate: {
         query: Joi.object({
-          searchString: Joi.string().trim().min(1).required(),
+          searchString: Joi.string().regex(/^[a-zA-Z0-9 ']*$/).trim().min(1).required(),
           page: Joi.number().default(1),
           pageId: Joi.string().default(''),
           schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
@@ -26,7 +26,7 @@ module.exports = [
               await createModel(request.query, error)
             ).code(400).takeover()
           }
-        
+
           return h.view('search/index', { ...(request.query as Object), errorList: [{ text: error.details[0].message }]}).code(400).takeover()
         }
       },

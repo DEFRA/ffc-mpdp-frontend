@@ -15,14 +15,20 @@
       </p>
     {% endif %}
     <div class='form-inline'>
-      <input class="{{model.inputClass}} {% if model.errorList %}govuk-input--error{% endif %}"
-        id="{{model.id}}"
-        name="{{model.name}}"
-        inputmode="{{model.inputmode}}"
-        type="text"
-        value="{{model.value}}"
-        {{model.inputAttributes|safe}}/>
-      <button class="govuk-button" data-module="govuk-button" type="submit" aria-label='{{model.buttonText}}'>{{model.buttonText}}</button>
+      <div class='container'>
+        <input class="{{model.inputClass}} {% if model.errorList %}govuk-input--error{% endif %}"
+          id="{{model.id}}"
+          name="{{model.name}}"
+          inputmode="{{model.inputmode}}"
+          type="search"
+          value="{{model.value}}"
+          autocomplete="off"
+          list=""
+          {{ model.inputAttributes|safe }}/>
+        <datalist id="suggestions" class='govuk-body mpdp-font-size-17'></datalist>
+      </div>
+      
+      <button id='searchButton' class="govuk-button" data-module="govuk-button" type="submit" aria-label='{{model.buttonText}}'>{{model.buttonText}}</button>
     </div>
     {%if model.filters %}
       {{searchFilters(model)}}

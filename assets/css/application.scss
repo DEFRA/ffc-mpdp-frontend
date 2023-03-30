@@ -170,6 +170,10 @@ button.mpdp-link-btn {
   font-size: 0.85rem
 }
 
+.mpdp-text-align-center {
+  text-align: center;
+}
+
 @media print {
   a[href]:after {
     content: none !important;
@@ -180,6 +184,11 @@ button.mpdp-link-btn {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+}
+
+.form-inline .container {
+  width: 100%;
+  position: relative;
 }
 
 .form-inline input {
@@ -271,6 +280,10 @@ button.mpdp-link-btn {
   font-size: 25px;
 }
 
+.mpdp-align-items-center {
+  align-items: center;
+}
+
 .mpdp-button {
   display: inline-block;
   font-size: 17px;
@@ -293,4 +306,52 @@ button.mpdp-link-btn {
   margin: 3px;
   background-color: #F1F0EF !important;
   top: 0 !important;
+}
+.form-inline datalist {
+  position: absolute;
+  background: white;
+  border: 1px solid black;
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+  font-family: sans-serif;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.form-inline option {
+  padding: 10px 15px;
+  cursor: pointer;
+  white-space: normal;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 10px;
+  background:
+    linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 43%,#000 45%,#000 55%,rgba(0,0,0,0) 57%,rgba(0,0,0,0) 100%),
+    linear-gradient(135deg, transparent 0%,transparent 43%,#000 45%,#000 55%,transparent 57%,transparent 100%);
+}
+
+.option-container {
+  display: grid;
+  grid-template-columns: auto 30px;
+  z-index: 100;
+}
+
+.form-inline .option-container:hover, .active {
+  background-color: govuk-colour("blue");
+  color: govuk-colour('white');
+}
+
+.option-container::after {
+  display: flex;
+  font-size: 25px;
+  align-items: center;
+  content: "\2192";
+  color: govuk-colour('white');
+  margin-left: 8px;
 }
