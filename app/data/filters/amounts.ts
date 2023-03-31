@@ -16,7 +16,7 @@ export const amounts = [
         value: '10000-14999'
     },
     {
-        text: '£15,0000 to £19,999',
+        text: '£15,000 to £19,999',
         value: '15000-19999'
     },
     {
