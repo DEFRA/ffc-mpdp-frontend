@@ -2,8 +2,9 @@ const endpoint = 'http://__TEST_ENDPOINT__'
 process.env.MPDP_BACKEND_ENDPOINT = endpoint
 
 import wreck from '@hapi/wreck'
-import { get, getPaymentData, getPaymentDetails, post } from '../../../app/backend/api'
+import { get, getPaymentData, getPaymentDetails, getSearchSuggestions, post } from '../../../app/backend/api'
 import { getUrlParams } from '../../../app/utils/helper'
+import { mockSuggestions } from '../../data/mockSuggestions'
 
 describe('Backend API tests', () => {
     const route = '/__TEST_ROUTE__'
@@ -126,6 +127,32 @@ describe('Backend API tests', () => {
 
         const route = getUrlParams('paymentdetails', { payeeName, partPostcode })
 
+        expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
+    })
+
+    test('getSearchSuggestions returns default object if no response is received', async () => {
+        const mockGet = jest.fn().mockResolvedValue(null)
+        jest.spyOn(wreck, 'get').mockImplementation(mockGet)
+
+        const searchString = '__PAYEE_NAME__'
+        const res = await getSearchSuggestions(searchString)
+        expect(res).toEqual({ rows: [], count: 0 })
+
+        const route = getUrlParams('searchsuggestion', { searchString })
+        expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
+    })
+
+    test('getSearchSuggestions returns results', async () => {
+        const mockGet = jest.fn().mockResolvedValue({
+            payload: JSON.stringify(mockSuggestions)
+        })
+        jest.spyOn(wreck, 'get').mockImplementation(mockGet)
+
+        const searchString = '__TEST_STRING__'
+        const res = await getSearchSuggestions(searchString)
+        expect(res).toMatchObject(mockSuggestions)
+
+        const route = getUrlParams('searchsuggestion', { searchString })
         expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
     })
 })

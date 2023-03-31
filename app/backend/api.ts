@@ -50,7 +50,7 @@ export const getSearchSuggestions = async (searchString: string) => {
 
 	const response: any = await get(url)
 	if(!response) {
-		return null;
+		return { rows: [], count: 0 };
 	}
 
 	return JSON.parse(response.payload)
