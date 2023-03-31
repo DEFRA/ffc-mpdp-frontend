@@ -2,6 +2,7 @@ import wreck from '@hapi/wreck'
 import config from '../config'
 import { getUrlParams } from '../utils/helper'
 import { Summary } from '../types'
+import * as utils from '../utils'
 
 export const get = async (url: string) => { 
 	try {
@@ -55,4 +56,14 @@ export const getPaymentDetails = async (payeeName: string, partPostcode: string)
 	}
 
 	return JSON.parse(response.payload)
+}
+
+
+export const getDownloadDetailsCsv = async (payeeName: string, partPostcode: string): Promise<Buffer> => {
+	const url = getUrlParams('downloaddetails', {
+		payeeName,
+		partPostcode
+	})
+	const content = await utils.getBuffer(url)
+	return content
 }
