@@ -64,6 +64,5 @@ export const getDownloadDetailsCsv = async (payeeName: string, partPostcode: str
 		payeeName,
 		partPostcode
 	})
-	const content = await utils.getBuffer(url)
-	return content
+	return utils.getBuffer(`${config.backendEndpoint}${url}`)
 }
