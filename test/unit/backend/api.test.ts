@@ -145,6 +145,7 @@ describe('Backend API tests', () => {
         const route = getUrlParams('downloaddetails', { payeeName, partPostcode })
         const res = await getDownloadDetailsCsv(payeeName, partPostcode)
 
+        // Verify the result
         expect(mockedFetch).toHaveBeenCalledWith(`${endpoint}${route}`)
         expect(mockedFetch.mock.calls.length).toBe(1);
         expect(res).toBeInstanceOf(Buffer);
