@@ -2,8 +2,12 @@ const endpoint = 'http://__TEST_ENDPOINT__'
 process.env.MPDP_BACKEND_ENDPOINT = endpoint
 
 import wreck from '@hapi/wreck'
-import { get, getPaymentData, getPaymentDetails, post } from '../../../app/backend/api'
+import fetch from "node-fetch"
+import { get, getPaymentData, getPaymentDetails, post,getDownloadDetailsCsv } from '../../../app/backend/api'
 import { getUrlParams } from '../../../app/utils/helper'
+
+const { Response } = jest.requireActual('node-fetch');
+jest.mock('node-fetch', () => jest.fn());
 
 describe('Backend API tests', () => {
     const route = '/__TEST_ROUTE__'
@@ -128,4 +132,23 @@ describe('Backend API tests', () => {
 
         expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
     })
+
+    test('getDownloadDetailsCsv returns results', async () => {
+        const content ="TEST_CSV_CONTENT";
+        const bufferedData = Buffer.from(content);
+        const mockedResponse = new Response( bufferedData, {});
+        const mockedFetch = fetch as jest.MockedFunctionDeep<typeof fetch>
+        mockedFetch.mockResolvedValueOnce(mockedResponse);
+
+        const payeeName = '__PAYEE_NAME__'
+        const partPostcode = '__POST_CODE'
+        const route = getUrlParams('downloaddetails', { payeeName, partPostcode })
+        const res = await getDownloadDetailsCsv(payeeName, partPostcode)
+
+        expect(mockedFetch).toHaveBeenCalledWith(`${endpoint}${route}`)
+        expect(mockedFetch.mock.calls.length).toBe(1);
+        expect(res).toBeInstanceOf(Buffer);
+        expect(res).toEqual(bufferedData)
+    })
+
 })

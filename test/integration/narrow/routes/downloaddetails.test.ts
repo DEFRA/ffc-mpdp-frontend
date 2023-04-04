@@ -1,4 +1,4 @@
-import * as utils from '../../../../app/utils'
+import * as api from '../../../../app/backend/api'
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -7,7 +7,7 @@ afterEach(() => {
 
 describe('downloaddetails csv test', () => {
   const content = 'Sample data in csv'
-  const mockedFetch = jest.spyOn(utils, 'getBuffer')
+  const mockedFetch = jest.spyOn(api, 'getDownloadDetailsCsv')
   mockedFetch.mockResolvedValue(new Buffer(content));
   const request = {
     method: 'GET',
@@ -39,7 +39,7 @@ describe('downloaddetails csv error test', () => {
   }
 
   test('GET /downloaddetails throws error when underlying error', async () => {
-    const mockedFetch = jest.spyOn(utils, 'getBuffer')
+    const mockedFetch = jest.spyOn(api, 'getDownloadDetailsCsv')
     mockedFetch.mockRejectedValue('Internal Server Error')
     const res = await global.__SERVER__.inject(request)
     expect(res.statusCode).toBe(500)
