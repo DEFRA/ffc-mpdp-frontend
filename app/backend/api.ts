@@ -2,6 +2,7 @@ import wreck from '@hapi/wreck'
 import config from '../config'
 import { getUrlParams } from '../utils/helper'
 import { Summary } from '../types'
+import fetch from "node-fetch"
 
 export const get = async (url: string) => { 
 	try {
@@ -68,4 +69,23 @@ export const getPaymentDetails = async (payeeName: string, partPostcode: string)
 	}
 
 	return JSON.parse(response.payload)
+}
+
+export const getDownloadDetailsCsv = async (payeeName: string, partPostcode: string): Promise<Buffer> => {
+	const url = getUrlParams('downloaddetails', {
+		payeeName,
+		partPostcode
+	})
+	return getBufferFromUrl(url)
+}
+
+const getBufferFromUrl = async (url:string): Promise<Buffer> => {
+	try {
+		const response = await fetch(`${config.backendEndpoint}${url}`)
+		const arrayBuffer = await response.arrayBuffer();
+		return Buffer.from(arrayBuffer);
+	} catch (error) {
+		console.log("Error while reading from URL " + url , error)
+		throw error
+	}
 }

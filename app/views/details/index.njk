@@ -21,6 +21,18 @@
       text: "The business location may not match the location of the land itself."
     }) }}
 
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <p> </p>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <a id='downloaddetailsLink' class='mpdp-link-btn nojs-hidden'
+          href="/downloaddetails?payeeName={{summary.payee_name}}&partPostcode={{summary.part_postcode}}">
+          Download this data (.CSV)
+        </a>
+      </div>
+    </div>
+
     <div>
       <div class='mpdp-panel' id='mpdpSummaryPanel'>
         <div class="grid-column-two-one">

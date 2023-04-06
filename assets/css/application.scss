@@ -355,3 +355,7 @@ input[type="search"]::-webkit-search-cancel-button {
   color: govuk-colour('white');
   margin-left: 8px;
 }
+.mpdp-justify-content-flex-end {
+  display: flex;
+  justify-content: flex-end
+}
