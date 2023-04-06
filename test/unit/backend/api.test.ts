@@ -152,4 +152,18 @@ describe('Backend API tests', () => {
         expect(res).toEqual(bufferedData)
     })
 
+    test('getDownloadDetailsCsv returns error', async () => {
+        const content ="TEST_CSV_CONTENT";
+        const bufferedData = Buffer.from(content);
+        const mockedResponse = new Response( bufferedData, {});
+        const mockedFetch = fetch as jest.MockedFunctionDeep<typeof fetch>
+        const mockedFetchError = new Error("Error while reading from URL ");
+        (fetch as jest.MockedFunctionDeep<typeof fetch>).mockRejectedValueOnce(mockedFetchError);
+
+        const payeeName = '__PAYEE_NAME__'
+        const partPostcode = '__POST_CODE'
+        const route = getUrlParams('downloaddetails', { payeeName, partPostcode })
+        await expect( getDownloadDetailsCsv(payeeName, partPostcode)).rejects.toThrowError(Error);
+    })
+
 })
