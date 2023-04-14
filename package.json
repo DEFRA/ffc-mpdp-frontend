@@ -1,6 +1,6 @@
 {
   "name": "ffc-mpdp-frontend",
-  "version": "0.1.68",
+  "version": "0.1.69",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
   "main": "app/dist/main.js",
