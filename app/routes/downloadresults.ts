@@ -39,7 +39,7 @@ module.exports = [
         const csv = csvParser.parse(model.results)
         return h.response(csv)
             .type('application/csv')
-            .header('Content-Disposition', 'attachment; filename=\"ffc-payment-details.csv\"')
+            .header('Content-Disposition', 'attachment; filename=\"ffc-payment-results.csv\"')
       }
     }
   }
