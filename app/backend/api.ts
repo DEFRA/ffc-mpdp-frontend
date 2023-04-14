@@ -9,7 +9,7 @@ export const get = async (url: string) => {
 		return (await wreck.get(`${config.backendEndpoint}${url}`))
 	}
 	catch (err) {
-		console.error(`Encountered error while calling the backend with url: ${url}`, err)
+		console.error(`Encountered error while calling the backend with url: ${config.backendEndpoint}${url}}`, err)
 		return null
 	}
 }
@@ -43,6 +43,19 @@ export const getPaymentData = async (searchString: string, offset: number, filte
 		results: result.rows,
 		total: result.count
 	}
+}
+
+export const getSearchSuggestions = async (searchString: string) => {
+	const url = getUrlParams('searchsuggestion', {
+		searchString
+	})
+
+	const response: any = await get(url)
+	if(!response) {
+		return { rows: [], count: 0 };
+	}
+
+	return JSON.parse(response.payload)
 }
 
 export const getPaymentDetails = async (payeeName: string, partPostcode: string): Promise<Summary | null> => {
