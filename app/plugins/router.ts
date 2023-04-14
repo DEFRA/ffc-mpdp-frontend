@@ -13,6 +13,7 @@ const routes = [].concat(
   require('../routes/search'),
   require('../routes/search/results'),
   require('../routes/details'),
+  require('../routes/search/suggestions'),
   require('../routes/downloaddetails')
 )
 

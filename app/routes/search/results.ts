@@ -26,7 +26,7 @@ module.exports = [
               await createModel(request.query, error)
             ).code(400).takeover()
           }
-        
+
           return h.view('search/index', { ...(request.query as Object), errorList: [{ text: error.details[0].message }]}).code(400).takeover()
         }
       },
