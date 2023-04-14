@@ -25,17 +25,18 @@ module.exports = [
         }
       },
       handler: async (request: Request, h: ResponseToolkit) => {
-        const model = await createModel(request.query)
-        const results = Object.values(model.results);
         const csvFields =  [
           'payee_name',
           'part_postcode',
           'town',
           'county_council',
+          'scheme',
           'amount'
         ]
+        request.query.action = 'download'
+        const model = await createModel(request.query)
         const csvParser = new Parser({ fields: csvFields })
-        const csv = csvParser.parse(results)
+        const csv = csvParser.parse(model.results)
         return h.response(csv)
             .type('application/csv')
             .header('Content-Disposition', 'attachment; filename=\"ffc-payment-details.csv\"')

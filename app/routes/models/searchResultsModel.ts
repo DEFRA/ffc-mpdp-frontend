@@ -160,9 +160,10 @@ const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: str
   return {downloadResultsLink}
 }
 
-const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
+const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string, action:string) => {
   const offset = (requestedPage - 1) * config.search.limit
-  const { results, total } = await getPaymentData(searchString, offset, filterBy, sortBy)
+
+  const { results, total } = await getPaymentData(searchString, offset, filterBy, sortBy, action)
 
   const matches = results.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
   return {
@@ -196,6 +197,7 @@ export const createModel = async (query: any, error?: any) => {
     }
   }
 
+  const action = query.action
   const sortBy = decodeURIComponent(query.sortBy)
   const requestedPage = query.page
   const filterBy = {
@@ -204,7 +206,7 @@ export const createModel = async (query: any, error?: any) => {
     counties: typeof query.counties === 'string' ? [query.counties]: query.counties
   }
 
-  const { matches, total } = await performSearch(searchString, requestedPage, filterBy, sortBy)
+  const { matches, total } = await performSearch(searchString, requestedPage, filterBy, sortBy, action)
   
   return {
     ...defaultReturn,
