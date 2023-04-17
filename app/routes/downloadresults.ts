@@ -30,7 +30,6 @@ module.exports = [
           'part_postcode',
           'town',
           'county_council',
-          'scheme',
           'amount'
         ]
         request.query.action = 'download'
