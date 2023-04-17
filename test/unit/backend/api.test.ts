@@ -221,5 +221,4 @@ describe('Backend API tests', () => {
         const route = getUrlParams('downloaddetails', { payeeName, partPostcode })
         await expect( getDownloadDetailsCsv(payeeName, partPostcode)).rejects.toThrowError(Error);
     })
-
 })
