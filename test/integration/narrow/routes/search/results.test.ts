@@ -510,7 +510,7 @@ describe('GET /results route with counties parameter works', () => {
     
   })
 
-  describe('GET /results download csv link is present on the results page when results to download', () => {
+  describe('Test download results csv link in results page', () => {
     test('download csv link is present on the results page', async () => {
       const res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
       const $ = cheerio.load(res.payload)
