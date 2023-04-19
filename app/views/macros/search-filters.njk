@@ -17,65 +17,30 @@
 				</button>
 		</div>
 	</div>
-		
-	<div style='margin: 15px;'>
-		<details open>
-		<summary>Scheme</summary>
-		<div class="description">
-			{% if model.filters.selected.schemesLength %}
-				<div id='schemeSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.schemesLength}} Selected</div>
-			{% endif %}
-			{{ govukCheckboxes({
-					name: "schemes",
-					classes: "govuk-checkboxes--small",
-					items: model.filters.schemes,
-					attributes: {
-						 "onchange": "this.form.submit()"
-					}
-				}) 
-			}}
+
+	{% for key, object in model.filters %}
+		<div id='{{ key | lower }}Filter' style='margin: 15px;'>
+			<details open>
+				<summary>{{ object.name }}</summary>
+				<div class="description">
+					{% if object.selected %}
+						<div id='{{ key | lower }}Selected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{object.selected}} Selected</div>
+					{% endif %}
+					{{ govukCheckboxes({
+							name: key,
+							classes: "govuk-checkboxes--small",
+							items: object.items,
+							attributes: {
+								"onchange": "this.form.submit()"
+							}
+						}) 
+					}}
+				</div>
+			</details>
 		</div>
-		</details>
-	</div>
-	<hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
-	<div style='margin: 15px;'>
-		<details open>
-		<summary>Amount</summary>
-		<div class="description">
-			{% if model.filters.selected.amountsLength %}
-				<div id='amountSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.amountsLength}} Selected</div>
-			{% endif %}
-			{{ govukCheckboxes({
-					name: "amounts",
-					classes: "govuk-checkboxes--small",
-					items: model.filters.amounts,
-					attributes: {
-						 "onchange": "this.form.submit()"
-					}
-				}) 
-			}}
-		</div>
-		</details>
-	</div>
-	<hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
-	<div style='margin: 15px;'>
-		<details open>
-		<summary>County</summary>
-		<div class="description">
-			{% if model.filters.selected.countiesLength %}
-				<div id='countiesSelected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{model.filters.selected.countiesLength}} Selected</div>
-			{% endif %}
-			{{ govukCheckboxes({
-					name: "counties",
-					classes: "govuk-checkboxes--small",
-					items: model.filters.counties,
-					attributes: {
-						 "onchange": "this.form.submit()"
-					}
-				}) 
-			}}
-		</div>
-		</details>
-	</div>
+		{%if not loop.last %}
+			<hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
+		{% endif %}
+	{% endfor %}
 </div>
 {% endmacro %}

@@ -1,10 +1,10 @@
-import config from '../../config'
-import { getPaymentData } from '../../backend/api'
-import { amounts } from '../../data/filters/amounts'
-import { counties } from '../../data/filters/counties'
-import { sortByItems } from '../../data/sortByItems'
+import config from '../../../config'
+import { getPaymentData } from '../../../backend/api'
+import { amounts as staticAmounts } from '../../../data/filters/amounts'
+import { counties as staticCounties } from '../../../data/filters/counties'
+import { sortByItems } from '../../../data/sortByItems'
 
-import { getReadableAmount, getAllSchemesNames } from '../../utils/helper'
+import { getReadableAmount, getAllSchemesNames, getMatchingStaticAmounts } from '../../../utils/helper'
 
 const getTags = (query: any) => {
   const tags = {
@@ -21,7 +21,7 @@ const getTags = (query: any) => {
         text: string, 
         value: string
     }>),
-    Amount: amounts.reduce((acc, amount) => {
+    Amount: staticAmounts.reduce((acc, amount) => {
       if((typeof query.amounts === 'string')? query.amounts === amount.value : query.amounts?.includes(amount.value)) {
         const amountParts = amount.text.split('to')
         const text = (amountParts[1] === undefined) ? amountParts[0] : `Between ${amountParts[0].trim()} and ${amountParts[1].trim()}`
@@ -36,7 +36,7 @@ const getTags = (query: any) => {
         text: string, 
         value: string
 	  }>),
-    County: counties.reduce((acc, county) => {
+    County: staticCounties.reduce((acc, county) => {
       if((typeof query.counties === 'string')? query.counties === county : query.counties?.includes(county)) {
         acc.push({
 					text: county,
@@ -61,7 +61,7 @@ const getTags = (query: any) => {
   return tags;
 }
 
-const getFilters = (query: any) => {
+const getFilters = (query: any, filterOptions: { schemes: string[], amounts: any[], counties: string[] }) => {
   const schemesLength = !query.schemes? 0 : (typeof query.schemes === 'string'? 1: query.schemes?.length)
   const amountsLength = !query.amounts? 0 : (typeof query.amounts === 'string'? 1: query.amounts?.length)
   const countiesLength = !query.counties? 0 : (typeof query.counties === 'string'? 1: query.counties?.length)
@@ -70,31 +70,46 @@ const getFilters = (query: any) => {
   }
 
   return {
-    schemes: getAllSchemesNames().map(x => ({ 
-      text: x, 
-      value: x,
-      checked: query.schemes?.includes(x),
-      attributes
-    })),
-    amounts: amounts.map(({text, value}) => ({
-      text,
-      value,
-      checked: (typeof query.amounts === 'string')? query.amounts === value : query.amounts?.includes(value),
-      attributes
-    })),
-    counties: counties.map((county) => ({
-      text: county,
-      value: county,
-      checked: (typeof query.counties === 'string')? query.counties === county : query.counties?.includes(county),
-      attributes
-    })),
-    selected: {
-      schemesLength,
-      amountsLength,
-      countiesLength
+    schemes: {
+      name: 'Scheme',
+      items: getSchemes(filterOptions.schemes).map(scheme => ({ 
+        text: scheme, 
+        value: scheme,
+        checked: isChecked(query.schemes, scheme),
+        attributes
+      })),
+      selected: schemesLength
+    },
+    amounts: {
+      name: 'Amount',
+      items: getAmounts(filterOptions.amounts).map(({text, value}) => ({
+        text,
+        value,
+        checked: isChecked(query.amounts, value),
+        attributes
+      })),
+      selected: amountsLength
+    },
+    counties: {
+      name: 'County',
+      items: getCounties(filterOptions.counties).map((county) => ({
+        text: county,
+        value: county,
+        checked: isChecked(query.counties, county),
+        attributes
+      })),
+      selected: countiesLength
     }
   }
 }
+
+const getSchemes = (schemes: string[]) => schemes?.length ? schemes : getAllSchemesNames()
+
+const getAmounts = (amounts: any[]) => amounts?.length ? amounts : staticAmounts
+
+const getCounties = (counties: any[]) => counties?.length ? counties : staticCounties
+
+const isChecked = (field: string | string[], value: string) => (typeof field === 'string')? field === value : field?.includes(value)
 
 const getSortByModel = (query: any) => ({
     selected: decodeURIComponent(query.sortBy),
@@ -145,23 +160,20 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
 
 const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
   const offset = (requestedPage - 1) * config.search.limit
-  const { results, total } = await getPaymentData(searchString, offset, filterBy, sortBy)
-
-  const matches = results.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
+  const searchResults = await getPaymentData(searchString, offset, filterBy, sortBy)
   return {
-    matches,
-    total: total
+    ...searchResults,
+    results: searchResults.results?.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
   }
 }
 
-export const createModel = async (query: any, error?: any) => {
+export const resultsModel = async (query: any, error?: any) => {
   const searchString = decodeURIComponent(query.searchString)
   const defaultReturn = {
     hiddenInputs: [
       { id: 'pageId', name: 'pageId', value: 'results' },
       { id: 'sortBy', name: 'sortBy', value: 'score' }
     ],
-    filters: getFilters(query),
     tags: getTags(query),
     sortBy: getSortByModel(query)
   }
@@ -169,6 +181,11 @@ export const createModel = async (query: any, error?: any) => {
   if(error) {
     return {
       ...defaultReturn,
+      filters: getFilters(query, {
+        schemes: getAllSchemesNames(),
+        amounts: staticAmounts,
+        counties: staticCounties
+      }),
       errorList: [{
         text: "Enter a search term",
         href: "#resultsSearchInput"
@@ -186,13 +203,15 @@ export const createModel = async (query: any, error?: any) => {
     counties: typeof query.counties === 'string' ? [query.counties]: query.counties
   }
 
-  const { matches, total } = await performSearch(searchString, requestedPage, filterBy, sortBy)
-  
+  const { results, total, filterOptions } = await performSearch(searchString, requestedPage, filterBy, sortBy)
+  const amounts = getMatchingStaticAmounts(filterOptions?.amounts)
+
   return {
     ...defaultReturn,
     searchString,
     ...getPaginationAttributes(total, requestedPage, searchString, filterBy, sortBy),
-    results: matches,
+    filters: getFilters(query, {...filterOptions, amounts}),
+    results,
     total,
     currentPage: requestedPage,
     headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`

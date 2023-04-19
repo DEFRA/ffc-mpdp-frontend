@@ -2,11 +2,15 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
-import { getOptions, mockGetPaymentData, filterByAmounts, filterBySchemes, filterByCounties } from '../../../../utils/helpers'
+import { getOptions, mockGetPaymentData, filterByAmounts, filterBySchemes, filterByCounties, getFilterOptions } from '../../../../utils/helpers'
 import mockData from '../../../../data/mockResults'
 import config from '../../../../../app/config'
 import { expectTitle } from '../../../../utils/title-expect'
 import { expectTags } from '../../../../utils/tags-expects'
+import { amounts } from '../../../../../app/data/filters/amounts'
+import { counties } from '../../../../../app/data/filters/counties'
+import { schemeStaticData } from '../../../../../app/data/schemeStaticData'
+import { getMatchingStaticAmounts } from '../../../../../app/utils/helper'
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: mockGetPaymentData
@@ -147,7 +151,7 @@ describe('GET /results route with pagination return new result with each page', 
   })
 })
 
-describe('Seach results page shows no results message', () => {
+describe('Seach results page test with no results', () => {
   const searchString = '__INVALID_SEARCH_STRING__'
   let res: any
   let $: cheerio.CheerioAPI
@@ -189,6 +193,12 @@ describe('Seach results page shows no results message', () => {
     const noResults = $('#noResults')
     expect(noResults).toBeDefined()
     expect(noResults.text()).toMatch('There are no matching results')
+  })
+
+  test('All filters are displayed', () => {
+    expect($('#schemesFilter .govuk-checkboxes__item').length).toBe(schemeStaticData.length)
+    expect($('#amountsFilter .govuk-checkboxes__item').length).toBe(amounts.length)
+    expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(counties.length)
   })
 })
 
@@ -324,7 +334,6 @@ describe('GET /results route with sortBy parameters return results page', () => 
   })
 
   test('The result displayed is sorted by score when no sortBy passed', async () => {
-    const sortBy = 'score'
     res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
     $ = cheerio.load(res.payload)
 
@@ -508,5 +517,30 @@ describe('GET /results route with counties parameter works', () => {
     
     expect($('#totalResults').text()).toMatch(`${dataMatchingSchemesAndCounties.length} results`)
     
+  })
+})
+
+describe('GET /results returns page with dynamic filters', () => {
+  test('Get /result returns filterOptions only valid for searchResults', async () => {
+    const searchString = 'Son'
+    const res = await global.__SERVER__.inject(
+      getOptions(
+        'results',
+        'GET',
+        { 
+          searchString
+        }
+      )
+    )
+
+    const searchResults = mockData.filter(x => x.payee_name.includes(searchString))
+    const $ = cheerio.load(res.payload)
+
+    const filterOptionsFromResults = getFilterOptions(searchResults)
+    const matchingAmounts = getMatchingStaticAmounts(filterOptionsFromResults.amounts)
+    console.log(matchingAmounts)
+    expect($('#schemesFilter .govuk-checkboxes__item').length).toBe(filterOptionsFromResults.schemes.length)
+    expect($('#amountsFilter .govuk-checkboxes__item').length).toBe(matchingAmounts.length)
+    expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(filterOptionsFromResults.counties.length)
   })
 })
