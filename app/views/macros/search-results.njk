@@ -2,8 +2,23 @@
 {% from "./sort-by-dropdown.njk" import sortByDropdown %}
 
 {% macro searchResults(model) %}
+
   <div>
-    <h2 class="govuk-heading-s" id='totalResults' {{ model.total }} results>{{ model.total }} results</h2>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-s" id='totalResults' {{ model.total }} results>{{ model.total }} results</h2>
+      </div>
+      <div class="govuk-grid-column-two-third mpdp-justify-content-flex-end">
+        {% if(model.total)%}
+          <a id='downloadResultsLink'
+            class="govuk-heading-s"
+            href="{{model.downloadResultsLink}}">
+            Download {{ model.total }} results (.CSV)
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
     {{searchFilterTags(model)}}
     <hr class="govubk-section-break govuk-section-reak--visible section-break-heading" role="presentation">
     <div>

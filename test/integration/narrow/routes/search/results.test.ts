@@ -509,4 +509,50 @@ describe('GET /results route with counties parameter works', () => {
     expect($('#totalResults').text()).toMatch(`${dataMatchingSchemesAndCounties.length} results`)
     
   })
+
+  describe('Test download results csv link in results page', () => {
+    test('download csv link is present on the results page', async () => {
+      const res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
+      const $ = cheerio.load(res.payload)
+      const downloadLink = $('#downloadResultsLink')
+      expect(downloadLink).toBeDefined()
+
+      const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+      expect(resElements.length).toBeGreaterThan(0)
+      const data=resElements.first().text()
+      expect(data).toContain('T R Carter & Sons 1')
+
+    })
+
+    test('GET /results download csv link contains the right values', async () => {
+      const searchString = 'Sons'
+      const res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
+      const $ = cheerio.load(res.payload)
+
+      const downloadLink = $('#downloadResultsLink')
+      expect(downloadLink).toBeDefined()
+      const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+      expect(resElements.length).toBeGreaterThan(0)
+      const data=resElements.first().text()
+      expect(data).toContain('T R Carter & Sons 1')
+
+      expect(downloadLink.text()).toContain('Download 23 results (.CSV)')
+      const downloadLinkHref = downloadLink.attr('href')
+      expect(downloadLinkHref).toBeDefined()
+      expect(downloadLinkHref?.length).toBeGreaterThan(0)
+      expect(downloadLinkHref).toContain('/downloadresults?searchString=Sons')
+    })
+  })
+
+  test('download csv link is not present on the results page when no results to download', async () => {
+    const searchString = 'Daughter'
+    const res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
+    const $ = cheerio.load(res.payload)
+    const downloadLink = $('#downloadResultsLink')
+
+    expect(downloadLink.length).toBe(0)
+    const resElements = $('a.govuk-link.govuk-link--no-visited-state')
+    expect(resElements.length).toBe(0)
+  })
+
 })

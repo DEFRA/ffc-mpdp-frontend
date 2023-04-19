@@ -97,6 +97,36 @@ describe('Backend API tests', () => {
         expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: { filterBy, limit: 20, offset, searchString, sortBy } })
     })
 
+    test('getPaymentData called with download action', async () => {
+        const mockData = [{
+            payee_name: 'T R Carter & Sons 1',
+            part_postcode: 'RG1',
+            town: 'Reading',
+            county_council: 'Berkshire',
+            amount: '11142000.95'
+        }]
+        const mockPost = jest.fn().mockResolvedValue({
+            payload: JSON.stringify({
+                rows: mockData,
+                count: 1
+            })
+        })
+        jest.spyOn(wreck, 'post').mockImplementation(mockPost)
+
+        const searchString = '__TEST_STRING__'
+        const offset = 0
+        const filterBy = { schemes: [] }
+        const sortBy = 'score'
+        const action='download'
+        const res = await getPaymentData(searchString, offset, filterBy, sortBy, action)
+        expect(res).toMatchObject({
+			results: mockData,
+			total: mockData.length
+		})
+
+        expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: { filterBy, limit: 20, offset, searchString, sortBy, action } })
+    })
+
     test('getPaymentDetails returns null if no response is received', async () => {
         const mockGet = jest.fn().mockResolvedValue(null)
         jest.spyOn(wreck, 'get').mockImplementation(mockGet)
@@ -191,5 +221,4 @@ describe('Backend API tests', () => {
         const route = getUrlParams('downloaddetails', { payeeName, partPostcode })
         await expect( getDownloadDetailsCsv(payeeName, partPostcode)).rejects.toThrowError(Error);
     })
-
 })
