@@ -27,7 +27,8 @@ describe('downloadresults csv test', () => {
       county_council: 'None',
       total_amount: 13285
     }],
-    total: 3
+    total: 3,
+    filterOptions: {}
   }
 
   const mockedFetch = jest.spyOn(api, 'getPaymentData')
