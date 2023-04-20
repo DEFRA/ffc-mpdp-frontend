@@ -160,7 +160,7 @@ const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: str
   return {downloadResultsLink}
 }
 
-const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string, action:string) => {
+const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
   const offset = (requestedPage - 1) * config.search.limit
 
   const { results, total } = await getPaymentData(searchString, offset, filterBy, sortBy, action)

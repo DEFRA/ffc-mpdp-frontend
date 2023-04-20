@@ -1,7 +1,7 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import Joi from "joi";
-import { getDownloadDetailsCsv } from "../backend/api";
-import { createModel } from "./models/searchResultsModel";
+import { getPaymentData } from "../backend/api";
+import { getReadableAmount } from '../utils/helper'
 const { Parser } = require('json2csv')
 
 module.exports = [
@@ -32,10 +32,20 @@ module.exports = [
           'county_council',
           'amount'
         ]
-        request.query.action = 'download'
-        const model = await createModel(request.query)
+        const action = 'download'
+        const offset = 0
+        const limit = -1
+        const { searchString, schemes, amounts,  counties } = request.query
+        const sortBy = decodeURIComponent(request.query.sortBy)
+        const filterBy = {
+          schemes: typeof schemes === 'string' ? [schemes]: schemes,
+          amounts: typeof amounts === 'string' ? [amounts]: amounts,
+          counties: typeof counties === 'string' ? [counties]: counties
+        }
+        const { results } = await getPaymentData(searchString, offset, filterBy, sortBy, action,limit)
+        const matches = results.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
         const csvParser = new Parser({ fields: csvFields })
-        const csv = csvParser.parse(model.results)
+        const csv = csvParser.parse(matches)
         return h.response(csv)
             .type('application/csv')
             .header('Content-Disposition', 'attachment; filename=\"ffc-payment-results.csv\"')
