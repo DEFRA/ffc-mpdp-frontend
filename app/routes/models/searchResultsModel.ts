@@ -162,8 +162,7 @@ const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: str
 
 const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
   const offset = (requestedPage - 1) * config.search.limit
-
-  const { results, total } = await getPaymentData(searchString, offset, filterBy, sortBy, action)
+  const { results, total } = await getPaymentData(searchString, offset, filterBy, sortBy)
 
   const matches = results.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
   return {
@@ -192,8 +191,7 @@ export const createModel = async (query: any, error?: any) => {
         href: "#resultsSearchInput"
       }],
       headingTitle: `Results for ‘${searchString}’`,
-      total: 0,
-      results: []
+      total: 0
     }
   }
 
@@ -206,7 +204,7 @@ export const createModel = async (query: any, error?: any) => {
     counties: typeof query.counties === 'string' ? [query.counties]: query.counties
   }
 
-  const { matches, total } = await performSearch(searchString, requestedPage, filterBy, sortBy, action)
+  const { matches, total } = await performSearch(searchString, requestedPage, filterBy, sortBy)
   
   return {
     ...defaultReturn,
