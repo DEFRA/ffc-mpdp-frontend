@@ -158,6 +158,23 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
   return { previous, next }
 }
 
+const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: string) => {
+  const encodedSearchString = encodeURIComponent(searchString)
+  let downloadResultsLink = `/downloadresults?searchString=${encodedSearchString}`
+  for(let key in filterBy) {
+    if(filterBy[key].length) {
+      const urlParam = `&${key}=`
+      const urlPart = `${urlParam}${filterBy[key].join(urlParam)}`
+      downloadResultsLink += urlPart
+    }
+  }
+  if(sortBy) {
+    const encodedSortBy = encodeURIComponent(sortBy)
+    downloadResultsLink += `&sortBy=${encodedSortBy}`
+  }
+  return {downloadResultsLink}
+}
+
 const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
   const offset = (requestedPage - 1) * config.search.limit
   const searchResults = await getPaymentData(searchString, offset, filterBy, sortBy)
@@ -214,6 +231,7 @@ export const resultsModel = async (query: any, error?: any) => {
     results,
     total,
     currentPage: requestedPage,
-    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`
+    headingTitle: `${total ? 'Results for' : 'We found no results for'} ‘${searchString}’`,
+    ...getDownloadResultsLink(searchString, filterBy, sortBy)
   }
 }
