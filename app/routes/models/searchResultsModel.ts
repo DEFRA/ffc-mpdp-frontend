@@ -195,7 +195,6 @@ export const createModel = async (query: any, error?: any) => {
     }
   }
 
-  const action = query.action
   const sortBy = decodeURIComponent(query.sortBy)
   const requestedPage = query.page
   const filterBy = {
