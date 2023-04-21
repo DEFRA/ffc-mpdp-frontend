@@ -26,10 +26,10 @@ const getSearchSuggestions = async (searchString) => {
 }
 
 const getOption = (value, text, onClick, onMouseOver = null, classList = '') => {
-	let option = document.createElement('option');
+	let option = document.createElement('div');
 	option.value = value;
 	option.textContent = text;
-	option.onclick = onClick;
+	option.onmousedown = onClick;
 	option.onmouseover = onMouseOver
 	option.classList += ` ${classList}`;
 	
@@ -38,7 +38,8 @@ const getOption = (value, text, onClick, onMouseOver = null, classList = '') => 
 
 const setupSearch = () => {
 	const searchInput = document.getElementById('searchInput') || document.getElementById('resultsSearchInput')
-	if(!searchInput) {
+	const domSuggestions = document.getElementById('suggestions')
+	if(!searchInput || !domSuggestions) {
 		return;
 	}
 
@@ -69,8 +70,6 @@ const setupSearch = () => {
 			'mpdp-text-align-center mpdp-align-items-center option-container')
 	}
 	
-
-	const domSuggestions = document.getElementById('suggestions')
 	const hideSuggestions = () => {
 		domSuggestions.style.display = 'none';
 		focusIndex = -1;
@@ -90,7 +89,8 @@ const setupSearch = () => {
 					const val = `${row.payee_name} (${row.town}, ${row.county_council}, ${row.part_postcode})`
 					domSuggestions.append(getOption(val, val,
 						() => window.location.href = `${window.location.origin}/details?payeeName=${row.payee_name}&partPostcode=${row.part_postcode}&searchString=${searchInput.value}`,
-						() => {
+						(event) => {
+							event.stopPropagation()
 							if(focusIndex != -1) {
 								focusIndex = -1;
 								unsetActive();
@@ -112,7 +112,7 @@ const setupSearch = () => {
 	searchInput.onblur = () => {
 		window.setTimeout(() => {
 			hideSuggestions();
-		}, 100);
+		}, 250);
 	}
 
 	searchInput.oninput = () => {
@@ -125,20 +125,20 @@ const setupSearch = () => {
 	}
 
 	const setActive = () => {
-		if (!domSuggestions.options?.length) return false;
+		if (!domSuggestions.children?.length) return false;
 		unsetActive();
 		
-		focusIndex = (focusIndex >= domSuggestions.options.length)? 0 : (focusIndex < 0 ?  (domSuggestions.options.length - 1) : focusIndex)		
-		if([loadingText, noResultsText].includes(domSuggestions.options[focusIndex].value)) { 
+		focusIndex = (focusIndex >= domSuggestions.children.length)? 0 : (focusIndex < 0 ?  (domSuggestions.children.length - 1) : focusIndex)		
+		if([loadingText, noResultsText].includes(domSuggestions.children[focusIndex].value)) { 
 			return;
 		}
 
-		domSuggestions.options[focusIndex].classList.add("active");
+		domSuggestions.children[focusIndex].classList.add("active");
 	}
 	
 	const unsetActive = () => {
-		for (var i = 0; i < domSuggestions.options.length; i++) {
-			domSuggestions.options[i].classList.remove("active");
+		for (var i = 0; i < domSuggestions.children.length; i++) {
+			domSuggestions.children[i].classList.remove("active");
 		}
 	}
 
@@ -159,12 +159,17 @@ const setupSearch = () => {
 				setActive();
 				break;
 			case "Enter":
-				if (focusIndex > -1 && domSuggestions.options.length) {
-					if([loadingText, noResultsText].includes(domSuggestions.option[focusIndex].value)) { 
-						return;
-					}
-					domSuggestions.options[focusIndex].click();
+				if (focusIndex == -1 || !domSuggestions.children.length) {
+					document.getElementById('searchButton')?.click();
+					return;
 				}
+	
+				if([loadingText, noResultsText].includes(domSuggestions.children[focusIndex].value)) { 
+					return;
+				}
+				
+				domSuggestions.children[focusIndex].dispatchEvent(new MouseEvent('mousedown'));
+								
 				break;
 			case "Esc": // IE/Edge specific value
 			case "Escape":
