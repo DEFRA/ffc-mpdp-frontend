@@ -177,10 +177,11 @@ const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: str
 
 const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
   const offset = (requestedPage - 1) * config.search.limit
-  const searchResults = await getPaymentData(searchString, offset, filterBy, sortBy)
+  const paymentData = await getPaymentData(searchString, offset, filterBy, sortBy)
+  const results = paymentData.results?.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
   return {
-    ...searchResults,
-    results: searchResults.results?.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
+    ...paymentData,
+    results
   }
 }
 
@@ -221,13 +222,12 @@ export const resultsModel = async (query: any, error?: any) => {
   }
 
   const { results, total, filterOptions } = await performSearch(searchString, requestedPage, filterBy, sortBy)
-  const amounts = getMatchingStaticAmounts(filterOptions?.amounts)
-
+  
   return {
     ...defaultReturn,
     searchString,
     ...getPaginationAttributes(total, requestedPage, searchString, filterBy, sortBy),
-    filters: getFilters(query, {...filterOptions, amounts}),
+    filters: getFilters(query, {...filterOptions, amounts: getMatchingStaticAmounts(filterOptions?.amounts)}),
     results,
     total,
     currentPage: requestedPage,
