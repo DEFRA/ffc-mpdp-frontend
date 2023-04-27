@@ -35,13 +35,14 @@ export const getPaymentData = async (searchString: string, offset: number, filte
 	})
 
 	if(!response) {
-		return { results: [], total: 0 }
+		return { results: [], total: 0, filterOptions: {} }
 	}
 
 	const result = JSON.parse(response.payload)
 	return {
 		results: result.rows,
-		total: result.count
+		total: result.count,
+		filterOptions: result.filterOptions
 	}
 }
 
