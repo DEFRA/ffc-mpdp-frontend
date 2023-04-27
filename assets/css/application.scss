@@ -213,6 +213,10 @@ button.mpdp-link-btn {
     flex-direction: column;
     align-items: stretch;
   }
+
+  .download-csv-flex-end {
+    margin: 15px;
+  }
 }
 
 .mpdp-dl-list > dt {
@@ -359,4 +363,14 @@ input[type="search"]::-webkit-search-cancel-button {
 .mpdp-justify-content-flex-end {
   display: flex;
   justify-content: flex-end
+}
+
+.download-csv-flex-end {
+  display: flex;
+}
+
+@media (min-width: 641px) {
+  .download-csv-flex-end {
+    justify-content: flex-end;
+  }
 }
