@@ -5,7 +5,8 @@ import {
     getAllSchemesNames,
     getUrlParams, 
     getPageTitle, 
-    removeTrailingSlash
+    removeTrailingSlash,
+    getMatchingStaticAmounts
 } from '../../../app/utils/helper'
 
 describe('helper module tests', () => {
@@ -79,5 +80,30 @@ describe('helper module tests', () => {
         expect(removeTrailingSlash('/service-start/')).toEqual('/service-start')
         expect(removeTrailingSlash('/search')).toEqual('/search')
         expect(removeTrailingSlash('')).toEqual('')
+    })
+
+    test('getMatchingStaticAmounts returns correct value', () => {
+        expect(getMatchingStaticAmounts(['12344'])).toEqual([{
+            text: '£10,000 to £14,999',
+            value: '10000-14999'
+        }])
+        expect(getMatchingStaticAmounts(['123','5467', '12398'])).toEqual([
+            {
+                text: '£0 to £1,999',
+                value: '0-1999'
+            },
+            {
+                text: '£5,000 to £9,999',
+                value: '5000-9999'
+            },
+            {
+                text: '£10,000 to £14,999',
+                value: '10000-14999'
+            },
+        ])
+        expect(getMatchingStaticAmounts(['32000'])).toEqual([{
+            text: '£30,000 or more',
+            value: '30000-'
+        }])
     })
 })

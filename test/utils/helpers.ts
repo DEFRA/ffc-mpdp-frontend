@@ -17,10 +17,27 @@ export const getOptions = (page: string, method: string = 'GET', params: any = {
 }
 
 const removeFilterFields = (searchResults: typeof dummyResults) => searchResults.map(({scheme, ...rest}) => rest)
+export const getFilterOptions = (searchResults: typeof dummyResults) => {
+	if (!searchResults || !searchResults.length) {
+		return { schemes: [], amounts: [], counties: [] };
+	}
+
+	return {
+		schemes: getUniqueFields(searchResults, 'scheme'),
+		counties: getUniqueFields(searchResults, 'county_council'),
+		amounts: getUniqueFields(searchResults, 'amount'),
+	};
+};
+
+const getUniqueFields = (searchResults: typeof dummyResults, field: string) => {
+	return Array.from(new Set(searchResults.map((result: any) => result[field])));
+};
 
 export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy: any, sortBy: string, limit: number = 10) => {
 	let searchResults = dummyResults.filter(x =>
 		x.payee_name.toLowerCase().includes(searchQuery.toLowerCase()))
+
+	const filterOptions = getFilterOptions(searchResults)
 
 	searchResults = filterBySchemes(searchResults, filterBy.schemes)
 	searchResults = filterByAmounts(searchResults, filterBy.amounts)
@@ -31,7 +48,8 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy
 	if(!results) {
 		return {
 			results: [],
-			total: 0
+			total: 0,
+			filterOptions: []
 		}
 	}
 
@@ -43,7 +61,8 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy
 	// split the results into pages
 	return { 
 		results: results.slice(offset, offset + limit),
-		total: results.length
+		total: results.length,
+		filterOptions
 	}
 }
 

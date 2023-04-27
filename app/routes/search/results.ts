@@ -1,7 +1,7 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import Joi from "joi";
 
-import { createModel } from "../models/searchResultsModel";
+import { resultsModel } from "../models/search/resultsModel";
 
 module.exports = [
   {
@@ -23,7 +23,7 @@ module.exports = [
           if(!(request.query as any).searchString.trim()) {
             return h.view(
               `search/${(request.query as any).pageId || 'index'}`,
-              await createModel(request.query, error)
+              await resultsModel(request.query, error)
             ).code(400).takeover()
           }
 
@@ -31,7 +31,7 @@ module.exports = [
         }
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
-        return h.view('search/results', await createModel(request.query))
+        return h.view('search/results', await resultsModel(request.query))
       }
     }
   }

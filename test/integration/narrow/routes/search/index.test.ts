@@ -10,7 +10,8 @@ import { expectRelatedContent } from '../../../../utils/related-content-expects'
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: () => ({
     results: [],
-    total: 0
+    total: 0,
+    filterOptions: { schemes: [], amounts: [], counties: [] }
   })
 }))
 
