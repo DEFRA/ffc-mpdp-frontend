@@ -28,7 +28,13 @@
         <datalist id="suggestions" class='govuk-body mpdp-font-size-17'></datalist>
       </div>
       
-      <button id='searchButton' class="govuk-button" data-module="govuk-button" type="submit" aria-label='{{model.buttonText}}'>{{model.buttonText}}</button>
+      <button 
+        id='searchButton' 
+        class="govuk-button" 
+        data-module="govuk-button" 
+        type="submit" 
+        aria-label='{{model.buttonText}}'
+        onClick='document.getElementById("searchForm").querySelectorAll("input[type=\"checkbox\"]").forEach(x => x.checked=false);'>{{model.buttonText}}</button>
     </div>
     {%if model.filters %}
       {{searchFilters(model)}}

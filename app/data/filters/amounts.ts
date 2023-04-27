@@ -4,7 +4,7 @@ export const amounts = [
         value: '0-1999'
     },
     {
-        text: '£2000 to £4,999',
+        text: '£2,000 to £4,999',
         value: '2000-4999'
     },
     {

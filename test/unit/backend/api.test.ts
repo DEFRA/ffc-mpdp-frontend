@@ -62,7 +62,8 @@ describe('Backend API tests', () => {
         const res = await getPaymentData(searchString, offset, filterBy, sortBy)
         expect(res).toMatchObject({
 			results: [],
-			total: 0
+			total: 0,
+            filterOptions: {}
 		})
 
         expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: {filterBy, limit: 20, offset, searchString ,sortBy} })
@@ -79,7 +80,8 @@ describe('Backend API tests', () => {
         const mockPost = jest.fn().mockResolvedValue({
             payload: JSON.stringify({
                 rows: mockData,
-                count: 1
+                count: 1,
+                filterOptions: {}
             })
         })
         jest.spyOn(wreck, 'post').mockImplementation(mockPost)
@@ -91,7 +93,8 @@ describe('Backend API tests', () => {
         const res = await getPaymentData(searchString, offset, filterBy, sortBy)
         expect(res).toMatchObject({
 			results: mockData,
-			total: mockData.length
+			total: mockData.length,
+            filterOptions: {}
 		})
 
         expect(mockPost).toHaveBeenCalledWith(`${endpoint}/paymentdata`, { payload: { filterBy, limit: 20, offset, searchString, sortBy } })
@@ -209,16 +212,9 @@ describe('Backend API tests', () => {
     })
 
     test('getDownloadDetailsCsv returns error', async () => {
-        const content ="TEST_CSV_CONTENT";
-        const bufferedData = Buffer.from(content);
-        const mockedResponse = new Response( bufferedData, {});
-        const mockedFetch = fetch as jest.MockedFunctionDeep<typeof fetch>
         const mockedFetchError = new Error("Error while reading from URL ");
         (fetch as jest.MockedFunctionDeep<typeof fetch>).mockRejectedValueOnce(mockedFetchError);
 
-        const payeeName = '__PAYEE_NAME__'
-        const partPostcode = '__POST_CODE'
-        const route = getUrlParams('downloaddetails', { payeeName, partPostcode })
-        await expect( getDownloadDetailsCsv(payeeName, partPostcode)).rejects.toThrowError(Error);
+        await expect( getDownloadDetailsCsv('__PAYEE_NAME__', '__POST_CODE')).rejects.toThrowError(Error);
     })
 })
