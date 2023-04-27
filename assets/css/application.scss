@@ -307,7 +307,7 @@ button.mpdp-link-btn {
   background-color: #F1F0EF !important;
   top: 0 !important;
 }
-.form-inline datalist {
+.form-inline #suggestions {
   position: absolute;
   background: white;
   border: 1px solid black;
@@ -319,10 +319,11 @@ button.mpdp-link-btn {
   z-index: 1;
 }
 
-.form-inline option {
+#suggestions div {
   padding: 10px 15px;
   cursor: pointer;
   white-space: normal;
+  align-items: center;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
