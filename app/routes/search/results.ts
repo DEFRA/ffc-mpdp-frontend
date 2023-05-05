@@ -26,11 +26,13 @@ module.exports = [
               await resultsModel(request.query, error)
             ).code(400).takeover()
           }
-
+          
           return h.view('search/index', { ...(request.query as Object), errorList: [{ text: error.details[0].message }]}).code(400).takeover()
         }
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
+        console.log("------- searchString:"+request.query.searchString)
+        request.query.searchString=encodeURIComponent(request.query.searchString)
         return h.view('search/results', await resultsModel(request.query))
       }
     }
