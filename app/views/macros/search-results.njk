@@ -6,12 +6,12 @@
   <div>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-s" id='totalResults' {{ model.total }} results>{{ model.total }} results</h2>
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-0" id='totalResults' {{ model.total }} results>{{ model.total }} results</h2>
       </div>
-      <div class="govuk-grid-column-two-third mpdp-justify-content-flex-end">
+      <div class="govuk-grid-column-two-third download-csv-flex-end">
         {% if(model.total)%}
           <a id='downloadResultsLink'
-            class="govuk-heading-s"
+            class="govuk-!-margin-bottom-0 govuk-!-margin-right-3"
             href="{{model.downloadResultsLink}}">
             Download {{ model.total }} results (.CSV)
           </a>
