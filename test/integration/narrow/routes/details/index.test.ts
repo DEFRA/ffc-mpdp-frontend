@@ -54,8 +54,8 @@ describe('MPDP Details page tests', () => {
 	test.each([
 		{id: '#detailsBackLink', href: `/results?searchString=${searchString}&page=${page}`, text: 'Back to results'},
 		{id: '#detailsBtmBackLink', href: `/results?searchString=${searchString}&page=${page}`, text: 'Back to results'},
-		{id: '#callCharges', href: 'https://www.gov.uk/call-charges', text: 'Find out more about call charges'},
-		{id: '#sfiQueryForm', href: 'https://www.gov.uk/government/publications/sustainable-farming-incentive-pilot-query-form', text: 'use the Sustainable Farming Incentive pilot query form'},
+		{id: '#callCharges', href: 'https://www.gov.uk/call-charges', text: 'Find out about call charges'},
+		{id: '#sfiQueryForm', href: 'https://www.gov.uk/government/publications/sustainable-farming-incentive-pilot-query-form', text: 'SFI pilot query form'},
 		{id: '#newSearchLink', href: '/search', text: 'start a new search'},
 		{id: '#printLink', href: 'window.print()', text: 'print this page'},
 		{id: '#downloaddetailsLink', href: `/downloaddetails?payeeName=${payeeNameResult}&partPostcode=${partPostcodeResult}`, text: 'Download this data (.CSV)'}
