@@ -59,7 +59,7 @@ export const getSearchSuggestions = async (searchString: string) => {
 	return JSON.parse(response.payload)
 }
 
-export const getPaymentDetails = async (payeeName: string, partPostcode: string): Promise<Summary | null> => {
+export const getPaymentDetails = async (payeeName: string, partPostcode: string): Promise<any> => {
 	const url = getUrlParams('paymentdetails', {
 		payeeName,
 		partPostcode

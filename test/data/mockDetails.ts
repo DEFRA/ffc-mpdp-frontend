@@ -7,34 +7,46 @@ export default [
     financial_year: '21/22',
     parliamentary_constituency: 'Reading East',
     schemes: [{
-      scheme: "Farming Equipment and Technology Fund",
+      name: "Farming Equipment and Technology Fund",
       scheme_detail: "Horticulture",
       activity_detail: "",
-      amount: '120000'
-  },
+      amount: '120000',
+      financial_year: '21/22'
+    },
     {
-      scheme: "Farming Equipment and Technology Fund",
+      name: "Farming Equipment and Technology Fund",
       scheme_detail: "forestry",
       activity_detail: "",
-      amount: '20000.5'
+      amount: '20000.5',
+      financial_year: '22/23'
     },
     {
-      scheme: "Farming Equipment and Technology Fund",
+      name: "Farming Equipment and Technology Fund",
       scheme_detail: "resource management",
       activity_detail: "",
-      amount: '2000.45'
+      amount: '2000.45',
+      financial_year: '21/22'
     },
     {
-      scheme: "Sustainable Farming Incentive pilot",
+      name: "Sustainable Farming Incentive pilot",
       scheme_detail: "Improved Grassland soils",
       activity_detail: "Medium",
-      amount: '10000000'
+      amount: '10000000',
+      financial_year: '21/22'
     },
     {
-      scheme: "Sustainable Farming Incentive pilot",
+      name: "Sustainable Farming Incentive pilot",
       scheme_detail: "Arable and Horticultural Land",
       activity_detail: "Low",
-      amount: '1000000'
+      amount: '1000000',
+      financial_year: '21/22'
+    },
+    {
+      name: "Sustainable Farming Incentive pilot",
+      scheme_detail: "Arable and Horticultural Land",
+      activity_detail: "Low",
+      amount: '100000',
+      financial_year: '22/23'
     }]
   },
   {
@@ -45,16 +57,18 @@ export default [
     parliamentary_constituency: 'Selby and Ainsty',
     financial_year: '21/22',
     schemes: [{
-      scheme: "Sustainable Farming Incentive pilot",
+      name: "Sustainable Farming Incentive pilot",
       scheme_detail: "Improved Grassland soils",
       activity_detail: "Medium",
-      amount: '10000000'
+      amount: '10000000',
+      financial_year: '21/22'
     },
     {
-      scheme: "Sustainable Farming Incentive pilot",
+      name: "Sustainable Farming Incentive pilot",
       scheme_detail: "Arable and Horticultural Land",
       activity_detail: "Low",
-      amount: '1000000'
+      amount: '1000000',
+      financial_year: '21/22'
     }]
   },
   {
@@ -65,10 +79,11 @@ export default [
     financial_year: '21/22',
     parliamentary_constituency: 'Reading East',
     schemes: [ {
-      scheme: "Farming Equipment and Technology Fund",
+      name: "Farming Equipment and Technology Fund",
       scheme_detail: "Horticulture",
       activity_detail: "",
-      amount: '10200'
+      amount: '10200',
+      financial_year: '21/22'
     }]
   }
 ]
