@@ -1,5 +1,6 @@
 import { detailsModel } from '../../../../../app/routes/models/detailsModel';
 import * as api from '../../../../../app/backend/api';
+import { getSchemeStaticData } from '../../../../../app/utils/helper';
 
 describe('detailsModel', () => {
 	test('detailsModel returns empty object if getPaymentDetails returns null', async () => {
@@ -66,6 +67,9 @@ describe('detailsModel', () => {
 			searchString: 'test',
 			page: 'test',
 		});
+
+		const fetfData = getSchemeStaticData('Farming Equipment and Technology Fund');
+		const sfiData = getSchemeStaticData('Sustainable Farming Incentive Pilot');
 		
 		expect(result).toStrictEqual({
 			summary: {
@@ -78,9 +82,8 @@ describe('detailsModel', () => {
 				schemes: [
 					{
 						name: 'Farming Equipment and Technology Fund',
-						description:
-							'Grants to help farmers, horticulturalists and forestry owners invest in new technology.',
-						link: 'https://www.gov.uk/guidance/farming-equipment-and-technology-fund-round-1-manual',
+						description: fetfData?.description,
+						link: fetfData?.link,
 						total: 8420,
 						readableTotal: '8,420.00',
 						activity: {
@@ -108,9 +111,8 @@ describe('detailsModel', () => {
 					},
 					{
 						name: 'Sustainable Farming Incentive Pilot',
-						description:
-							'Funding for farmers to manage their land in an environmentally sustainable way.',
-						link: 'https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance',
+						description: sfiData?.description,
+						link: sfiData?.link,
 						total: 14506,
 						readableTotal: '14,506.00',
 						activity: {
