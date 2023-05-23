@@ -25,37 +25,37 @@ describe('detailsModel', () => {
 			schemes: [
 				{
 					name: 'Farming Equipment and Technology Fund',
-					scheme_detail: 'Livestock Handling and weighing equipment',
+					detail: 'Livestock Handling and weighing equipment',
 					amount: '4210.00',
 					financial_year: '21/22',
 				},
 				{
 					name: 'Sustainable Farming Incentive Pilot',
-					scheme_detail: 'Low and no input Grassland',
+					detail: 'Low and no input Grassland',
 					amount: '3761.00',
 					financial_year: '21/22',
 				},
 				{
 					name: 'Sustainable Farming Incentive pilot',
-					scheme_detail: 'Arable and Horticultural Land',
+					detail: 'Arable and Horticultural Land',
 					amount: '3492.00',
 					financial_year: '21/22',
 				},
 				{
 					name: 'Farming Equipment and Technology Fund',
-					scheme_detail: 'Livestock Handling and weighing equipment',
+					detail: 'Livestock Handling and weighing equipment',
 					amount: '4210.00',
 					financial_year: '22/23',
 				},
 				{
 					name: 'Sustainable Farming Incentive Pilot',
-					scheme_detail: 'Arable and Horticultural Land',
+					detail: 'Arable and Horticultural Land',
 					amount: '3492.00',
 					financial_year: '22/23',
 				},
 				{
 					name: 'Sustainable Farming Incentive Pilot',
-					scheme_detail: 'Low and no input Grassland',
+					detail: 'Low and no input Grassland',
 					amount: '3761.00',
 					financial_year: '22/23',
 				},

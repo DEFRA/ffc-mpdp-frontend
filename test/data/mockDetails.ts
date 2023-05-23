@@ -8,42 +8,42 @@ export default [
     parliamentary_constituency: 'Reading East',
     schemes: [{
       name: "Farming Equipment and Technology Fund",
-      scheme_detail: "Horticulture",
+      detail: "Horticulture",
       activity_detail: "",
       amount: '120000',
       financial_year: '21/22'
     },
     {
       name: "Farming Equipment and Technology Fund",
-      scheme_detail: "forestry",
+      detail: "forestry",
       activity_detail: "",
       amount: '20000.5',
       financial_year: '22/23'
     },
     {
       name: "Farming Equipment and Technology Fund",
-      scheme_detail: "resource management",
+      detail: "resource management",
       activity_detail: "",
       amount: '2000.45',
       financial_year: '21/22'
     },
     {
       name: "Sustainable Farming Incentive pilot",
-      scheme_detail: "Improved Grassland soils",
+      detail: "Improved Grassland soils",
       activity_detail: "Medium",
       amount: '10000000',
       financial_year: '21/22'
     },
     {
       name: "Sustainable Farming Incentive pilot",
-      scheme_detail: "Arable and Horticultural Land",
+      detail: "Arable and Horticultural Land",
       activity_detail: "Low",
       amount: '1000000',
       financial_year: '21/22'
     },
     {
       name: "Sustainable Farming Incentive pilot",
-      scheme_detail: "Arable and Horticultural Land",
+      detail: "Arable and Horticultural Land",
       activity_detail: "Low",
       amount: '100000',
       financial_year: '22/23'
@@ -58,14 +58,14 @@ export default [
     financial_year: '21/22',
     schemes: [{
       name: "Sustainable Farming Incentive pilot",
-      scheme_detail: "Improved Grassland soils",
+      detail: "Improved Grassland soils",
       activity_detail: "Medium",
       amount: '10000000',
       financial_year: '21/22'
     },
     {
       name: "Sustainable Farming Incentive pilot",
-      scheme_detail: "Arable and Horticultural Land",
+      detail: "Arable and Horticultural Land",
       activity_detail: "Low",
       amount: '1000000',
       financial_year: '21/22'
@@ -80,7 +80,7 @@ export default [
     parliamentary_constituency: 'Reading East',
     schemes: [ {
       name: "Farming Equipment and Technology Fund",
-      scheme_detail: "Horticulture",
+      detail: "Horticulture",
       activity_detail: "",
       amount: '10200',
       financial_year: '21/22'

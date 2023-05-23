@@ -99,7 +99,7 @@ const addSchemeActivity = (scheme: any, schemeData: Scheme) => {
   schemeData.activity[financialYear].total += schemeAmount
   schemeData.activity[financialYear].readableTotal = getReadableAmount(schemeData.activity[financialYear].total)
   schemeData.activity[financialYear].schemeDetails.push({
-    name: scheme.scheme_detail,
+    name: scheme.detail,
     amount: getReadableAmount(schemeAmount)
   })
 }
