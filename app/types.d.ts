@@ -11,20 +11,11 @@ export type Summary = {
     town: string,
     county_council: string,
     parliamentary_constituency: string,
-    financial_year: string,
+    financial_years: string[],
     total: string,
     startYear?: string,
     endYear?: string,
-    schemes: [{
-      name: string,
-      description: string,
-      link: string,
-      total?: string,
-      schemeTypes: [{
-        name: string,
-        amount?: string
-      }]
-    }] | any[]
+    schemes: Scheme[]
 }
 
 export type Scheme = {
@@ -33,10 +24,18 @@ export type Scheme = {
   link: string,
   total: number,
   readableTotal: string,
-  schemeTypes: SchemeDetail[]
+  activity: ActivityDetail
+}
+
+export type ActivityDetail = {
+  [financial_year: string]: {
+    total: number,
+    readableTotal?: string,
+    schemeDetails: SchemeDetail[]
+  }
 }
 
 export type SchemeDetail = {
   name: string,
-  amount: string,
+  amount: string
 }

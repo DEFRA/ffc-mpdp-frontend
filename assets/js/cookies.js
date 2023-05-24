@@ -10,23 +10,6 @@ const setupLinkListeners = () => {
   })
 }
 
-const setupShowHideButton = () => {
-  const showHideButton = document.querySelector('#toggleButton')
-  if(!showHideButton) { return }
-
-  const detailsElements = document.querySelectorAll('.toggle-details')
-
-  showHideButton?.addEventListener('click', () => {
-    const currentText = showHideButton.innerText
-    
-    detailsElements.forEach((element) => {
-      element.style.display = element.style.display === 'none'? 'block' : 'none'
-    })
-
-    showHideButton.innerText = currentText === 'Show Details'? 'Hide Details' : 'Show Details'
-  }) 
-}
-
 const setupCookieComponentListeners = () => {
   const cookieContainer = document.querySelector('.js-cookies-container')
   if (!cookieContainer) { return }
@@ -86,5 +69,4 @@ const setupCookieComponentListeners = () => {
 (() => {
   setupCookieComponentListeners()
   setupLinkListeners()
-  setupShowHideButton()
 })()

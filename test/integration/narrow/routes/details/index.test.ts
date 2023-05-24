@@ -39,16 +39,29 @@ describe('MPDP Details page tests', () => {
 		expect(res.statusCode).toBe(200)
 	})
 
-	test('Check for common elements to be present', () => {
+	test.each([
+		'#mpdpSummaryPanel',
+		'#mpdpSummaryBreakdown',
+		'#mpdpMoreActions',
+		'#reportProblem',
+		'#toggleButton',
+		'#summaryToggle',
+		'#showAllButton',
+		'#downloaddetailsLink',
+		'#schemeMoreInfo1',
+		'#schemeMoreInfo2'
+	])('Check for common elements to be present', (id) => {
+		expect($(id)).toBeDefined()
+	})
+
+	test('Check for common elements content', () => {
 		expect($('h1').text()).toContain(searchString)
 		expect($('title').text()).toContain(searchString)
-		expect($('#mpdpSummaryPanel')).toBeDefined()
-		expect($('#mpdpSummaryBreakdown')).toBeDefined()
-		expect($('#mpdpMoreActions')).toBeDefined()
-		expect($('#reportProblem')).toBeDefined()
-		expect($('#toggleButton').text()).toBeDefined()
-		expect($('#dateRange').text()).toMatch('From 1 April 2021 to 31 March 2022')
-		expect($('#downloaddetailsLink')).toBeDefined()
+		expect($('#dateRange').text()).toMatch('1 April 2021 to 31 March 2023')
+		expect($('#totalSchemes').text()).toMatch('Payments from 2 schemes')
+		expect($('#totalYears').text()).toMatch('Over 2 financial years')
+		expect($('.schemeDetails').length).toBe(2)
+		expect($('.schemeActivity').length).toBe(4)		
 	})
 
 	test.each([

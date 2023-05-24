@@ -18,15 +18,15 @@
     <p>Business location: {{summary.town}}, {{summary.county_council}}, {{summary.parliamentary_constituency}}, {{ summary.part_postcode }} </p>
 
     {{ govukInsetText({
-      text: "The business location may not match the location of the land itself."
+      text: "The business and land may be in different locations."
     }) }}
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <p> </p>
       </div>
-      <div class="govuk-grid-column-one-third mpdp-justify-content-flex-end">
-        <a id='downloaddetailsLink' class='mpdp-link-btn nojs-hidden govuk-!-margin-bottom-2'
+      <div class='mpdp-font-size-17 govuk-!-margin-bottom-2 govuk-!-margin-right-3 mpdp-float-right'>
+        <a id='downloaddetailsLink' class='mpdp-link-btn nojs-hidden'
           href="/downloaddetails?payeeName={{summary.payee_name}}&partPostcode={{summary.part_postcode}}">
           Download this data (.CSV)
         </a>
@@ -37,14 +37,13 @@
       <div class='mpdp-panel' id='mpdpSummaryPanel'>
         <div class="grid-column-two-one">
           <div> 
-            <h2 class="govuk-heading-m mpdp-text-color-white">Payments to date</h2>
-            <p id='dateRange' class='govuk-body govuk-!-font-size-16 mpdp-margin-top-negative-3 mpdp-text-color-white' >From 1 April {{summary.startYear}} to 31 March {{summary.endYear}}</p>
+            <h2 id='totalSchemes' class="govuk-heading-m mpdp-text-color-white">Payments from {{summary.schemes.length}} schemes</h2>
           </div>
           <div> 
             <p class="govuk-heading-m mpdp-text-color-white mpdp-text-align-right">£{{ summary.total }}</p>
           </div>
         </div>
-        <div>
+        <div id='summaryDetails' class='govuk-!-margin-bottom-4'>
           <dl class='govuk-list govuk-list--bullet govuk-!-padding-left-6 govuk-!-margin-0 mpdp-text-color-white grid-column-three-one mpdp-dl-list'>
             {% for scheme in summary.schemes %}
               <dt class='govuk-!-margin-bottom-1'>{{scheme.name}}</dt>
@@ -52,43 +51,74 @@
             {% endfor %}  
           </dl>
         </div>
+        <div class="grid-column-two-one govuk-!-margin-top-0">
+          <div> 
+            <h2 id='totalYears' class="govuk-heading-s mpdp-text-color-white govuk-!-margin-bottom-0">Over {{summary.financial_years.length}} financial {{ "year" if summary.financial_years.length === 1 else "years"}}</h2>
+            <p id='dateRange' class='govuk-!-font-size-19 mpdp-text-color-white govuk-!-margin-bottom-0' >1 April {{summary.startYear}} to 31 March {{summary.endYear}}</p>
+          </div>
+          <div class='mpdp-position-relative'> 
+            <button id='summaryToggle' class='mpdp-link-btn nojs-hidden govuk-heading-s mpdp-text-color-white govuk-!-margin-bottom-0 mpdp-position-absolute mpdp-right-0 mpdp-bottom-0' aria-live='polite'>Show Details</button>
+          </div>
+        </div>
       </div>
 
-      <div class='govuk-!-margin-top-7'>
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-1">Payment summary</h2>
-        <p>See a breakdown of the payments for each scheme.</p>
+      <div class='govuk-!-margin-top-7 govuk-!-margin-bottom-7'>
+        <h2 class='govuk-heading-m govuk-!-margin-bottom-1'>Payment breakdown</h2>
+        <p class='govuk-!-margin-bottom-1'>See payments by financial year(1 April to 31 March).</p>
 
-        <div id='mpdpSummaryBreakdown' class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">
-          <button id='toggleButton' class='mpdp-link-btn nojs-hidden' aria-live='polite'>Hide Details</button>
-          <div class="grid-column-three-one govuk-!-padding-2 govuk-!-padding-left-3 mpdp-bg-color-light-grey">
-            <p class='govuk-body govuk-!-font-weight-bold govuk-!-margin-0'>1 April {{summary.startYear}} to 31 March {{summary.endYear}}</p>
-            <p class='govuk-body govuk-!-font-weight-bold govuk-!-margin-0 mpdp-text-align-right'>£{{summary.total}}</p>
+        <div id='mpdpSummaryBreakdown' data-schemesLength='{{summary.schemes.length}}' class="govuk-body govuk-!-margin-bottom-0">
+          <div style='height:20px;' class='govuk-!-margin-bottom-1 mpdp-position-relative'>
+            <button id='showAllButton' class='mpdp-font-size-17 mpdp-link-btn nojs-hidden mpdp-position-absolute mpdp-right-0' aria-live='polite'>Show all</button>
           </div>
+          {% for scheme in summary.schemes %}
+            <div class='grid-row-three-auto mpdp-bg-color-light-grey govuk-!-margin-bottom-3'>
+              <dl class='grid-column-three-one govuk-caption-s mpdp-text-color-dark-grey govuk-!-padding-3 govuk-!-margin-0'>
+                <dt class='mpdp-grid-column-1'>
+                  <div class='govuk-heading-s mpdp-text-color-black govuk-!-margin-0'>{{scheme.name}}</div>
+                  <div class='govuk-caption-m govuk-!-margin-top-1'>{{scheme.description}}</div>
+                
+                </dt>
+                <dd class='govuk-caption-m mpdp-text-align-right mpdp-text-color-black'>
+                  <div class='govuk-heading-s govuk-!-margin-0'>£{{scheme.readableTotal}}</div>
+                  <button id='schemeToggle{{loop.index}}' class='mpdp-link-btn nojs-hidden govuk-caption-m' style='white-space: nowrap' aria-live='polite'>Show Details</button>
+                </dd>
+              </dl>
+              <p id='schemeMoreInfo{{loop.index}}' class='govuk-!-padding-left-3 govuk-!-padding-right-3'> 
+                <a href='{{scheme.link}}' target='_blank'>Read more about the {{scheme.name}} </a>
+              </p>
+            </div>
+            
 
-          <dl class='govuk-!-margin-3 grid-column-three-one govuk-caption-s mpdp-text-color-dark-grey'>
-            {% for scheme in summary.schemes %}
-              <dt class='mpdp-grid-column-1'>
-                <div class='govuk-caption-m mpdp-text-color-black'>{{scheme.name}}</div>
-                <div class='mpdp-details-summary govuk-!-margin-top-1 toggle-details'>{{scheme.description}}</div>
-              </dt>
-              <dd class='govuk-caption-m mpdp-text-align-right mpdp-text-color-black'>£{{scheme.readableTotal}}</dd>
-
-              <dt class='toggle-details govuk-!-margin-top-3 govuk-!-margin-bottom-1 mpdp-details-summary mpdp-grid-column-1-span-2'>Payments for:</dt>
-              <dd class='toggle-details grid-column-three-one govuk-!-margin-left-6 mpdp-grid-column-1-span-2'>
-                <dl class='govuk-!-margin-0 grid-column-three-one mpdp-dl-list mpdp-grid-column-1-span-2'>
-                  {% for schemeType in scheme.schemeTypes %}
-                    <dt class='mpdp-list-marker-small'><span class='mpdp-details-summary'>{{schemeType.name}}</span></dt>
-                    <dd class='mpdp-text-align-right'>£{{schemeType.amount}}</dd>
-                    {% if not loop.last %}
-                      <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey mpdp-grid-column-1-span-2 mpdp-hr" role="presentation">
-                    {% endif %}
-                  {% endfor %}
-                </dl>
-              </dd>
-              <p class='toggle-details govuk-!-margin-top-4 mpdp-details-summary govuk-!-margin-bottom-0 mpdp-grid-column-1-span-2'><a href='{{scheme.link}}' target='_blank'>Read more about the {{scheme.name}} </a></p>
-              <hr class='govuk-section-break govuk-section-break--m govuk-section-break--visible mpdp-grid-column-1-span-2' role='presentation'>
-            {% endfor %}  
-          </dl>
+            <dl id='schemeDetails{{loop.index}}' class='schemeDetails govuk-caption-s'>
+              <dt class='govuk-heading-s govuk-!-padding-left-3 govuk-!-margin-0 mpdp-position-relative mpdp-float-left'>Activity</dt>
+              <dd class='govuk-heading-s mpdp-text-align-right govuk-!-padding-right-3 govuk-!-margin-0'>Payment</dd>
+              <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey mpdp-grid-column-1-span-2 mpdp-hr" role="presentation">
+              {% for financialYear, activityDetails in scheme.activity %}
+                <dt>
+                  <details class='schemeActivity' close>
+                    <summary class='detailsSummary'>
+                        <div class='mpdp-text-link-color mpdp-text-underline'>{{ financialYear }}</div>
+                        <div class='mpdp-text-align-right govuk-!-font-weight-bold'>£{{activityDetails.readableTotal}}</div>
+                    </summary>
+                    <div>
+                      <dl class='grid-column-three-one mpdp-grid-column-1-span-2 mpdp-text-color-dark-grey mpdp-details-text'>
+                        {% for schemeDetail in activityDetails.schemeDetails %}
+                          <dt class='govuk-!-padding-left-3'><span class='mpdp-details-summary'>{{schemeDetail.name}}</span></dt>
+                          <dd class='mpdp-text-align-right govuk-!-margin-right-2'>£{{schemeDetail.amount}}</dd>
+                          {% if not loop.last %}
+                            <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey mpdp-grid-column-1-span-2 govuk-!-margin-2 govuk-!-margin-right-3" role="presentation">
+                          {% endif %}
+                        {% endfor %}
+                      </dl>
+                    </div>
+                  </details>
+                </dt>
+                
+                <hr class="govuk-section-break govuk-section-break--visible mpdp-border-color-light-grey mpdp-grid-column-1-span-2 mpdp-hr" role="presentation">
+                
+              {% endfor %}
+            </dl>
+          {% endfor %}
         </div>
       </div>
 
