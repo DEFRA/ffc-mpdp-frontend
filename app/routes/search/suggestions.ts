@@ -10,15 +10,14 @@ module.exports = [
       auth: false,
       validate: {
         query: Joi.object({
-          searchString: Joi.string().regex(/^[a-zA-Z0-9 '-]*$/).trim().min(1).required(),
+          searchString: Joi.string().trim().min(3).required(),
         }),
         failAction: async (_request: Request, h: ResponseToolkit, error: any) => {
           return h.response(error.toString()).code(400).takeover()
         }
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
-        const searchString = decodeURIComponent(request.query.searchString)
-        return h.response(await getSearchSuggestions(searchString))
+        return h.response(await getSearchSuggestions(request.query.searchString))
       }
     }
   }
