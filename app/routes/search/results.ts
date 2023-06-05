@@ -31,6 +31,7 @@ module.exports = [
         }
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
+        request.query.searchString=encodeURIComponent(request.query.searchString)
         return h.view('search/results', await resultsModel(request.query))
       }
     }
