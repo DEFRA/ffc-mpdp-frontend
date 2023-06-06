@@ -466,3 +466,28 @@ details[open] .detailsSummary:hover::before {
   margin: 0 0 10px 15px;
   padding: 10px 5px;
 }
+
+.filterSummary {
+  list-style: none;
+}
+
+.filterSummary:before {
+  content: "";
+  display: inline-block;
+  border-right: 3px solid black;
+  border-bottom: 3px solid black;
+  width: 10px;
+  height: 10px;
+  transform: rotate(-45deg);
+  margin-right: 10px;
+}
+
+.filterSummary::-webkit-details-marker {
+  display: none
+}
+
+details[open] .filterSummary:before {
+  transform: rotate(-315deg);
+  position: relative;
+  top: -3px;
+}
