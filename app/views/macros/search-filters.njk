@@ -21,7 +21,7 @@
 	{% for key, object in model.filters %}
 		<div id='{{ key | lower }}Filter' style='margin: 15px;'>
 			<details open>
-				<summary>{{ object.name }}</summary>
+				<summary class='filterSummary mpdp-text-link-color'>{{ object.name }}</summary>
 				<div class="description">
 					{% if object.selected %}
 						<div id='{{ key | lower }}Selected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{object.selected}} Selected</div>
