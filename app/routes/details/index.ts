@@ -23,6 +23,7 @@ module.exports = [
         }
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
+        request.query.searchString=encodeURIComponent(request.query.searchString)
         return h.view('details/index', await detailsModel(request.query as queryParams))
       }
     }
