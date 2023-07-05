@@ -429,6 +429,12 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-top: 7px;
 }
 
+@media screen and (max-width: 640px) {
+  .detailsSummary:before {
+    margin-top: 4px;
+  }
+}
+
 details[open] .detailsSummary:before {
   content: '';
   width: 0;

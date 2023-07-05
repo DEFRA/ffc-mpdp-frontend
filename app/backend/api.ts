@@ -1,7 +1,7 @@
 import wreck from '@hapi/wreck'
 import config from '../config'
 import { getUrlParams } from '../utils/helper'
-import { Summary } from '../types'
+import { AggragateSchemeData } from '../types'
 import fetch from "node-fetch"
 
 export const get = async (url: string) => { 
@@ -90,4 +90,15 @@ const getBufferFromUrl = async (url:string): Promise<Buffer> => {
 		console.log("Error while reading from URL " + url , error)
 		throw error
 	}
+}
+
+export const getSchemePaymentsByYear = async (): Promise<AggragateSchemeData | null> => {
+	const url = getUrlParams('schemePayments')
+
+	const response: any = await get(url)
+	if(!response) {
+		return null;
+	}
+
+	return JSON.parse(response.payload)
 }

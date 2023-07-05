@@ -78,6 +78,9 @@ export default {
     },
     '/accessibility': {
       title: 'Accessibility policy'
+    },
+    '/schemePaymentsByYear': {
+      title: 'Scheme payments by year'
     }
   }
 } as config
