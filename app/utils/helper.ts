@@ -42,4 +42,21 @@ export const getMatchingStaticAmounts = (amounts: string[]) => {
 	})
   
 	return returnAmounts
-  }
+}
+
+export const getFinancialYearSummary = (financialYears: string[]) => {
+	const financial_years = sortFinancialYears(financialYears)
+	return {
+		financial_years,
+		startYear: `20${financial_years[0].split('/')[0]}`,
+		endYear: `20${financial_years[financial_years.length - 1].split('/')[1]}`
+	}
+}
+
+const sortFinancialYears = (financialYears: string[]) => {
+	return financialYears.sort((a, b) => {
+    const [_startYearA, endYearA] = a.split('/')
+    const [_startYearB, endYearB] = b.split('/')
+    return parseInt(endYearA) - parseInt(endYearB)
+  })
+}

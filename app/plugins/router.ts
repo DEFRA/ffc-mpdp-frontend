@@ -16,6 +16,7 @@ const routes = [].concat(
   require('../routes/downloaddetails'),
   require('../routes/search/suggestions'),
   require('../routes/downloadresults'),
+  require('../routes/schemePaymentsByYear'),
 )
 
 module.exports = {

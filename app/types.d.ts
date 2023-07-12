@@ -39,3 +39,13 @@ export type SchemeDetail = {
   name: string,
   amount: string
 }
+
+export type AggragateSchemeDetail = {
+	scheme: string,
+	finanacial_year: string,
+	total_amount: string
+}
+
+export type AggragateSchemeData = {
+	[financial_year: string]: AggragateSchemeDetail[]
+}

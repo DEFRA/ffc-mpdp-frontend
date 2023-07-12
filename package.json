@@ -1,6 +1,6 @@
 {
   "name": "ffc-mpdp-frontend",
-  "version": "0.1.81",
+  "version": "0.1.82",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
   "main": "app/dist/main.js",
@@ -63,7 +63,7 @@
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.49.7",
     "sass-loader": "^12.4.0",
-    "standard": "^16.0.4",
+    "standard": "^17.1.0",
     "ts-jest": "^29.0.3",
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
