@@ -65,10 +65,10 @@ export default {
       title: 'Find farm and land payment data'
     },
     '/search': {
-      title: 'Search for a business or agreement holder'
+      title: 'Search for an agreement holder'
     },
     '/results': {
-      title: 'Search for a business or agreement holder'
+      title: 'Search for an agreement holder'
     },
     '/cookies': {
       title: 'Cookies'
