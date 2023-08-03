@@ -25,7 +25,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
     "@hapi/inert": "^6.0.5",
-    "@hapi/vision": "^7.0.0",
+    "@hapi/vision": "^7.0.2",
     "@hapi/wreck": "^18.0.0",
     "applicationinsights": "^2.5.1",
     "browserify-zlib": "^0.2.0",
