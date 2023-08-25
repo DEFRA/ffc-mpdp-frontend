@@ -47,13 +47,20 @@
         <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
       </div>
     {% else %}
-      <h2 class='govuk-heading-s govuk-!-margin-top-9 govuk-!-font-weight-regular' id='noResults'>There are no matching results.</h2>
+      <h2 class='govuk-heading-m govuk-!-margin-top-9 govuk-!-font-weight-bold' id='noResults'>There are no matching results.</h2>
       <p>Improve your search results by:</p>
       <ul class='govuk-list govuk-list--bullet'>
         <li>double-checking your spelling</li>
-        <li>entering a single search term</li>
         <li>searching for something less specific</li>
+        <li>removing filters</li>
       </ul>
+      <p>You can search for:</p>
+      <ul class='govuk-list govuk-list--bullet'>
+        <li>an agreement holder's name, for example, Alex Smith</li>
+        <li>the first part of a postcode, for example, GL55</li>
+        <li>a count, for example, Gloucesterchire</li>
+      </ul>
+      <p>You can also <a id='downloadAllLink' href="/downloadall">download all scheme payment data (.CSV, 193KB)</a></p>
     {% endfor %}  
   </div>
 {% endmacro %}
