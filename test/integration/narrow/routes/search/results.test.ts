@@ -566,6 +566,15 @@ describe('GET /results route with counties parameter works', () => {
 
 })
 
+test('download all csv link is present on the results page when no results to download', async () => {
+  const searchString = 'Daughter'
+  const res = await global.__SERVER__.inject(getOptions('results', 'GET', { searchString }))
+  const $ = cheerio.load(res.payload)
+  const downloadLink = $('#downloadAllLink')
+  expect(downloadLink.length).toBe(1)
+})
+
+
 describe('GET /results returns page with dynamic filters', () => {
   test('Get /result returns filterOptions only valid for searchResults', async () => {
     const searchString = 'Son'
