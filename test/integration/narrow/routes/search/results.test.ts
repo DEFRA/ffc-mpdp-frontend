@@ -197,7 +197,6 @@ describe('Seach results page test with no results', () => {
 
   test('All filters are displayed', () => {
     expect($('#schemesFilter .govuk-checkboxes__item').length).toBe(schemeStaticData.length)
-    expect($('#amountsFilter .govuk-checkboxes__item').length).toBe(amounts.length)
     expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(counties.length)
   })
 })
@@ -405,24 +404,20 @@ describe('GET /results route with amounts parameter works', () => {
     jest.resetAllMocks()
   })
 
-  test('Get /result works with single amount in query params', async () => {
+  test('Get /result works with no amount in query params', async () => {
     const schemes = 'Sustainable Farming Incentive Pilot'
-    const amounts = '10000-14999'
     const res = await global.__SERVER__.inject(
       getOptions(
         'results',
         'GET',
         { 
           searchString, 
-          schemes,
-          amounts
+          schemes
         }
       )
     )
 
-    let filteredData = filterBySchemes(mockData, [schemes])
-    filteredData = filterByAmounts(filteredData, [amounts])
-
+    const filteredData = filterBySchemes(mockData, [schemes])
     const $ = cheerio.load(res.payload)
 
     $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
@@ -430,32 +425,7 @@ describe('GET /results route with amounts parameter works', () => {
     })
 
     expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
-    expectTags($, [schemes, 'Between £10,000 and £14,999'])
-  })
-
-  test('Get /results work with multiple amounts in query params', async () => {
-    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund']
-    const amounts = ['10000-14999', '30000-']
-    const options = getOptions(
-      'results',
-      'GET',
-      { searchString },
-      { schemes, amounts }
-    )
-    
-    const res = await global.__SERVER__.inject(options)
-
-    let dataMatchingSchemesAndAmounts = filterBySchemes(mockData, schemes)
-    dataMatchingSchemesAndAmounts = filterByAmounts(dataMatchingSchemesAndAmounts, amounts)
-    
-    const $ = cheerio.load(res.payload)
-    
-    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
-      expect(dataMatchingSchemesAndAmounts.find((x: any) => x.payee_name === $(elem).text()))
-    })
-    
-    expect($('#totalResults').text()).toMatch(`${dataMatchingSchemesAndAmounts.length} results`)
-    expectTags($, [...schemes, 'Between £10,000 and £14,999', '£30,000 or more'])
+    expectTags($, [schemes])
   })
 })
 
@@ -494,7 +464,7 @@ describe('GET /results route with counties parameter works', () => {
     expectTags($, [schemes, counties])
   })
 
-  test('Get /results work with multiple amounts in query params', async () => {
+  test('Get /results work with multiple counties in query params', async () => {
     const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund']
     const counties = ['Durham', 'Berkshire']
     const options = getOptions(
@@ -592,10 +562,7 @@ describe('GET /results returns page with dynamic filters', () => {
     const $ = cheerio.load(res.payload)
 
     const filterOptionsFromResults = getFilterOptions(searchResults)
-    const matchingAmounts = getMatchingStaticAmounts(filterOptionsFromResults.amounts)
-    console.log(matchingAmounts)
     expect($('#schemesFilter .govuk-checkboxes__item').length).toBe(filterOptionsFromResults.schemes.length)
-    expect($('#amountsFilter .govuk-checkboxes__item').length).toBe(matchingAmounts.length)
     expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(filterOptionsFromResults.counties.length)
   })
 })
