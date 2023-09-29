@@ -17,36 +17,51 @@
       <li>Farming Equipment and Technology Fund</li>
     </ul>
 
-    <p>You can also <a id='viewYearlyTotals' href="/schemePaymentsByYear">view yearly totals.</a></p>
+    <p>You can also <a id='viewYearlyTotals' href="/schemePaymentsByYear">view yearly totals.</a> for the:</p>
+    <ul class='govuk-!-margin-left-4'>
+      <li>Tree Health pilot</li>
+      <li>Animal health and Welfare scheme</li>
+      <li>Vet visits scheme</li>
+    </ul>
 
     {{ govukInsetText({
-      html: "This service shows payments made between 1 April 2021 and 31 March 2022."
+      html: "This service shows payments by financial year (1 April to 31 March)."
     }) }}
 
    {{ govukDetails({
       summaryText: 'What data we publish',
       id: 'publishedData',
-      html: "<p>The data we publish varies for different schemes and depends on the total funding a business has received.</p>
+      html: "<p class='mpdp-font-size-17'>The data we publish varies for different schemes and depends on the total funding a business has received.</p>
 
-      <p>Payment data will remain online for 3 years from the date we publish it.</p>
-      
-      <p class='govuk-!-font-size-19 govuk-!-font-weight-bold'>Sustainable Farming Incentive and the Farming Equipment and Technology Fund</p>
+      <p class='mpdp-font-size-17 govuk-!-font-weight-bold'>Schemes included</p>
+      <ul class='mpdp-font-size-17 govuk-!-margin-left-4'>
+        <li>Sustainable Farming Incentive</li>
+        <li>Farming Equipment and Technology Fund</li>
+      </ul>
 
-      <p>When a business has received total agricultural scheme payments of £1,250 or more, we publish: </p>
-      <ul class='govuk-!-margin-left-4'>
+      <p class='mpdp-font-size-17 govuk-!-font-weight-bold'>What we publish</p>
+
+      <p class='mpdp-font-size-17'>When a business has received total agricultural scheme payments of £1,250 or more, we publish: </p>
+      <ul class='mpdp-font-size-17 govuk-!-margin-left-4'>
         <li>full names of agreement holders and businesses</li>
         <li>partial postcodes, post towns and districts where the agreement holder is resident or located</li>
         <li>total payments received by the agreement holder in the last financial year</li>
         <li>a description of the activities financed by the relevant payments</li>
       </ul>
 
-      <p>Read more about the <a id='sfiLink' href='https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance'>Sustainable Farming Incentive pilot </a> and the <a id='featLink' href='https://www.gov.uk/guidance/farming-equipment-and-technology-fund-round-1-manual'>Farming Equipment and Technology Fund </a></p>
+      <p class='mpdp-font-size-17 govuk-!-font-weight-bold'>Schemes published as a single yearly payment</p>
+
+      <pclass='mpdp-font-size-17'>We also publish payment totals made through the:</p>
+      <ul class='mpdp-font-size-17 govuk-!-margin-left-4'>
+        <li>Tree Health pilot</li>
+        <li>Animal health and Welfare scheme</li>
+        <li>Vet visits scheme</li>
+      </ul>
       
-      <p class='govuk-!-font-size-19 govuk-!-font-weight-bold'>Tree Health Pilot Scheme </p>
-
-      <p>We publish the total figure paid through the scheme as a single amount.</p>
-
-      <p>Read more about the <a id='thplLink' href='https://www.gov.uk/guidance/tree-health-pilot-scheme'>Tree Health Pilot Scheme</a></p>"
+      <p class='mpdp-font-size-17 govuk-!-font-weight-bold'>How long we keep the data online</p>
+      
+      <p class='mpdp-font-size-17'>Payment data will remain online for 3 years from the date we publish it.</p>"
+      
     }) }}
 
     {{ govukButton({
@@ -61,9 +76,7 @@
 
     <p class='govuk-!-margin-bottom-5'><b>More data is available</b></p>
 
-    <p>You can <a id='downloadAllLink' href="/downloadall">download all scheme data (.CSV, 193KB)</a> in a table.<br>
-      This includes a total yearly payment from the Tree Health pilot scheme.
-    </p>
+    <p>You can <a id='downloadAllLink' href="/downloadall">download all scheme payment data (.CSV, 193KB)</a></p>
 
     <p><a id='capLink' href="https://cap-payments.defra.gov.uk/Default.aspx" target="_blank">Search the UK Co-ordinating Body service for other Common Agricultural Policy (CAP) schemes</a></p>
 
