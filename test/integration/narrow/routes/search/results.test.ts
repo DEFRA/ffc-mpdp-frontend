@@ -599,3 +599,24 @@ describe('GET /results returns page with dynamic filters', () => {
     expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(filterOptionsFromResults.counties.length)
   })
 })
+
+describe('Single result shows "1 Result" (not plural)', () => {
+  test('Singular result text is displayed in total and download text', async () => {
+    const searchString = 'T R Carter & Sons 22'
+    const res = await global.__SERVER__.inject(
+      getOptions(
+        'results',
+        'GET',
+        { 
+          searchString
+        }
+      )
+    )
+
+    mockData.filter(x => x.payee_name.includes(searchString))
+    const $ = cheerio.load(res.payload)
+
+    expect($('#totalResults').text()).toMatch(`1 result`)
+    expect($('#downloadResultsLink').text()).toMatch(`Download 1 result (.CSV)`)
+  })
+})
