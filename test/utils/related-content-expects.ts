@@ -3,8 +3,8 @@ import { CheerioAPI } from "cheerio"
 const expectedList = [
 	{
 		id: '#fflmLink',
-		text: 'Funding for farmers and land managers',
-		href: 'https://www.gov.uk/guidance/funding-for-farmers#contents'
+		text: 'Funding for farmers, growers and land managers',
+		href: 'https://www.gov.uk/guidance/funding-for-farmers'
 	}
 ]
 
