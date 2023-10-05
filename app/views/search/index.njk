@@ -6,6 +6,14 @@
 
 {% block pageTitle %}{%if errorList %} Error: {%endif%} {{ pageTitle }} - {{ serviceName }} - GOV.UK{% endblock %}
 
+{% block beforeContent %}
+  {{ govukBackLink({
+    classes: 'govuk-!-margin-bottom-0',
+    text: "Back",
+    href: referer
+  }) }}
+{% endblock %}
+
 {% block content %}
 {% if errorList %}
   {{govukErrorSummary ({
