@@ -44,7 +44,11 @@
             <div class="govuk-heading-s search-results-amount">£{{ item.amount }}</div>
           </div>
         </div>
-        <div class="govuk-body subtitle govuk-!-margin-bottom-4 govuk-!-font-size-16">Business Location: {{item.county_council}}, {{item.town}}, {{ item.part_postcode }}</div>
+        <div class="govuk-body subtitle govuk-!-margin-bottom-4 govuk-!-font-size-16">Business Location: 
+          {%if(item.county_council != 'None') %} {{ item.county_council }}, {% endif %}
+          {%if(item.town != 'None') %} {{ item.town }}, {% endif %}
+          {%if(item.part_postcode != 'None') %} {{ item.part_postcode }} {% endif %}
+        </div>
         <hr class="govubk-section-break govuk-section-reak--visible section-break-heading--lightgray" role="presentation">
       </div>
     {% else %}
