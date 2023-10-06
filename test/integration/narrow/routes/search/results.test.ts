@@ -200,6 +200,10 @@ describe('Seach results page test with no results', () => {
     expect($('#amountsFilter .govuk-checkboxes__item').length).toBe(amounts.length)
     expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(counties.length)
   })
+
+  test('SortBy dropdown is not shown to the user', () => {
+    expect($('#sortBySelection').length).toBe(0)
+  })
 })
 
 describe('Seach results page shows error message when searchString is empty', () => {
@@ -256,6 +260,10 @@ describe('Seach results page shows error message when searchString is empty', ()
 
   test('Page title contains error text', () => {
     expect($('title').text()).toContain('Error')
+  })
+
+  test('SortBy dropdown is not shown to the user', () => {
+    expect($('#sortBySelection').length).toBe(0)
   })
 })
 
