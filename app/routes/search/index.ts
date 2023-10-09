@@ -6,8 +6,8 @@ module.exports = [
     method: 'GET',
     options: {
       auth: false,
-      handler: (_request: Request, h: ResponseToolkit): ResponseObject => {
-        return h.view('search/index')
+      handler: (request: Request, h: ResponseToolkit): ResponseObject => {
+        return h.view('search/index', { referer: request.headers.referer })
       }
     }
   }

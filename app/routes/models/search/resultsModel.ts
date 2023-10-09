@@ -205,7 +205,7 @@ export const resultsModel = async (query: any, error?: any) => {
         counties: staticCounties
       }),
       errorList: [{
-        text: "Enter a search term",
+        text: "Enter a name or location",
         href: "#resultsSearchInput"
       }],
       headingTitle: `Results for ‘${searchString}’`,

@@ -237,7 +237,7 @@ describe('Seach results page shows error message when searchString is empty', ()
 
     const searchInputError = $('#search-input-error')
     expect(searchInputError).toBeDefined()
-    expect(searchInputError.text()).toContain('Error: Enter a search term')
+    expect(searchInputError.text()).toContain('Error: Enter a name or location')
 
     const searchErrorBox = $('.govuk-input.govuk-input--error')
     expect(searchErrorBox).toBeDefined()

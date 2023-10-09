@@ -38,7 +38,9 @@ describe('MPDP Search page test', () => {
 
     const downloadAllLink = $('#downloadAllLink')
     expect(downloadAllLink.attr('href')).toMatch('/downloadall')
-    expect(downloadAllLink.text()).toMatch('download all scheme payment data (.CSV, 193KB)')
+    expect(downloadAllLink.text()).toMatch('download all scheme data (.CSV, 193KB)')
+
+    expect($('.govuk-back-link')).toBeDefined()
 
     expectPhaseBanner($)
     expectFooter($)
@@ -83,7 +85,7 @@ describe('MPDP Search page test', () => {
     expect($('#resultsSearchInput')).toBeDefined()
 
     expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
-    expect($('#search-input-error').text()).toContain('Enter a search term')
+    expect($('#search-input-error').text()).toContain('Enter a name or location')
     expect($('title').text()).toContain('Error')
     expectRelatedContent($)
   })
