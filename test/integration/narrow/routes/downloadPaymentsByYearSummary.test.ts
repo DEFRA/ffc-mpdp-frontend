@@ -23,7 +23,7 @@ describe('downloadPaymentsByYearSummary csv test', () => {
     expect(res.headers).toHaveProperty('content-type', 'application/csv');
     expect(res.headers).toHaveProperty(
       'content-disposition',
-      'attachment; filename="ffc-year-payments-summary.csv"'
+      'attachment; filename="ffc-payments-by-year.csv"'
     );
   });
 
