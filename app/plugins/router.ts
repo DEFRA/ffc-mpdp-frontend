@@ -17,7 +17,8 @@ const routes = [].concat(
   require('../routes/search/suggestions'),
   require('../routes/downloadresults'),
   require('../routes/schemePaymentsByYear'),
-)
+  require('../routes/downloadPaymentsByYearSummary'),
+);
 
 module.exports = {
   plugin: {

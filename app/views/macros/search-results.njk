@@ -22,6 +22,8 @@
 
     {{searchFilterTags(model)}}
     <hr class="govubk-section-break govuk-section-reak--visible section-break-heading" role="presentation">
+    
+    {% if(model.total)%}
     <div>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
@@ -29,8 +31,10 @@
         </div>
         <div class="govuk-grid-column-one-half mpdp-justify-content-flex-end">
           {{sortByDropdown(model.sortBy)}}
+        </div>
       </div>
     </div>
+    {% endif %}
 
     {% for item in model.results %}
       <div>
