@@ -92,7 +92,7 @@ const getFilters = (query: any, filterOptions: { schemes: string[], amounts: any
     },
     counties: {
       name: 'County',
-      items: getCounties(filterOptions.counties).map((county) => ({
+      items: getCounties(filterOptions.counties).filter((county) => county != 'None').map((county) => ({
         text: county,
         value: county,
         checked: isChecked(query.counties, county),

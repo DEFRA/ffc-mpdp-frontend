@@ -1,6 +1,6 @@
 
 {% macro searchFilterTags(model) %}
-  <div class='mpdp-display-grid'>
+  <div class='govuk-body'>
       {% for key, items in model.tags %}
         {% if items.length %}
           <div class='govuk-!-padding-1 mpdp-font-size-17 {% if loop.index % 2 != 0 %}mpdp-bg-color-light-grey{% endif %}'>
@@ -14,7 +14,6 @@
                   <span class='mpdp-font-size-25 mpdp-tag-filter-cross'>&times;</span>
                   <span class='govuk-!-margin-left-5'>{{item.text}}</span>
                 </button>
-               
               </div>
             {% endfor %}
           </div>
