@@ -65,7 +65,7 @@ const getFilters = (query: any, filterOptions: { schemes: string[], counties: st
     },
     counties: {
       name: 'County',
-      items: getCounties(filterOptions.counties).map((county) => ({
+      items: getCounties(filterOptions.counties).filter((county) => county != 'None').map((county) => ({
         text: county,
         value: county,
         checked: isChecked(query.counties, county),
@@ -175,7 +175,7 @@ export const resultsModel = async (query: any, error?: any) => {
         counties: staticCounties
       }),
       errorList: [{
-        text: "Enter a search term",
+        text: "Enter a name or location",
         href: "#resultsSearchInput"
       }],
       headingTitle: `Results for ‘${searchString}’`,

@@ -199,6 +199,10 @@ describe('Seach results page test with no results', () => {
     expect($('#schemesFilter .govuk-checkboxes__item').length).toBe(schemeStaticData.length)
     expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(counties.length)
   })
+
+  test('SortBy dropdown is not shown to the user', () => {
+    expect($('#sortBySelection').length).toBe(0)
+  })
 })
 
 describe('Seach results page shows error message when searchString is empty', () => {
@@ -236,7 +240,7 @@ describe('Seach results page shows error message when searchString is empty', ()
 
     const searchInputError = $('#search-input-error')
     expect(searchInputError).toBeDefined()
-    expect(searchInputError.text()).toContain('Error: Enter a search term')
+    expect(searchInputError.text()).toContain('Error: Enter a name or location')
 
     const searchErrorBox = $('.govuk-input.govuk-input--error')
     expect(searchErrorBox).toBeDefined()
@@ -255,6 +259,10 @@ describe('Seach results page shows error message when searchString is empty', ()
 
   test('Page title contains error text', () => {
     expect($('title').text()).toContain('Error')
+  })
+
+  test('SortBy dropdown is not shown to the user', () => {
+    expect($('#sortBySelection').length).toBe(0)
   })
 })
 
@@ -564,5 +572,26 @@ describe('GET /results returns page with dynamic filters', () => {
     const filterOptionsFromResults = getFilterOptions(searchResults)
     expect($('#schemesFilter .govuk-checkboxes__item').length).toBe(filterOptionsFromResults.schemes.length)
     expect($('#countiesFilter .govuk-checkboxes__item').length).toBe(filterOptionsFromResults.counties.length)
+  })
+})
+
+describe('Single result shows "1 Result" (not plural)', () => {
+  test('Singular result text is displayed in total and download text', async () => {
+    const searchString = 'T R Carter & Sons 22'
+    const res = await global.__SERVER__.inject(
+      getOptions(
+        'results',
+        'GET',
+        { 
+          searchString
+        }
+      )
+    )
+
+    mockData.filter(x => x.payee_name.includes(searchString))
+    const $ = cheerio.load(res.payload)
+
+    expect($('#totalResults').text()).toMatch(`1 result`)
+    expect($('#downloadResultsLink').text()).toMatch(`Download 1 result (.CSV)`)
   })
 })
