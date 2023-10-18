@@ -1,9 +1,9 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
+import { getRelatedContentLinks } from '../../config/relatedContent';
+import { detailsModel } from "../models/detailsModel";
+import type { queryParams } from '../../types'
 import Joi from "joi";
 
-import { detailsModel } from "../models/detailsModel";
-
-import type { queryParams } from '../../types'
 
 module.exports = [
   {
@@ -24,7 +24,10 @@ module.exports = [
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
         request.query.searchString=encodeURIComponent(request.query.searchString)
-        return h.view('details/index', await detailsModel(request.query as queryParams))
+        return h.view('details/index', {
+          ...(await detailsModel(request.query as queryParams)),
+          relatedContentData: getRelatedContentLinks('details'),
+        });
       }
     }
   }
