@@ -1,10 +1,9 @@
 import config from '../../../config'
 import { getPaymentData } from '../../../backend/api'
-import { amounts as staticAmounts } from '../../../data/filters/amounts'
 import { counties as staticCounties } from '../../../data/filters/counties'
 import { sortByItems } from '../../../data/sortByItems'
 
-import { getReadableAmount, getAllSchemesNames, getMatchingStaticAmounts } from '../../../utils/helper'
+import { getAllSchemesNames } from '../../../utils/helper'
 
 const getTags = (query: any) => {
   const tags = {
@@ -21,21 +20,6 @@ const getTags = (query: any) => {
         text: string, 
         value: string
     }>),
-    Amount: staticAmounts.reduce((acc, amount) => {
-      if((typeof query.amounts === 'string')? query.amounts === amount.value : query.amounts?.includes(amount.value)) {
-        const amountParts = amount.text.split('to')
-        const text = (amountParts[1] === undefined) ? amountParts[0] : `Between ${amountParts[0].trim()} and ${amountParts[1].trim()}`
-        acc.push({
-					text,
-					value: amount.value
-				})
-      }
-
-      return acc
-    }, new Array<{
-        text: string, 
-        value: string
-	  }>),
     County: staticCounties.reduce((acc, county) => {
       if((typeof query.counties === 'string')? query.counties === county : query.counties?.includes(county)) {
         acc.push({
@@ -61,9 +45,8 @@ const getTags = (query: any) => {
   return tags;
 }
 
-const getFilters = (query: any, filterOptions: { schemes: string[], amounts: any[], counties: string[] }) => {
+const getFilters = (query: any, filterOptions: { schemes: string[], counties: string[] }) => {
   const schemesLength = !query.schemes? 0 : (typeof query.schemes === 'string'? 1: query.schemes?.length)
-  const amountsLength = !query.amounts? 0 : (typeof query.amounts === 'string'? 1: query.amounts?.length)
   const countiesLength = !query.counties? 0 : (typeof query.counties === 'string'? 1: query.counties?.length)
   const attributes = {
     onchange: "this.form.submit()"
@@ -80,16 +63,6 @@ const getFilters = (query: any, filterOptions: { schemes: string[], amounts: any
       })),
       selected: schemesLength
     },
-    amounts: {
-      name: 'Amount',
-      items: getAmounts(filterOptions.amounts).map(({text, value}) => ({
-        text,
-        value,
-        checked: isChecked(query.amounts, value),
-        attributes
-      })),
-      selected: amountsLength
-    },
     counties: {
       name: 'County',
       items: getCounties(filterOptions.counties).filter((county) => county != 'None').map((county) => ({
@@ -104,8 +77,6 @@ const getFilters = (query: any, filterOptions: { schemes: string[], amounts: any
 }
 
 const getSchemes = (schemes: string[]) => schemes?.length ? schemes : getAllSchemesNames()
-
-const getAmounts = (amounts: any[]) => amounts?.length ? amounts : staticAmounts
 
 const getCounties = (counties: any[]) => counties?.length ? counties : staticCounties
 
@@ -178,7 +149,7 @@ const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: str
 const performSearch = async (searchString: string, requestedPage: number, filterBy: any, sortBy: string) => {
   const offset = (requestedPage - 1) * config.search.limit
   const paymentData = await getPaymentData(searchString, offset, filterBy, sortBy)
-  const results = paymentData.results?.map((x: any) => ({...x, amount: getReadableAmount(parseFloat(x.total_amount))}))
+  const results = paymentData.results?.map(({total_amount, ...x}: any) => x)
   return {
     ...paymentData,
     results
@@ -201,7 +172,6 @@ export const resultsModel = async (query: any, error?: any) => {
       ...defaultReturn,
       filters: getFilters(query, {
         schemes: getAllSchemesNames(),
-        amounts: staticAmounts,
         counties: staticCounties
       }),
       errorList: [{
@@ -227,7 +197,7 @@ export const resultsModel = async (query: any, error?: any) => {
     ...defaultReturn,
     searchString,
     ...getPaginationAttributes(total, requestedPage, searchString, filterBy, sortBy),
-    filters: getFilters(query, {...filterOptions, amounts: getMatchingStaticAmounts(filterOptions?.amounts)}),
+    filters: getFilters(query, filterOptions),
     results,
     total,
     currentPage: requestedPage,
