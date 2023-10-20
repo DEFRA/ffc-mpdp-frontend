@@ -159,13 +159,14 @@ const performSearch = async (searchString: string, requestedPage: number, filter
 export const resultsModel = async (query: any, error?: any) => {
   const searchString = decodeURIComponent(query.searchString)
   const defaultReturn = {
+    relatedContentData: getRelatedContentLinks('results'),
     hiddenInputs: [
       { id: 'pageId', name: 'pageId', value: 'results' },
-      { id: 'sortBy', name: 'sortBy', value: 'score' }
+      { id: 'sortBy', name: 'sortBy', value: 'score' },
     ],
     tags: getTags(query),
-    sortBy: getSortByModel(query)
-  }
+    sortBy: getSortByModel(query),
+  };
   
   if(error) {
     return {
@@ -196,7 +197,6 @@ export const resultsModel = async (query: any, error?: any) => {
   return {
     ...defaultReturn,
     searchString,
-    relatedContentData: getRelatedContentLinks('results'),
     ...getPaginationAttributes(total, requestedPage, searchString, filterBy, sortBy),
     filters: getFilters(query, filterOptions),
     results,
