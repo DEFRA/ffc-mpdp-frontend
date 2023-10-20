@@ -16,6 +16,7 @@ module.exports = [
           pageId: Joi.string().default(''),
           schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
+          years: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           counties: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           sortBy: Joi.string().trim().optional().default('score')
         }),

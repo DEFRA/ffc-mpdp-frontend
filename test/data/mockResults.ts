@@ -5,7 +5,8 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '11142000.95',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 2',
@@ -13,7 +14,8 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 3',
@@ -21,7 +23,8 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '10200',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 4',
@@ -29,7 +32,8 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '10743.55',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 5',
@@ -37,7 +41,8 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '11000',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 6',
@@ -45,7 +50,8 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '50000',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 7',
@@ -53,7 +59,8 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '2040',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 8',
@@ -61,7 +68,8 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 9',
@@ -69,7 +77,8 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 10',
@@ -77,7 +86,8 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot'
+    scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 11',
@@ -86,6 +96,7 @@ export default [
     county_council: 'Yorkshire and The Humber',
     amount: '20000',
     scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 12',
@@ -94,6 +105,7 @@ export default [
     county_council: 'Yorkshire and The Humber',
     amount: '30500',
     scheme: 'Sustainable Farming Incentive pilot',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 13',
@@ -101,7 +113,8 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '12330',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 14',
@@ -109,7 +122,8 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '22/23'
   },
   {
     payee_name: 'T R Carter & Sons 15',
@@ -117,7 +131,8 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '22/23'
   },
   {
     payee_name: 'T R Carter & Sons 16',
@@ -125,7 +140,8 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 17',
@@ -133,7 +149,8 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 18',
@@ -141,7 +158,8 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 19',
@@ -149,7 +167,8 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 20',
@@ -157,7 +176,8 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 21',
@@ -165,7 +185,8 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '11200',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'T R Carter & Sons 22',
@@ -173,7 +194,8 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '122300.25',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   },
   {
     payee_name: 'Adan Brandt Sons',
@@ -181,6 +203,7 @@ export default [
     town: 'Little Ouseburn',
     county_council: 'North Yorkshire',
     amount: '11000000',
-    scheme: 'Farming Equipment and Technology Fund'
+    scheme: 'Farming Equipment and Technology Fund',
+    year: '21/22'
   }
 ]
