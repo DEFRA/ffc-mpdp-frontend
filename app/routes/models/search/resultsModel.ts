@@ -2,7 +2,7 @@ import config from '../../../config'
 import { getPaymentData } from '../../../backend/api'
 import { counties as staticCounties } from '../../../data/filters/counties'
 import { sortByItems } from '../../../data/sortByItems'
-
+import { getRelatedContentLinks } from '../../../config/relatedContent';
 import { getAllSchemesNames } from '../../../utils/helper'
 
 const getTags = (query: any) => {
@@ -170,6 +170,7 @@ export const resultsModel = async (query: any, error?: any) => {
   if(error) {
     return {
       ...defaultReturn,
+      relatedContentData: getRelatedContentLinks('results'),
       filters: getFilters(query, {
         schemes: getAllSchemesNames(),
         counties: staticCounties
