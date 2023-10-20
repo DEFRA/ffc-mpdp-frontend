@@ -170,7 +170,6 @@ export const resultsModel = async (query: any, error?: any) => {
   if(error) {
     return {
       ...defaultReturn,
-      relatedContentData: getRelatedContentLinks('results'),
       filters: getFilters(query, {
         schemes: getAllSchemesNames(),
         counties: staticCounties
@@ -197,6 +196,7 @@ export const resultsModel = async (query: any, error?: any) => {
   return {
     ...defaultReturn,
     searchString,
+    relatedContentData: getRelatedContentLinks('results'),
     ...getPaginationAttributes(total, requestedPage, searchString, filterBy, sortBy),
     filters: getFilters(query, filterOptions),
     results,
