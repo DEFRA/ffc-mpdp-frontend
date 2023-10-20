@@ -81,7 +81,7 @@ const getFilters = (query: any, filterOptions: { schemes: string[], years: strin
     years: {
       name: 'Year',
       items: getYears(filterOptions.years).map(year => ({ 
-        text: `20${year.slice(0, 2)} To 20${year.slice(3, 5)}`, 
+        text: `20${year.slice(0, 2)} to 20${year.slice(3, 5)}`, 
         value: year,
         checked: isChecked(query.years, year),
         attributes
