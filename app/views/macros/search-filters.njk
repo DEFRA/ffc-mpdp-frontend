@@ -23,11 +23,11 @@
 			<details open>
 				<summary class='filterSummary mpdp-text-link-color'>{{ object.name }}</summary>
 				<div class="description">
-					{% if object.selected %}
-						<div id='{{ key | lower }}Selected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{object.selected}} Selected</div>
-					{% endif %}
 					{% if object.name === 'Year' %}
 					  <span style='font-size: 18px'>Financial year (1 April to 31 March)</span>
+					{% endif %}
+					{% if object.selected %}
+						<div id='{{ key | lower }}Selected' class='govuk-!-font-size-14 govuk-!-margin-1 govuk-!-margin-left-4 nojs-hidden'>{{object.selected}} Selected</div>
 					{% endif %}
 					{{ govukCheckboxes({
 							name: key,
