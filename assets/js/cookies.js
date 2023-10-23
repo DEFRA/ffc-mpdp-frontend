@@ -1,5 +1,5 @@
 const setupLinkListeners = () => {
-  const links = ['/cookies', '/privacy']
+  const links = ['/cookies', '/privacy', '/accessibility']
   links.forEach((link) => {
     const element = document.querySelector(`a[href='${link}']`)
     element?.addEventListener('click', (event) => {
