@@ -1,17 +1,31 @@
 import config from '../../../config'
 import { getPaymentData } from '../../../backend/api'
 import { counties as staticCounties } from '../../../data/filters/counties'
+import { years as staticYears } from '../../../data/filters/years';
 import { sortByItems } from '../../../data/sortByItems'
-
 import { getAllSchemesNames } from '../../../utils/helper'
 
 const getTags = (query: any) => {
+  
   const tags = {
     Scheme: getAllSchemesNames().reduce((acc, scheme) => {
       if(query.schemes?.includes(scheme)) {
         acc.push({
 					text: scheme,
 					value: scheme
+        })
+      }
+      
+      return acc
+    }, new Array<{
+        text: string, 
+        value: string
+    }>),
+    Year: staticYears.reduce((acc, year) => {
+      if(query.years?.includes(year)) {
+        acc.push({
+          text: year,
+          value: year
         })
       }
       
@@ -45,8 +59,9 @@ const getTags = (query: any) => {
   return tags;
 }
 
-const getFilters = (query: any, filterOptions: { schemes: string[], counties: string[] }) => {
+const getFilters = (query: any, filterOptions: { schemes: string[], years: string[], counties: string[] }) => {
   const schemesLength = !query.schemes? 0 : (typeof query.schemes === 'string'? 1: query.schemes?.length)
+  const yearsLength = !query.years? 0 : (typeof query.years === 'string'? 1: query.years?.length)
   const countiesLength = !query.counties? 0 : (typeof query.counties === 'string'? 1: query.counties?.length)
   const attributes = {
     onchange: "this.form.submit()"
@@ -63,6 +78,16 @@ const getFilters = (query: any, filterOptions: { schemes: string[], counties: st
       })),
       selected: schemesLength
     },
+    years: {
+      name: 'Year',
+      items: getYears(filterOptions.years).map(year => ({ 
+        text: `20${year.slice(0, 2)} to 20${year.slice(3, 5)}`, 
+        value: year,
+        checked: isChecked(query.years, year),
+        attributes
+      })),
+      selected: yearsLength
+    },
     counties: {
       name: 'County',
       items: getCounties(filterOptions.counties).filter((county) => county != 'None').map((county) => ({
@@ -77,6 +102,8 @@ const getFilters = (query: any, filterOptions: { schemes: string[], counties: st
 }
 
 const getSchemes = (schemes: string[]) => schemes?.length ? schemes : getAllSchemesNames()
+
+const getYears = (years: string[]) => (years?.length ? years : staticYears);
 
 const getCounties = (counties: any[]) => counties?.length ? counties : staticCounties
 
@@ -172,6 +199,7 @@ export const resultsModel = async (query: any, error?: any) => {
       ...defaultReturn,
       filters: getFilters(query, {
         schemes: getAllSchemesNames(),
+        years: staticYears,
         counties: staticCounties
       }),
       errorList: [{
@@ -188,6 +216,7 @@ export const resultsModel = async (query: any, error?: any) => {
   const filterBy = {
     schemes: typeof query.schemes === 'string' ? [query.schemes]: query.schemes,
     amounts: typeof query.amounts === 'string' ? [query.amounts]: query.amounts,
+    years: typeof query.years === 'string' ? [query.years]: query.years,
     counties: typeof query.counties === 'string' ? [query.counties]: query.counties
   }
 

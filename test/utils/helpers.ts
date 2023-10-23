@@ -19,13 +19,14 @@ export const getOptions = (page: string, method: string = 'GET', params: any = {
 const removeFilterFields = (searchResults: typeof dummyResults) => searchResults.map(({scheme, ...rest}) => rest)
 export const getFilterOptions = (searchResults: typeof dummyResults) => {
 	if (!searchResults || !searchResults.length) {
-		return { schemes: [], amounts: [], counties: [] };
+		return { schemes: [], amounts: [], counties: [], years: [] };
 	}
 
 	return {
 		schemes: getUniqueFields(searchResults, 'scheme'),
 		counties: getUniqueFields(searchResults, 'county_council'),
 		amounts: getUniqueFields(searchResults, 'amount'),
+		years: getUniqueFields(searchResults, 'year'),
 	};
 };
 
@@ -42,6 +43,7 @@ export const mockGetPaymentData = (searchQuery: string, offset: number, filterBy
 	searchResults = filterBySchemes(searchResults, filterBy.schemes)
 	searchResults = filterByAmounts(searchResults, filterBy.amounts)
 	searchResults = filterByCounties(searchResults, filterBy.counties)
+	searchResults = filterByYears(searchResults, filterBy.years)
 
 	let results = removeFilterFields(searchResults)
 	
@@ -98,6 +100,14 @@ export const filterByCounties = (results: any, counties: string[]) => {
 	}
 	
 	return results.filter((x: any) => counties.includes(x.county_council))
+}
+
+export const filterByYears = (results: any, years: string[]) => {
+	if (!years || !years.length) {
+	  return results
+	}
+	
+	return results.filter((x: any) => years.includes(x.year))
 }
 
 export const mockGetPaymentDetails = (payee_name: string) => 

@@ -2,7 +2,7 @@ import * as cheerio from 'cheerio'
 import { expectFooter } from '../../../../utils/footer-expects'
 import { expectHeader } from '../../../../utils/header-expects'
 import { expectPhaseBanner } from '../../../../utils/phase-banner-expect'
-import { getOptions, mockGetPaymentData, filterByAmounts, filterBySchemes, filterByCounties, getFilterOptions } from '../../../../utils/helpers'
+import { getOptions, mockGetPaymentData, filterByAmounts, filterBySchemes, filterByCounties, getFilterOptions, filterByYears } from '../../../../utils/helpers'
 import mockData from '../../../../data/mockResults'
 import config from '../../../../../app/config'
 import { expectTitle } from '../../../../utils/title-expect'
@@ -435,6 +435,66 @@ describe('GET /results route with amounts parameter works', () => {
     expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
     expectTags($, [schemes])
   })
+})
+
+describe('GET /results route with years parameter works', () => {
+  const searchString = 'Sons'
+
+  afterAll(() => {
+    jest.resetAllMocks()
+  })
+
+  test('Get /result works with single year in query params', async () => {
+    const schemes = 'Farming Equipment and Technology Fund'
+    const years = '21/22'
+    const res = await global.__SERVER__.inject(
+      getOptions(
+        'results',
+        'GET',
+        { 
+          searchString, 
+          schemes,
+          years
+        }
+      )
+    )
+
+    let filteredData = filterBySchemes(mockData, [schemes])
+    filteredData = filterByYears(filteredData, [years])
+
+    const $ = cheerio.load(res.payload)
+
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(filteredData.find((x: any) => x.payee_name === $(elem).text()))
+    })
+
+    expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
+    expectTags($, [schemes, years])
+  })
+
+  test('Get /result works with multiple year in query params', async () => {
+    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund'];
+    const years = ['21/22', '22/23'];
+    const options = getOptions(
+      'results',
+      'GET',
+      { searchString },
+      { schemes, years }
+    );
+
+    const res = await global.__SERVER__.inject(options);
+    
+    let filteredData = filterBySchemes(mockData, schemes);
+    filteredData = filterByYears(filteredData, years);
+
+    const $ = cheerio.load(res.payload);
+
+    $('a.govuk-link.govuk-link--no-visited-state').each((_i, elem) => {
+      expect(filteredData.find((x: any) => x.payee_name === $(elem).text()));
+    });
+
+    expect($('#totalResults').text()).toMatch(`${filteredData.length} results`);
+  });
 })
 
 describe('GET /results route with counties parameter works', () => {
