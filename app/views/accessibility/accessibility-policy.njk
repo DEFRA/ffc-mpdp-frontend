@@ -1,4 +1,4 @@
-{# {% from "./macros/related-content.njk" import relatedContent %} #}
+{% from "./macros/related-content.njk" import relatedContent %}
 {% extends './layouts/layout.njk' %}
 
 {% block beforeContent %}
@@ -144,12 +144,12 @@
         <div role="note" aria-label="Information" class="govuk-inset-text application-notice info-notice">
           <p>This statement was prepared on 23 September 2019. It was last reviewed on 4 January 2023.</p>
         </div>
-        <p>Last updated 4 January 2023</p>
+        <p class="govuk-!-font-size-16">Last updated 4 January 2023</p>
       </div>
     </div>
-    {# <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-column-one-third">
       {{relatedContent(relatedContentData)}}
-    </div> #}
+    </div>
   </div>
   {{ govukBackLink({
     text: "Back",

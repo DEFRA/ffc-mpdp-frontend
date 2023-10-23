@@ -22,7 +22,13 @@ export const relatedContentLinks = [
     id: 'ffTCLink',
     text: 'Terms and conditions',
     url: 'https://www.gov.uk/help/terms-conditions',
-    pages: ['privacy-policy'],
+    pages: ['privacy-policy', 'accessibility-policy'],
+  },
+  {
+    id: 'ffAGUKLink',
+    text: 'About GOV.UK',
+    url: 'https://www.gov.uk/help/about-govuk',
+    pages: ['accessibility-policy'],
   },
 ];
 
