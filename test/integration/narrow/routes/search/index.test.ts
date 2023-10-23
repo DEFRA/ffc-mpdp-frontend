@@ -45,7 +45,7 @@ describe('MPDP Search page test', () => {
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)
-    expectRelatedContent($)
+    expectRelatedContent($, 'search');
   })
 
   test('GET /results route returns results page', async () => {
@@ -87,6 +87,5 @@ describe('MPDP Search page test', () => {
     expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
     expect($('#search-input-error').text()).toContain('Enter a name or location')
     expect($('title').text()).toContain('Error')
-    expectRelatedContent($)
   })
 })

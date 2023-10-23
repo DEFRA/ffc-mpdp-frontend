@@ -1,4 +1,5 @@
 import { getSchemePaymentsByYear } from '../../backend/api';
+import { getRelatedContentLinks } from '../../config/relatedContent';
 import { AggragateSchemeData, AggragateSchemeDetail } from '../../types';
 import { getFinancialYearSummary, getReadableAmount } from '../../utils/helper';
 
@@ -23,12 +24,13 @@ export const schemePaymentsByYearModel = async () => {
 	}
 
 	const returnVal = {
-		summary: {
-			...getFinancialYearSummary(Object.keys(schemePaymentsByYear)),
-			...getSchemeSummary(schemePaymentsByYear),
-			schemePaymentsByYear: transformSummary(schemePaymentsByYear)
-		},
-	};
+    relatedContentData: getRelatedContentLinks('scheme-payments-by-year'),
+    summary: {
+      ...getFinancialYearSummary(Object.keys(schemePaymentsByYear)),
+      ...getSchemeSummary(schemePaymentsByYear),
+      schemePaymentsByYear: transformSummary(schemePaymentsByYear),
+    },
+  };
 
 	return returnVal
 };

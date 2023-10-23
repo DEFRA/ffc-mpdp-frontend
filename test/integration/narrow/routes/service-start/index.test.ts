@@ -43,6 +43,6 @@ describe('MPDP service start page test', () => {
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)
-    expectRelatedContent($)
+    expectRelatedContent($, 'service-start')
   })
 })

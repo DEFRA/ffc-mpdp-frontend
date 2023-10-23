@@ -180,6 +180,10 @@ button.mpdp-link-btn {
   }
 }
 
+.mpdp-details-padding-top {
+  padding-top: 266px;
+}
+
 .form-inline {  
   display: flex;
   flex-flow: row nowrap;
@@ -217,6 +221,11 @@ button.mpdp-link-btn {
   .download-csv-flex-end {
     margin: 15px;
   }
+
+  .mpdp-details-padding-top {
+    padding-top: 0;
+  }
+  
 }
 
 .mpdp-dl-list > dt {

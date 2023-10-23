@@ -1,6 +1,6 @@
 import { getPaymentDetails } from '../../backend/api'
 import { getReadableAmount, getSchemeStaticData } from '../../utils/helper'
-
+import { getRelatedContentLinks } from '../../config/relatedContent';
 import type { Scheme, Summary, queryParams } from '../../types'
 
 export const detailsModel = async ({ payeeName, partPostcode, searchString, page } : queryParams) => {
@@ -14,6 +14,7 @@ export const detailsModel = async ({ payeeName, partPostcode, searchString, page
   }
 
   return {
+    relatedContentData: getRelatedContentLinks('details'),
 		summary: createPaymentDetailsSummary(paymentDetails),
     searchString: searchString,
     page: page
