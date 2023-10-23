@@ -1,13 +1,13 @@
 {% macro relatedContent(model) %}
   <div class='govuk-body'>
     <hr class="govubk-section-break govuk-section-break--visible section-break-heading govuk-!-margin-bottom-3 govuk-!-margin-top-0 mpdp-link-bg" role="presentation">
-    <p class="govuk-!-font-size-24" id='relatedContent'>
+    <p class="govuk-!-font-size-19 govuk-!-margin-bottom-2" id='relatedContent'>
       <b>Related Content</b>
     </p>
     <ul class="govuk-list mpdp-no-bullet">
       {% for item in model %}
         <li>
-          <a class='govuk-link govuk-!-font-size-19' href='{{ item.url }}' id='{{  item.id }}' target='_blank'>{{ item.text }}</a><br>
+          <a class='govuk-link govuk-!-font-size-16' href='{{ item.url }}' id='{{  item.id }}' target='_blank'>{{ item.text }}</a><br>
         </li>
       {% endfor %}
     </ul>
