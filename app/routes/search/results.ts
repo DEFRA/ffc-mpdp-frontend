@@ -1,7 +1,6 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
-import Joi from "joi";
-
 import { resultsModel } from "../models/search/resultsModel";
+import Joi from "joi";
 
 module.exports = [
   {
@@ -33,8 +32,8 @@ module.exports = [
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
         request.query.searchString=encodeURIComponent(request.query.searchString)
-        return h.view('search/results', await resultsModel(request.query))
-      }
+        return h.view('search/results', await resultsModel(request.query));
+      }  
     }
   }
 ]

@@ -1,3 +1,4 @@
+{% from "./macros/related-content.njk" import relatedContent %}
 {% extends './layouts/layout.njk' %}
 
 {% block beforeContent %}
@@ -77,6 +78,9 @@
 
     <p class='mpdp-text-color-dark-grey govuk-!-margin-top-8 govuk-!-margin-bottom-0'>This notice was last updated on 22 September 2022. </p>
 
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {{relatedContent(relatedContentData)}}
   </div>
 </div>
 

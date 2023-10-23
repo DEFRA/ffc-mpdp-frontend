@@ -153,6 +153,19 @@ describe('detailsModel', () => {
 			},
 			searchString: 'test',
 			page: 'test',
+			relatedContentData: [
+        {
+          id: "fflmLink",
+          pages: [
+            "service-start",
+            "search",
+            "details",
+            "scheme-payments-by-year",
+          ],
+          text: "Funding for farmers, growers and land managers",
+          url: "https://www.gov.uk/guidance/funding-for-farmers",
+        },
+			],
 		});
 	});
 });

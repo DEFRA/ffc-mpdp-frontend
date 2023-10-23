@@ -83,6 +83,6 @@ describe('MPDP Details page tests', () => {
 		expectPhaseBanner($)
 		expectFooter($)
 		expectHeader($)
-		expectRelatedContent($)
+		expectRelatedContent($, 'details');
 	})
 })

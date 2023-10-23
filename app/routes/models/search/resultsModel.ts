@@ -3,6 +3,7 @@ import { getPaymentData } from '../../../backend/api'
 import { counties as staticCounties } from '../../../data/filters/counties'
 import { years as staticYears } from '../../../data/filters/years';
 import { sortByItems } from '../../../data/sortByItems'
+import { getRelatedContentLinks } from '../../../config/relatedContent';
 import { getAllSchemesNames } from '../../../utils/helper'
 
 const getTags = (query: any) => {
@@ -186,13 +187,14 @@ const performSearch = async (searchString: string, requestedPage: number, filter
 export const resultsModel = async (query: any, error?: any) => {
   const searchString = decodeURIComponent(query.searchString)
   const defaultReturn = {
+    relatedContentData: getRelatedContentLinks('results'),
     hiddenInputs: [
       { id: 'pageId', name: 'pageId', value: 'results' },
-      { id: 'sortBy', name: 'sortBy', value: 'score' }
+      { id: 'sortBy', name: 'sortBy', value: 'score' },
     ],
     tags: getTags(query),
-    sortBy: getSortByModel(query)
-  }
+    sortBy: getSortByModel(query),
+  };
   
   if(error) {
     return {

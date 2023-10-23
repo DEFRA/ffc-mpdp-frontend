@@ -1,9 +1,8 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
+import { detailsModel } from "../models/detailsModel";
+import type { queryParams } from '../../types'
 import Joi from "joi";
 
-import { detailsModel } from "../models/detailsModel";
-
-import type { queryParams } from '../../types'
 
 module.exports = [
   {
