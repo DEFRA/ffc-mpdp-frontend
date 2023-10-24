@@ -77,7 +77,7 @@ export default {
       title: 'Privacy notice'
     },
     '/accessibility': {
-      title: 'Accessibility statement'
+      title: 'Accessibility'
     },
     '/schemePaymentsByYear': {
       title: 'Scheme payments by year'
