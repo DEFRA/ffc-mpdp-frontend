@@ -7,10 +7,9 @@ import { getRelatedContentLinks } from '../../../config/relatedContent';
 import { getAllSchemesNames } from '../../../utils/helper'
 
 const getTags = (query: any) => {
-  
   const tags = {
     Scheme: getAllSchemesNames().reduce((acc, scheme) => {
-      if(query.schemes?.includes(scheme)) {
+      if(query.schemes?.toString().toLowerCase().split(',').includes(scheme.toLowerCase())) {
         acc.push({
 					text: scheme,
 					value: scheme
@@ -25,7 +24,7 @@ const getTags = (query: any) => {
     Year: staticYears.reduce((acc, year) => {
       if(query.years?.includes(year)) {
         acc.push({
-          text: year,
+          text: `20${year.slice(0, 2)} to 20${year.slice(3, 5)}`,
           value: year
         })
       }
@@ -36,7 +35,7 @@ const getTags = (query: any) => {
         value: string
     }>),
     County: staticCounties.reduce((acc, county) => {
-      if((typeof query.counties === 'string')? query.counties === county : query.counties?.includes(county)) {
+      if(query.counties?.toString().toLowerCase().split(',').includes(county.toLowerCase())) {
         acc.push({
 					text: county,
 					value: county
