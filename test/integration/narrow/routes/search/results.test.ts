@@ -469,7 +469,7 @@ describe('GET /results route with years parameter works', () => {
     })
 
     expect($('#totalResults').text()).toMatch(`${filteredData.length} results`)
-    expectTags($, [schemes, years])
+    expectTags($, [schemes, `20${years.slice(0, 2)} to 20${years.slice(3, 5)}`]);
   })
 
   test('Get /result works with multiple year in query params', async () => {
