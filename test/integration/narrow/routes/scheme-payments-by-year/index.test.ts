@@ -9,19 +9,19 @@ jest.mock('../../../../../app/backend/api', () => ({
 	getSchemePaymentsByYear: () => ({
 			"22/23": [
 				{
-					"scheme": "Sustainable Farming Incentive Pilot",
+					"scheme": "Sustainable Farming Incentive",
 					"financial_year": "22/23",
 					"total_amount": "3761.00"
 				}
 			],
 			"21/22": [
 				{
-					"scheme": "Sustainable Farming Incentive Pilot",
+					"scheme": "Sustainable Farming Incentive",
 					"financial_year": "21/22",
 					"total_amount": "1436025.00"
 				},
 				{
-					"scheme": "Farming Equipment and Technology Fund",
+					"scheme": "Farming Resilience Fund",
 					"financial_year": "21/22",
 					"total_amount": "1125893.00"
 				}
