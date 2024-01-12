@@ -20,7 +20,7 @@ const getSearchSuggestions = async (searchString) => {
 				});
 		};
 		xhr.send(JSON.stringify({
-			searchString
+			searchString: searchString
 		}))
 	})
 }
@@ -82,13 +82,14 @@ const setupSearch = () => {
 		showSuggestions();
 
 		try {
-			const suggestions = await getSearchSuggestions(searchInput.value)
+			const searchString = encodeURIComponent(searchInput.value)
+			const suggestions = await getSearchSuggestions(searchString)
 			if(suggestions?.count) {
 				domSuggestions.innerHTML = '';
 				suggestions.rows.forEach(row => {
 					const val = `${row.payee_name} (${row.town}, ${row.county_council}, ${row.part_postcode})`
 					domSuggestions.append(getOption(val, val,
-						() => window.location.href = `${window.location.origin}/details?payeeName=${row.payee_name}&partPostcode=${row.part_postcode}&searchString=${searchInput.value}`,
+						() => window.location.href = `${window.location.origin}/details?payeeName=${encodeURIComponent(row.payee_name)}&partPostcode=${row.part_postcode}&searchString=${searchString}`,
 						(event) => {
 							event.stopPropagation()
 							if(focusIndex != -1) {
