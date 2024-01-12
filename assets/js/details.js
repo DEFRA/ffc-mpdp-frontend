@@ -8,25 +8,32 @@ const setupShowAllButton = () => {
 	const activitiesElements = document.querySelectorAll('.schemeActivity');
 	
 	showAllButton?.addEventListener('click', () => {
-		const showAll = showAllButton.innerText === 'Show all';
+		const show = showAllButton.innerText === 'Show all';
 		detailsElements.forEach((element) => {
-			element.style.display = showAll? 'block' : 'none';
+			element.style.display = show? 'block' : 'none';
 		});
 
 		activitiesElements.forEach((element) => {
-			element.open = showAll ? true : false;
+			element.open = show;
 		});
 
-		showAllButton.innerText = showAll ? 'Hide all' : 'Show all';
+		const allShowHideButtons = getAllSchemeShowHideButtons()
+		allShowHideButtons.forEach((showHideButton, i) => {
+			const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i+1}`);
+			toggleDisplay(schemeMoreInfo, show);
+			toggleDetails(showHideButton, show);
+		})
+
+		showAllButton.innerText = show ? 'Hide all' : 'Show all';
 	});
 };
 
-const toggleDisplay = (element) => {
-	element.style.display = element.style.display === 'none' ? 'block' : 'none';
+const toggleDisplay = (element, show) => {
+	element.style.display = show? 'block' : 'none';
 }
 
-const toggleDetails = (element) => {
-	element.innerText = element.innerText === 'Show Details' ? 'Hide Details' : 'Show Details';
+const toggleDetails = (element, show) => {
+	element.innerText = show? 'Hide Details' : 'Show Details';
 }
 
 const setupSummaryShowHideButton = () => {
@@ -39,47 +46,85 @@ const setupSummaryShowHideButton = () => {
 	const dateRange = document.getElementById('dateRange');
 
 	// hide the details by default
-	toggleDisplay(summaryDetails);
-	toggleDisplay(dateRange);
+	toggleDisplay(summaryDetails, false);
+	toggleDisplay(dateRange, false);
 
 	showHideButton?.addEventListener('click', () => {
-		toggleDisplay(summaryDetails);
-		toggleDisplay(dateRange);
+		const show = document.getElementById('summaryToggle').innerText === 'Show Details';
+		toggleDisplay(summaryDetails, show);
+		toggleDisplay(dateRange, show);
 		
-		toggleDetails(showHideButton);
+		toggleDetails(showHideButton, show);
 	});
 };
 
 const setupSchemeShowHideButtons = () => {
-	const schemesLength = document.getElementById('mpdpSummaryBreakdown')?.getAttribute('data-schemesLength')
-	if(!schemesLength) {
+
+	const allShowHideButtons = getAllSchemeShowHideButtons()
+	if(!allShowHideButtons.length) {
 		return;
 	}
 
-	for(let i = 1; i <= schemesLength; i++) {
-		const showHideButton = document.getElementById(`schemeToggle${i}`);
+	allShowHideButtons.forEach((showHideButton, i) => {
 		if (!showHideButton) {
 			return;
 		}
 
-		const schemeDetails = document.getElementById(`schemeDetails${i}`);
-		const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i}`);
+		const schemeDetails = document.getElementById(`schemeDetails${i+1}`);
+		const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i+1}`);
 		
 		// hide the details by default
-		toggleDisplay(schemeDetails);
-		toggleDisplay(schemeMoreInfo);
+		toggleDisplay(schemeDetails, false);
+		toggleDisplay(schemeMoreInfo, false);
 
 		showHideButton?.addEventListener('click', () => {
-			toggleDisplay(schemeDetails);
-			toggleDisplay(schemeMoreInfo);
+			const show = showHideButton.innerText === 'Show Details'
+			toggleDisplay(schemeDetails, show);
+			toggleDisplay(schemeMoreInfo, show);
 			
-			toggleDetails(showHideButton);
+			toggleDetails(showHideButton, show);
 		});
-	}
+	})
+
+	// const schemesLength = document.getElementById('mpdpSummaryBreakdown')?.getAttribute('data-schemesLength')
+	// if(!schemesLength) {
+	// 	return;
+	// }
+
+	// for(let i = 1; i <= schemesLength; i++) {
+	// 	const showHideButton = document.getElementById(`schemeToggle${i}`);
+	// 	if (!showHideButton) {
+	// 		return;
+	// 	}
+
+	// 	const schemeDetails = document.getElementById(`schemeDetails${i}`);
+	// 	const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i}`);
+		
+	// 	// hide the details by default
+	// 	toggleDisplay(schemeDetails);
+	// 	toggleDisplay(schemeMoreInfo);
+
+	// 	showHideButton?.addEventListener('click', () => {
+	// 		toggleDisplay(schemeDetails);
+	// 		toggleDisplay(schemeMoreInfo);
+			
+	// 		toggleDetails(showHideButton);
+	// 	});
+	// }
 };
+
+const getAllSchemeShowHideButtons = () => {
+	const allButtons = [];
+	const schemesLength = document.getElementById('mpdpSummaryBreakdown')?.getAttribute('data-schemesLength')
+	for(let i = 1; i <= schemesLength; i++) {
+		allButtons.push(document.getElementById(`schemeToggle${i}`));
+	}
+
+	return allButtons;
+}
 
 (() => {
 	setupSchemeShowHideButtons();
-  setupSummaryShowHideButton();
+  	setupSummaryShowHideButton();
 	setupShowAllButton();
 })()
