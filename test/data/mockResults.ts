@@ -5,7 +5,7 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '11142000.95',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -14,7 +14,7 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -23,7 +23,7 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '10200',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -32,7 +32,7 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '10743.55',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -41,7 +41,7 @@ export default [
     town: 'Reading',
     county_council: 'Berkshire',
     amount: '11000',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -50,7 +50,7 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '50000',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -59,7 +59,7 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '2040',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -68,7 +68,7 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -77,7 +77,7 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -86,7 +86,7 @@ export default [
     town: 'Winkfield',
     county_council: 'Berkshire',
     amount: '10000',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -95,7 +95,7 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '20000',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -104,7 +104,7 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '30500',
-    scheme: 'Sustainable Farming Incentive pilot',
+    scheme: 'Sustainable Farming Incentive',
     year: '21/22'
   },
   {
@@ -113,7 +113,7 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '12330',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -122,7 +122,7 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '22/23'
   },
   {
@@ -131,7 +131,7 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '22/23'
   },
   {
@@ -140,7 +140,7 @@ export default [
     town: 'Leeds',
     county_council: 'Yorkshire and The Humber',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -149,7 +149,7 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -158,7 +158,7 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -167,7 +167,7 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -176,7 +176,7 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '10000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -185,7 +185,7 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '11200',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -194,7 +194,7 @@ export default [
     town: 'Hartlepool',
     county_council: 'Durham',
     amount: '122300.25',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   },
   {
@@ -203,7 +203,7 @@ export default [
     town: 'Little Ouseburn',
     county_council: 'North Yorkshire',
     amount: '11000000',
-    scheme: 'Farming Equipment and Technology Fund',
+    scheme: 'Farming Resilience Fund',
     year: '21/22'
   }
 ]
