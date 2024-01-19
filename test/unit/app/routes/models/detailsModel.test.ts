@@ -24,37 +24,37 @@ describe('detailsModel', () => {
 			parliamentary_constituency: 'parliamentary_constituency',
 			schemes: [
 				{
-					name: 'Farming Equipment and Technology Fund',
+					name: 'Farming Resilience Fund',
 					detail: 'Livestock Handling and weighing equipment',
 					amount: '4210.00',
 					financial_year: '21/22',
 				},
 				{
-					name: 'Sustainable Farming Incentive Pilot',
+					name: 'Sustainable Farming Incentive',
 					detail: 'Low and no input Grassland',
 					amount: '3761.00',
 					financial_year: '21/22',
 				},
 				{
-					name: 'Sustainable Farming Incentive pilot',
+					name: 'Sustainable Farming Incentive',
 					detail: 'Arable and Horticultural Land',
 					amount: '3492.00',
 					financial_year: '21/22',
 				},
 				{
-					name: 'Farming Equipment and Technology Fund',
+					name: 'Farming Resilience Fund',
 					detail: 'Livestock Handling and weighing equipment',
 					amount: '4210.00',
 					financial_year: '22/23',
 				},
 				{
-					name: 'Sustainable Farming Incentive Pilot',
+					name: 'Sustainable Farming Incentive',
 					detail: 'Arable and Horticultural Land',
 					amount: '3492.00',
 					financial_year: '22/23',
 				},
 				{
-					name: 'Sustainable Farming Incentive Pilot',
+					name: 'Sustainable Farming Incentive',
 					detail: 'Low and no input Grassland',
 					amount: '3761.00',
 					financial_year: '22/23',
@@ -68,8 +68,8 @@ describe('detailsModel', () => {
 			page: 'test',
 		});
 
-		const fetfData = getSchemeStaticData('Farming Equipment and Technology Fund');
-		const sfiData = getSchemeStaticData('Sustainable Farming Incentive Pilot');
+		const fetfData = getSchemeStaticData('Farming Resilience Fund');
+		const sfiData = getSchemeStaticData('Sustainable Farming Incentive');
 		
 		expect(result).toStrictEqual({
 			summary: {
@@ -81,7 +81,7 @@ describe('detailsModel', () => {
 				total: '22,926.00',
 				schemes: [
 					{
-						name: 'Farming Equipment and Technology Fund',
+						name: 'Farming Resilience Fund',
 						description: fetfData?.description,
 						link: fetfData?.link,
 						total: 8420,
@@ -110,7 +110,7 @@ describe('detailsModel', () => {
 						},
 					},
 					{
-						name: 'Sustainable Farming Incentive Pilot',
+						name: 'Sustainable Farming Incentive',
 						description: sfiData?.description,
 						link: sfiData?.link,
 						total: 14506,
