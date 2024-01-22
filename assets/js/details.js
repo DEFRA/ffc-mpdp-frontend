@@ -85,32 +85,6 @@ const setupSchemeShowHideButtons = () => {
 			toggleDetails(showHideButton, show);
 		});
 	})
-
-	// const schemesLength = document.getElementById('mpdpSummaryBreakdown')?.getAttribute('data-schemesLength')
-	// if(!schemesLength) {
-	// 	return;
-	// }
-
-	// for(let i = 1; i <= schemesLength; i++) {
-	// 	const showHideButton = document.getElementById(`schemeToggle${i}`);
-	// 	if (!showHideButton) {
-	// 		return;
-	// 	}
-
-	// 	const schemeDetails = document.getElementById(`schemeDetails${i}`);
-	// 	const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i}`);
-		
-	// 	// hide the details by default
-	// 	toggleDisplay(schemeDetails);
-	// 	toggleDisplay(schemeMoreInfo);
-
-	// 	showHideButton?.addEventListener('click', () => {
-	// 		toggleDisplay(schemeDetails);
-	// 		toggleDisplay(schemeMoreInfo);
-			
-	// 		toggleDetails(showHideButton);
-	// 	});
-	// }
 };
 
 const getAllSchemeShowHideButtons = () => {
