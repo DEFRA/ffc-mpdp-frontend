@@ -111,6 +111,10 @@ $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sas
   grid-template-rows: 3fr auto;
 }
 
+.mpdp-break-word {
+  word-wrap: break-word;
+}
+
 .mpdp-panel {
   background-color: $govuk-brand-colour;
   padding: 35px;
