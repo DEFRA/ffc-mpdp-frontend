@@ -44,18 +44,18 @@ describe('helper module tests', () => {
     })
 
     test('getSchemeStaticData returns correct static data', () => {
-        const schemeData = getSchemeStaticData('Farming Equipment and Technology Fund')
+        const schemeData = getSchemeStaticData('Farming Resilience Fund')
         expect(schemeData).toBeDefined()
     })
 
     test('getSchemeStaticData performs case insensitive search', () => {
-        const schemeData = getSchemeStaticData('Farming Equipment and technology fund')
-        expect(schemeData?.name).toEqual('Farming Equipment and Technology Fund')
+        const schemeData = getSchemeStaticData('Farming Resilience Fund')
+        expect(schemeData?.name).toEqual('Farming Resilience Fund')
     })
 
     test('getAllSchemesNames returns all scheme names', () => {
         const allSchemeNames = getAllSchemesNames()
-        expect(allSchemeNames.length).toBe(2)
+        expect(allSchemeNames.length).toBe(3)
     })
 
     test('getUrlParams returns correct value', () => {
