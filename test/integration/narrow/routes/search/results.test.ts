@@ -360,7 +360,7 @@ describe('GET /results route with schemes parameter works', () => {
   })
 
   test('Get /result works with single scheme in query params', async () => {
-    const schemes = 'Sustainable Farming Incentive Pilot' 
+    const schemes = 'Sustainable Farming Incentive' 
     const res = await global.__SERVER__.inject(
       getOptions(
         'results',
@@ -383,7 +383,7 @@ describe('GET /results route with schemes parameter works', () => {
   })
 
   test('Get /results work with multiple schemes in query params', async () => {
-    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund']
+    const schemes = ['Sustainable Farming Incentive', 'Farming Resilience Fund']
     const options = getOptions(
       'results',
       'GET',
@@ -413,7 +413,7 @@ describe('GET /results route with amounts parameter works', () => {
   })
 
   test('Get /result works with no amount in query params', async () => {
-    const schemes = 'Sustainable Farming Incentive Pilot'
+    const schemes = 'Sustainable Farming Incentive'
     const res = await global.__SERVER__.inject(
       getOptions(
         'results',
@@ -445,7 +445,7 @@ describe('GET /results route with years parameter works', () => {
   })
 
   test('Get /result works with single year in query params', async () => {
-    const schemes = 'Farming Equipment and Technology Fund'
+    const schemes = 'Farming Resilience Fund'
     const years = '21/22'
     const res = await global.__SERVER__.inject(
       getOptions(
@@ -473,7 +473,7 @@ describe('GET /results route with years parameter works', () => {
   })
 
   test('Get /result works with multiple year in query params', async () => {
-    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund'];
+    const schemes = ['Sustainable Farming Incentive', 'Farming Resilience Fund'];
     const years = ['21/22', '22/23'];
     const options = getOptions(
       'results',
@@ -505,7 +505,7 @@ describe('GET /results route with counties parameter works', () => {
   })
 
   test('Get /result works with single county in query params', async () => {
-    const schemes = 'Farming Equipment and Technology Fund'
+    const schemes = 'Farming Resilience Fund'
     const counties = 'Durham'
     const res = await global.__SERVER__.inject(
       getOptions(
@@ -533,7 +533,7 @@ describe('GET /results route with counties parameter works', () => {
   })
 
   test('Get /results work with multiple counties in query params', async () => {
-    const schemes = ['Sustainable Farming Incentive Pilot', 'Farming Equipment and Technology Fund']
+    const schemes = ['Sustainable Farming Incentive', 'Farming Resilience Fund']
     const counties = ['Durham', 'Berkshire']
     const options = getOptions(
       'results',

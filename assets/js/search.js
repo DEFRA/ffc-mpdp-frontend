@@ -67,7 +67,7 @@ const setupSearch = () => {
 			text, 
 			() => document.getElementById('searchButton')?.click(),
 			null,
-			'mpdp-text-align-center mpdp-align-items-center option-container')
+			'mpdp-text-align-center mpdp-align-items-center option-container mpdp-break-word')
 	}
 	
 	const hideSuggestions = () => {
@@ -97,7 +97,7 @@ const setupSearch = () => {
 								unsetActive();
 							}
 						},
-						'option-container'
+						'option-container mpdp-break-word'
 					))
 				})
 
