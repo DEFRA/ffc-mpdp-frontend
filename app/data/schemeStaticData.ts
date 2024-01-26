@@ -12,7 +12,7 @@ export const schemeStaticData = [
 	{
 		name: 'Landscape Recovery',
 		description: 'Projects that restore nature, reduce flood risks and boost biodiversity.',
-		link: 'https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance'
+		link: 'https://www.gov.uk/government/publications/landscape-recovery-more-information-on-how-the-scheme-will-work/landscape-recovery-more-information-on-how-the-scheme-will-work'
 	},
 	{
 		name: 'Sustainable Farming Incentive',
