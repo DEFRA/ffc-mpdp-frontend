@@ -55,7 +55,7 @@ describe('helper module tests', () => {
 
     test('getAllSchemesNames returns all scheme names', () => {
         const allSchemeNames = getAllSchemesNames()
-        expect(allSchemeNames.length).toBe(3)
+        expect(allSchemeNames.length).toBe(4)
     })
 
     test('getUrlParams returns correct value', () => {
