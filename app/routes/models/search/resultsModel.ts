@@ -34,7 +34,7 @@ const getTags = (query: any, { counties } : { counties?: string[] }) => {
         text: string, 
         value: string
     }>),
-    County: getCounties(counties).sort().reduce((acc, county) => {
+    County: getCounties(counties).reduce((acc, county) => {
       if(query.counties?.toString().toLowerCase().split(',').includes(county.toLowerCase())) {
         acc.push({
 					text: county,
@@ -90,7 +90,7 @@ const getFilters = (query: any, filterOptions: { schemes: string[], years: strin
     },
     counties: {
       name: 'County',
-      items: getCounties(filterOptions.counties).sort().filter((county) => county != 'None').map((county) => ({
+      items: getCounties(filterOptions.counties).filter((county) => county != 'None').map((county) => ({
         text: county,
         value: county,
         checked: isChecked(query.counties, county),
@@ -105,7 +105,7 @@ const getSchemes = (schemes: string[]) => schemes?.length ? schemes : getAllSche
 
 const getYears = (years: string[]) => (years?.length ? years : staticYears);
 
-const getCounties = (counties ?: any[]) => counties?.length ? counties : staticCounties
+const getCounties = (counties ?: any[]) => counties?.length ? counties.sort((a, b) => a.localeCompare(b)) : staticCounties
 
 const isChecked = (field: string | string[], value: string) => (typeof field === 'string')? field === value : field?.includes(value)
 
