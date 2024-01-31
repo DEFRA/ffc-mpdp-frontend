@@ -6,7 +6,7 @@ import { sortByItems } from '../../../data/sortByItems'
 import { getRelatedContentLinks } from '../../../config/relatedContent';
 import { getAllSchemesNames } from '../../../utils/helper'
 
-const getTags = (query: any) => {
+const getTags = (query: any, { counties } : { counties?: string[] }) => {
   const tags = {
     Scheme: getAllSchemesNames().reduce((acc, scheme) => {
       if(query.schemes?.toString().toLowerCase().split(',').includes(scheme.toLowerCase())) {
@@ -34,7 +34,7 @@ const getTags = (query: any) => {
         text: string, 
         value: string
     }>),
-    County: staticCounties.reduce((acc, county) => {
+    County: getCounties(counties).reduce((acc, county) => {
       if(query.counties?.toString().toLowerCase().split(',').includes(county.toLowerCase())) {
         acc.push({
 					text: county,
@@ -64,7 +64,7 @@ const getFilters = (query: any, filterOptions: { schemes: string[], years: strin
   const yearsLength = !query.years? 0 : (typeof query.years === 'string'? 1: query.years?.length)
   const countiesLength = !query.counties? 0 : (typeof query.counties === 'string'? 1: query.counties?.length)
   const attributes = {
-    onchange: "this.form.submit()"
+    onchange: "this?.form?.submit()"
   }
 
   return {
@@ -105,7 +105,7 @@ const getSchemes = (schemes: string[]) => schemes?.length ? schemes : getAllSche
 
 const getYears = (years: string[]) => (years?.length ? years : staticYears);
 
-const getCounties = (counties: any[]) => counties?.length ? counties : staticCounties
+const getCounties = (counties ?: any[]) => counties?.length ? counties.sort((a, b) => a.localeCompare(b)) : staticCounties
 
 const isChecked = (field: string | string[], value: string) => (typeof field === 'string')? field === value : field?.includes(value)
 
@@ -191,7 +191,6 @@ export const resultsModel = async (query: any, error?: any) => {
       { id: 'pageId', name: 'pageId', value: 'results' },
       { id: 'sortBy', name: 'sortBy', value: 'score' },
     ],
-    tags: getTags(query),
     sortBy: getSortByModel(query),
   };
   
@@ -203,6 +202,7 @@ export const resultsModel = async (query: any, error?: any) => {
         years: staticYears,
         counties: staticCounties
       }),
+      tags: getTags(query, {}),
       errorList: [{
         text: "Enter a name or location",
         href: "#resultsSearchInput"
@@ -228,6 +228,7 @@ export const resultsModel = async (query: any, error?: any) => {
     searchString,
     ...getPaginationAttributes(total, requestedPage, searchString, filterBy, sortBy),
     filters: getFilters(query, filterOptions),
+    tags: getTags(query, filterOptions),
     results,
     total,
     currentPage: requestedPage,
