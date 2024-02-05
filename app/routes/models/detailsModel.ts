@@ -44,6 +44,7 @@ const createPaymentDetailsSummary = (paymentDetails: any) => {
   })
   summary.startYear = `20${summary.financial_years[0].split('/')[0]}`
   summary.endYear = `20${summary.financial_years[summary.financial_years.length - 1].split('/')[1]}`
+  summary.downloadLink = `/downloaddetails?payeeName=${encodeURIComponent(summary.payee_name)}&partPostcode=${summary.part_postcode}`
   return summary
 }
 
@@ -58,7 +59,8 @@ const createSummary = (paymentDetails: any) => {
     parliamentary_constituency,
     total: '',
     schemes: [] as Scheme[],
-    financial_years: []
+    financial_years: [],
+    downloadLink: ''
   } as Summary
 }
 

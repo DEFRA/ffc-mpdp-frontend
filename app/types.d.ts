@@ -15,7 +15,8 @@ export type Summary = {
     total: string,
     startYear?: string,
     endYear?: string,
-    schemes: Scheme[]
+    schemes: Scheme[],
+    downloadLink: string
 }
 
 export type Scheme = {
