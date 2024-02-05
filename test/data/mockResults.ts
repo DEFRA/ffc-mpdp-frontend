@@ -147,7 +147,7 @@ export default [
     payee_name: 'T R Carter & Sons 17',
     part_postcode: 'TS24',
     town: 'Hartlepool',
-    county_council: 'Durham',
+    county_council: 'Durham, East',
     amount: '10000',
     scheme: 'Farming Resilience Fund',
     year: '21/22'
@@ -156,7 +156,7 @@ export default [
     payee_name: 'T R Carter & Sons 18',
     part_postcode: 'TS24',
     town: 'Hartlepool',
-    county_council: 'Durham',
+    county_council: 'Durham, East',
     amount: '10000',
     scheme: 'Farming Resilience Fund',
     year: '21/22'
@@ -165,7 +165,7 @@ export default [
     payee_name: 'T R Carter & Sons 19',
     part_postcode: 'TS24',
     town: 'Hartlepool',
-    county_council: 'Durham',
+    county_council: 'Durham, East',
     amount: '10000',
     scheme: 'Farming Resilience Fund',
     year: '21/22'
@@ -174,7 +174,7 @@ export default [
     payee_name: 'T R Carter & Sons 20',
     part_postcode: 'TS24',
     town: 'Hartlepool',
-    county_council: 'Durham',
+    county_council: 'Durham, East',
     amount: '10000',
     scheme: 'Farming Resilience Fund',
     year: '21/22'
@@ -183,7 +183,7 @@ export default [
     payee_name: 'T R Carter & Sons 21',
     part_postcode: 'TS24',
     town: 'Hartlepool',
-    county_council: 'Durham',
+    county_council: 'Durham, East',
     amount: '11200',
     scheme: 'Farming Resilience Fund',
     year: '21/22'
@@ -192,7 +192,7 @@ export default [
     payee_name: 'T R Carter & Sons 22',
     part_postcode: 'TS24',
     town: 'Hartlepool',
-    county_council: 'Durham',
+    county_council: 'Durham, East',
     amount: '122300.25',
     scheme: 'Farming Resilience Fund',
     year: '21/22'

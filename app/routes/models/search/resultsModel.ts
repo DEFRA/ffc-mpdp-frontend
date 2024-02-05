@@ -35,7 +35,7 @@ const getTags = (query: any, { counties } : { counties?: string[] }) => {
         value: string
     }>),
     County: getCounties(counties).reduce((acc, county) => {
-      if(query.counties?.toString().toLowerCase().split(',').includes(county.toLowerCase())) {
+      if(isChecked(query.counties, county)) {
         acc.push({
 					text: county,
 					value: county
@@ -107,7 +107,7 @@ const getYears = (years: string[]) => (years?.length ? years : staticYears);
 
 const getCounties = (counties ?: any[]) => counties?.length ? counties.sort((a, b) => a.localeCompare(b)) : staticCounties
 
-const isChecked = (field: string | string[], value: string) => (typeof field === 'string')? field === value : field?.includes(value)
+const isChecked = (field: string | string[], value: string) => (typeof field === 'string')? field?.toLowerCase() === value?.toLowerCase() : field?.find(x => x.toLowerCase() == value.toLowerCase())
 
 const getSortByModel = (query: any) => ({
     selected: decodeURIComponent(query.sortBy),
