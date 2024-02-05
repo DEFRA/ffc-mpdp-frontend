@@ -71,7 +71,7 @@ describe('MPDP Details page tests', () => {
 		{id: '#sfiQueryForm', href: 'https://www.gov.uk/government/publications/sustainable-farming-incentive-pilot-query-form', text: 'SFI pilot query form'},
 		{id: '#newSearchLink', href: '/search', text: 'start a new search'},
 		{id: '#printLink', href: 'window.print()', text: 'print this page'},
-		{id: '#downloaddetailsLink', href: `/downloaddetails?payeeName=${payeeNameResult}&partPostcode=${partPostcodeResult}`, text: 'Download this data (.CSV)'}
+		{id: '#downloaddetailsLink', href: `/downloaddetails?payeeName=${encodeURIComponent(payeeNameResult)}&partPostcode=${partPostcodeResult}`, text: 'Download this data (.CSV)'}
 	])('All links are present', async ({id, href, text}) => {
 		const linkElement = $(id)
 		expect(linkElement).toBeDefined()
