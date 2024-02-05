@@ -16,11 +16,12 @@ describe('detailsModel', () => {
 
 	test('detailsModel returns summary if getPaymentDetails returns data', async () => {
 		jest.spyOn(api, 'getPaymentDetails').mockResolvedValue({
-			payee_name: 'payee_name',
-			payee_name2: 'payee_name Schneider',
+			payee_name: 'payee & name',
+			payee_name2: 'payee & name Schneider',
 			part_postcode: 'RG1',
 			town: 'town',
 			county_council: 'county_council',
+			downloadLink: `/downloaddetails?payeeName=${encodeURIComponent('payee & name')}&partPostcode=RG1`,
 			parliamentary_constituency: 'parliamentary_constituency',
 			schemes: [
 				{
@@ -62,7 +63,7 @@ describe('detailsModel', () => {
 			],
 		});
 		const result = await detailsModel({
-			payeeName: 'payee_name',
+			payeeName: 'payee & name',
 			partPostcode: 'RG1',
 			searchString: 'test',
 			page: 'test',
@@ -73,11 +74,12 @@ describe('detailsModel', () => {
 		
 		expect(result).toStrictEqual({
 			summary: {
-				payee_name: 'payee_name',
+				payee_name: 'payee & name',
 				part_postcode: 'RG1',
 				town: 'town',
 				county_council: 'county_council',
 				parliamentary_constituency: 'parliamentary_constituency',
+				downloadLink: "/downloaddetails?payeeName=payee%20%26%20name&partPostcode=RG1",
 				total: '22,926.00',
 				schemes: [
 					{
