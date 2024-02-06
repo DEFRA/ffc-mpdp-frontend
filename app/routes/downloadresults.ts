@@ -1,4 +1,4 @@
-import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
+import { Request, ResponseToolkit } from "@hapi/hapi";
 import Joi from "joi";
 import { getPaymentData } from "../backend/api";
 import { getReadableAmount } from '../utils/helper'
@@ -17,10 +17,11 @@ module.exports = [
           pageId: Joi.string().default(''),
           schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
+          years: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           counties: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           sortBy: Joi.string().trim().optional().default('score'),
         }),
-        failAction: async (request: Request, h: ResponseToolkit, error: any) => {
+        failAction: async (_request: Request, h: ResponseToolkit, error: any) => {
           h.response(error.toString()).code(400).takeover()
         }
       },
