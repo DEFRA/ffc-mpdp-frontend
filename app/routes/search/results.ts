@@ -17,13 +17,14 @@ module.exports = [
           amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           years: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
           counties: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
-          sortBy: Joi.string().trim().optional().default('score')
+          sortBy: Joi.string().trim().optional().default('score'),
+          referer: Joi.string().trim().optional().default('')
         }),
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           if(!(request.query as any).searchString.trim()) {
             return h.view(
               `search/${(request.query as any).pageId || 'index'}`,
-              await resultsModel(request.query, error)
+              await resultsModel(request, error)
             ).code(400).takeover()
           }
 
@@ -32,7 +33,7 @@ module.exports = [
       },
       handler: async (request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
         request.query.searchString=encodeURIComponent(request.query.searchString)
-        return h.view('search/results', await resultsModel(request.query));
+        return h.view('search/results', await resultsModel(request));
       }  
     }
   }

@@ -5,6 +5,7 @@ import { years as staticYears } from '../../../data/filters/years';
 import { sortByItems } from '../../../data/sortByItems'
 import { getRelatedContentLinks } from '../../../config/relatedContent';
 import { getAllSchemesNames } from '../../../utils/helper'
+import { Request } from '@hapi/hapi';
 
 const getTags = (query: any, { counties } : { counties?: string[] }) => {
   const tags = {
@@ -183,13 +184,15 @@ const performSearch = async (searchString: string, requestedPage: number, filter
   }
 }
 
-export const resultsModel = async (query: any, error?: any) => {
+export const resultsModel = async (request: Request, error?: any) => {
+  const { query } = request;
   const searchString = decodeURIComponent(query.searchString)
+  const referer = query.referer || request.headers.referer
   const defaultReturn = {
-    relatedContentData: getRelatedContentLinks('results'),
     hiddenInputs: [
       { id: 'pageId', name: 'pageId', value: 'results' },
       { id: 'sortBy', name: 'sortBy', value: 'score' },
+      { id: 'referer', name: 'referer', value: referer }
     ],
     sortBy: getSortByModel(query),
   };
@@ -197,6 +200,8 @@ export const resultsModel = async (query: any, error?: any) => {
   if(error) {
     return {
       ...defaultReturn,
+      relatedContentData: getRelatedContentLinks('search'),
+      referer,
       filters: getFilters(query, {
         schemes: getAllSchemesNames(),
         years: staticYears,
