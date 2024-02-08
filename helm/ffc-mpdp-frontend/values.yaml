@@ -34,7 +34,7 @@ container:
   limitMemory: 120Mi
   limitCpu: 120m
   port: 3001
-  mpdpBackendEndpoint: http://ffc-mpdp-backend.ffc-mpdp-pr80
+  mpdpBackendEndpoint: http://ffc-mpdp-backend-pr80
   googleTagManagerKey: G-MYDRHM8BT1
 
 service:
