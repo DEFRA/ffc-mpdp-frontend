@@ -6,7 +6,10 @@ import { getOptions } from '../../../../utils/helpers'
 import { getPageTitle } from '../../../../../app/utils/helper'
 import { expectTitle } from '../../../../utils/title-expect'
 import { expectRelatedContent } from '../../../../utils/related-content-expects'
+import { ServerInjectResponse } from '@hapi/hapi'
 
+const path = 'search'
+const pageTitle = getPageTitle(`/${path}`);
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: () => ({
     results: [],
@@ -16,9 +19,6 @@ jest.mock('../../../../../app/backend/api', () => ({
 }))
 
 describe('MPDP Search page test', () => {
-  const path = 'search'
-  const pageTitle = getPageTitle(`/${path}`);
-
   test(`GET /${path} route returns search landing page when no query parameters are sent`, async () => {
     const res = await global.__SERVER__.inject(getOptions(path))
 
@@ -83,9 +83,40 @@ describe('MPDP Search page test', () => {
     expect(errorSummary).toBeDefined()
     expect(errorSummary.text()).toContain('There is a problem')
     expect($('#resultsSearchInput')).toBeDefined()
+    expect($('#relatedContentList li').length).toEqual(1)
+    
+    expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
+    expect($('#search-input-error').text()).toContain('Enter a name or location')
+    expect($('title').text()).toContain('Error')
+  })
+})
+
+
+describe('MPDP Search page error tests', () => {
+  let res: ServerInjectResponse;
+  let $: cheerio.CheerioAPI;
+  beforeAll(async () => {
+    res = await global.__SERVER__.inject(
+      getOptions('results', 'GET', { searchString: '' })
+    )
+    $ = cheerio.load(res.payload)
+  })
+
+  test('GET /results with invalid query displays an error', async () => {
+    expect(res.statusCode).toBe(400)
+    
+    expect($('h1').text()).toEqual(pageTitle)
+    const errorSummary = $('#error-summary-title')
+    expect(errorSummary).toBeDefined()
+    expect(errorSummary.text()).toContain('There is a problem')
+    expect($('#resultsSearchInput')).toBeDefined()
 
     expect($('.govuk-form-group.govuk-form-group--error')).toBeDefined()
     expect($('#search-input-error').text()).toContain('Enter a name or location')
     expect($('title').text()).toContain('Error')
+  })
+
+  test('Related content is displayed', async () => {
+    expect($('#relatedContentList li').length).toEqual(1)
   })
 })
