@@ -1,6 +1,6 @@
 import { Request, ResponseToolkit, ResponseObject } from "@hapi/hapi";
 import { resultsModel } from "../models/search/resultsModel";
-import Joi from "joi";
+import { resultsQuery as query } from "../queries/search/results";
 
 module.exports = [
   {
@@ -9,17 +9,7 @@ module.exports = [
     options: {
       auth: false,
       validate: {
-        query: Joi.object({
-          searchString: Joi.string().trim().min(1).required(),
-          page: Joi.number().default(1),
-          pageId: Joi.string().default(''),
-          schemes: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
-          amounts: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
-          years: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
-          counties: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
-          sortBy: Joi.string().trim().optional().default('score'),
-          referer: Joi.string().trim().optional().default('')
-        }),
+        query,
         failAction: async (request: Request, h: ResponseToolkit, error: any) => {
           if(!(request.query as any).searchString.trim()) {
             return h.view(

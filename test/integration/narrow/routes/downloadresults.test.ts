@@ -34,7 +34,7 @@ describe('downloadresults csv test', () => {
       scheme: 'Farming Resilience Fund'
     }],
     total: 3,
-    filterOptions: {}
+    filterOptions: { schemes: [], years: [], counties: [] }
   }
 
   const mockedFetch = jest.spyOn(api, 'getPaymentData')
