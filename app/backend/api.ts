@@ -33,7 +33,7 @@ export const getPaymentData = async (
 	limit: number = config.search.limit) : Promise<{ 
 		results: any[]; 
 		total: number; 
-		filterOptions: {} 
+		filterOptions: { schemes: string[], years: string[], counties: string[] } 
 	}> => {
 	const response: any = await post('/paymentdata', {
 		searchString,
@@ -45,7 +45,7 @@ export const getPaymentData = async (
 	})
 
 	if(!response) {
-		return { results: [], total: 0, filterOptions: {} }
+		return { results: [], total: 0, filterOptions: { schemes: [], years: [], counties: [] } }
 	}
 
 	const result = JSON.parse(response.payload)
