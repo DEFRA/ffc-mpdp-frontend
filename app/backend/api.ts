@@ -24,7 +24,17 @@ export const post = async (url: string, payload: any) => {
 	}
 }
 
-export const getPaymentData = async (searchString: string, offset: number, filterBy: any, sortBy : string, action?:string, limit: number = config.search.limit) => {
+export const getPaymentData = async (
+	searchString: string, 
+	offset: number, 
+	filterBy: any, 
+	sortBy : string, 
+	action?:string, 
+	limit: number = config.search.limit) : Promise<{ 
+		results: any[]; 
+		total: number; 
+		filterOptions: {} 
+	}> => {
 	const response: any = await post('/paymentdata', {
 		searchString,
 		limit,
