@@ -163,7 +163,7 @@ const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: str
   for(let key in filterBy) {
     if(filterBy[key].length) {
       const urlParam = `&${key}=`
-      const urlPart = `${urlParam}${filterBy[key].join(urlParam)}`
+      const urlPart = `${urlParam}${filterBy[key].map((x: string) => encodeURIComponent(x)).join(urlParam)}`
       downloadResultsLink += urlPart
     }
   }
@@ -171,6 +171,7 @@ const getDownloadResultsLink = (searchString: string, filterBy: any, sortBy: str
     const encodedSortBy = encodeURIComponent(sortBy)
     downloadResultsLink += `&sortBy=${encodedSortBy}`
   }
+  
   return {downloadResultsLink}
 }
 
