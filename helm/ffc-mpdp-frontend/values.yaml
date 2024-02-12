@@ -18,13 +18,13 @@ containerSecret:
   type: Opaque
 
 deployment:
-  cpuThreshold: 40
+  cpuThreshold: 80
   memoryThreshold: 80
   minReadySeconds: 0
   minReplicas: 1
   maxReplicas: 2
   priorityClassName: default
-  replicas: 1
+  replicas: 2
   restartPolicy: Always
 
 container:
