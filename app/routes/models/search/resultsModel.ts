@@ -124,7 +124,7 @@ const getPaginationAttributes = (totalResults: number, requestedPage: number, se
   for(let key in filterBy) {
     if(filterBy[key].length) {
       const urlParam = `&${key}=`
-      const urlPart = `${urlParam}${filterBy[key].join(urlParam)}`
+      const urlPart = `${urlParam}${filterBy[key].map((x: string) => encodeURIComponent(x)).join(urlParam)}`
       prevHref += urlPart
       nextHref += urlPart 
     }
