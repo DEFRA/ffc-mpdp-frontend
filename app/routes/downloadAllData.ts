@@ -1,13 +1,13 @@
 import { Request, ResponseToolkit } from "@hapi/hapi";
-import { get } from "../backend/api";
+import fs from 'fs'
 
 module.exports = {
   method: 'GET',
-  path: '/downloadall',
+  path: '/allData',
   handler: async (_request: Request, h: ResponseToolkit) => {
     try {
-      const content: any = await get('/downloadall')
-      return h.response(content?.payload)
+      const stream = fs.createReadStream('../data/rawData/ffc-payment-data')
+      return h.response(stream)
         .type('application/csv')
         .header('Content-Disposition', 'attachment; filename=\"ffc-payment-data.csv\"')
     } catch (error) {

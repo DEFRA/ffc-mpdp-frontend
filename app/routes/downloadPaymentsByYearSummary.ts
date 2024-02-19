@@ -1,6 +1,6 @@
 import { Request, ResponseToolkit, ResponseObject } from '@hapi/hapi';
 import config from '../config';
-import * as utils from '../utils';
+import { get } from '../backend/api';
 
 const urlcsv = `${config.backendEndpoint}/downloadPaymentsByYearSummary`;
 
@@ -9,9 +9,9 @@ module.exports = {
   path: '/downloadPaymentsByYearSummary',
   handler: async (_request: Request, _response: ResponseToolkit) => {
     try {
-      const content = await utils.getBuffer(urlcsv);
+      const content: any = await get(urlcsv);
       return _response
-        .response(content)
+        .response(content?.payload)
         .type('application/csv')
         .header(
           'Content-Disposition',
