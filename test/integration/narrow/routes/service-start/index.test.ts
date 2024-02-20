@@ -11,7 +11,7 @@ describe('MPDP service start page test', () => {
   const path = 'service-start'
   const expectLinks = ($: cheerio.CheerioAPI) => {
     const expectedLinks = [
-      '/allData',
+      '/downloadalldata',
       'https://cap-payments.defra.gov.uk/Default.aspx'
     ]
 
