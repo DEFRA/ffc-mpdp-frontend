@@ -1,13 +1,18 @@
-import * as utils from '../../../../app/utils';
+import * as Http from 'http';
+import * as api from '../../../../app/backend/api';
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
 describe('downloadPaymentsByYearSummary csv test', () => {
-  const content = 'Sample data in csv';
-  const mockedFetch = jest.spyOn(utils, 'getBuffer');
-  mockedFetch.mockResolvedValue(new Buffer(content));
+  const content = {
+    res: {} as unknown as Http.IncomingMessage,
+    payload: 'Sample data in csv'
+  }
+  const mockedFetch = jest.spyOn(api, 'get')
+  mockedFetch.mockResolvedValue(content);
+
   const request = {
     method: 'GET',
     url: '/downloadPaymentsByYearSummary',
@@ -29,7 +34,7 @@ describe('downloadPaymentsByYearSummary csv test', () => {
 
   test('GET /downloadPaymentsByYearSummary returns the expected content', async () => {
     const res = await global.__SERVER__.inject(request);
-    expect(res.result).toBe(content);
+    expect(res.result).toBe(content.payload);
   });
 
   test('GET /downloadPaymentsByYearSummary throws error when underlying error', async () => {

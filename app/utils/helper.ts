@@ -1,6 +1,7 @@
 import config from '../config';
 import { schemeStaticData } from '../data/schemeStaticData'
 import { amounts as staticAmounts } from '../data/filters/amounts'
+import path from 'path'
 
 export const getReadableAmount = (amount: number | undefined) => {
 	if(typeof amount !== 'number') {
@@ -59,4 +60,8 @@ const sortFinancialYears = (financialYears: string[]) => {
     const [_startYearB, endYearB] = b.split('/')
     return parseInt(endYearA) - parseInt(endYearB)
   })
+}
+
+export const getAllPaymentDataFilePath = () => {
+	return path.join(__dirname, '..', 'data', 'downloads', 'ffc-payment-data.csv')
 }

@@ -1,14 +1,17 @@
-import * as utils from '../../../../app/utils'
+import * as Http from 'http';
+import * as api from '../../../../app/backend/api'
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
-
 describe('downloadall csv test', () => {
-  const content = 'Sample data in csv'
-  const mockedFetch = jest.spyOn(utils, 'getBuffer')
-  mockedFetch.mockResolvedValue(new Buffer(content));
+  const content = {
+    res: {} as unknown as Http.IncomingMessage,
+    payload: 'Sample data in csv'
+  }
+  const mockedFetch = jest.spyOn(api, 'get')
+  mockedFetch.mockResolvedValue(content);
   const request = {
     method: 'GET',
     url: '/downloadall'
@@ -26,8 +29,14 @@ describe('downloadall csv test', () => {
   })
 
   test('GET /downloadall returns the expected content', async () => {
+    const mockedFetch = jest.spyOn(api, 'get')
+    mockedFetch.mockResolvedValue({
+      res: {} as unknown as Http.IncomingMessage,
+      payload: 'Sample data in csv'
+    });
+
     const res = await global.__SERVER__.inject(request)
-    expect(res.result).toBe(content)
+    expect(res.result).toBe(content.payload)
   })
 })
 
@@ -39,7 +48,7 @@ describe('downloadall csv error test', () => {
   }
 
   test('GET /downloadall throws error when underlying error', async () => {
-    const mockedFetch = jest.spyOn(utils, 'getBuffer')
+    const mockedFetch = jest.spyOn(api, 'get')
     mockedFetch.mockRejectedValue('Internal Server Error')
     const res = await global.__SERVER__.inject(request)
     expect(res.statusCode).toBe(500)
