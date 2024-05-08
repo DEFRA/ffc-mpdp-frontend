@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  ffc-ahwr-frontend:
+  ffc-mpdp-frontend:
     command: >
       sh -c "npm run test:watch:all"
     volumes:
