@@ -1,3 +1,4 @@
+require('./insights').setup()
 import { start } from './server'
 
 (async () => {

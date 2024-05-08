@@ -8,7 +8,7 @@ image: ffc-mpdp-frontend
 labels: {}
 
 appInsights:
-  key:
+  connectionString:
 
 containerConfigMap:
   name: ffc-mpdp-frontend-config-map
