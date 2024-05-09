@@ -8,8 +8,9 @@ module.exports = {
           const statusCode = response.output.statusCode
           request.log('error', {
             statusCode,
+            data: response.data,
             message: response.message,
-            payloadMessage: response.data ? response.data.payload.message : ''
+            stack: response.stack
           })
           return response
         }

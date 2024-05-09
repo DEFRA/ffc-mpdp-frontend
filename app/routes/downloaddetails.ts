@@ -13,7 +13,7 @@ module.exports = {
         partPostcode: Joi.string().trim().required()
       }),
       failAction: async (request: Request, h: ResponseToolkit, error: any) => {
-        h.response(error.toString()).code(400).takeover()
+        return h.response(error.toString()).code(400).takeover()
       }
     },
     handler: async (request: Request, h: ResponseToolkit) => {
