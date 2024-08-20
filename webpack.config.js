@@ -11,7 +11,7 @@ console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 module.exports = {
   entry: {
     'assets': './assets/index.js',
-    'main': './app/index.ts'
+    'main': './app/index.js'
   },
   mode: isDev ? 'development' : 'production',
   module: {
@@ -54,9 +54,8 @@ module.exports = {
         }
       },
       {
-        test: /\.tsx?/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        test: /.node$/,
+        loader: 'node-loader',
       }
     ]
   },
@@ -66,7 +65,7 @@ module.exports = {
     publicPath: '/assets/'
   },
   resolve: {
-    extensions: [ '.ts', '.js' ],
+    extensions: [ '.js' ],
     fallback: { 
       "os": require.resolve("os-browserify/browser"),
       "crypto": require.resolve("crypto-browserify"),

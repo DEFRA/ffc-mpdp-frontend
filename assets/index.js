@@ -1,7 +1,7 @@
-import { initAll } from 'govuk-frontend'
-import './css/application.scss'
-import './js/cookies'
-import './js/search'
-import './js/details'
-import './js/schemePaymentsByYear'
+const { initAll } = require('govuk-frontend')
+require('./css/application.scss')
+require('./js/cookies')
+require('./js/search')
+require('./js/details')
+require('./js/schemePaymentsByYear')
 initAll()
