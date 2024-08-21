@@ -1,3 +1,5 @@
+const showDetailsText = 'Show Details';
+
 const setupShowAllButton = () => {
 	const showAllButton = document.querySelector('#showAllButton');
 	if (!showAllButton) {
@@ -33,7 +35,7 @@ const toggleDisplay = (element, show) => {
 }
 
 const toggleDetails = (element, show) => {
-	element.innerText = show? 'Hide Details' : 'Show Details';
+	element.innerText = show? 'Hide Details' : showDetailsText;
 }
 
 const setupSummaryShowHideButton = () => {
@@ -50,7 +52,7 @@ const setupSummaryShowHideButton = () => {
 	toggleDisplay(dateRange, false);
 
 	showHideButton?.addEventListener('click', () => {
-		const show = document.getElementById('summaryToggle').innerText === 'Show Details';
+		const show = document.getElementById('summaryToggle').innerText === showDetailsText;
 		toggleDisplay(summaryDetails, show);
 		toggleDisplay(dateRange, show);
 		
@@ -78,7 +80,7 @@ const setupSchemeShowHideButtons = () => {
 		toggleDisplay(schemeMoreInfo, false);
 
 		showHideButton?.addEventListener('click', () => {
-			const show = showHideButton.innerText === 'Show Details'
+			const show = showHideButton.innerText === showDetailsText
 			toggleDisplay(schemeDetails, show);
 			toggleDisplay(schemeMoreInfo, show);
 			
@@ -90,7 +92,7 @@ const setupSchemeShowHideButtons = () => {
 const getAllSchemeShowHideButtons = () => {
 	const allButtons = [];
 	const schemesLength = document.getElementById('mpdpSummaryBreakdown')?.getAttribute('data-schemesLength')
-	for(let i = 1; i <= schemesLength; i++) {
+	for(let i = 1; i <= parseInt(schemesLength); i++) {
 		allButtons.push(document.getElementById(`schemeToggle${i}`));
 	}
 
