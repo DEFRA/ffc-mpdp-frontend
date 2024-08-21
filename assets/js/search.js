@@ -126,7 +126,9 @@ const setActive = () => {
 
 	if (focusIndex < 0) {
 		focusIndex = domSuggestions.children.length - 1;
-	} else if (focusIndex >= domSuggestions.children.length) {
+	} 
+	
+	if (focusIndex >= domSuggestions.children.length) {
 		focusIndex = 0;
 	}
 
@@ -186,6 +188,8 @@ const addSearchInputListeners = () => {
 			}
 			
 			domSuggestions.children[focusIndex].dispatchEvent(new MouseEvent('mousedown'));
+		} else {
+			return;
 		}
 	
 		e.preventDefault();
