@@ -39,20 +39,20 @@ describe('search', () => {
 
   describe('constructor', () => {
     it('should call setupAggregateSummaryShowHideButton and setupAggregateShowAllButton', () => {
-        const spySetupAggregateSummaryShowHideButton = jest.spyOn(schemePaymentsByYear, 'setupAggregateSummaryShowHideButton')
-        const spySetupAggregateShowAllButton = jest.spyOn(schemePaymentsByYear, 'setupAggregateShowAllButton')
+      const spySetupAggregateSummaryShowHideButton = jest.spyOn(schemePaymentsByYear, 'setupAggregateSummaryShowHideButton')
+      const spySetupAggregateShowAllButton = jest.spyOn(schemePaymentsByYear, 'setupAggregateShowAllButton')
 
-        schemePaymentsByYear.init()
+      schemePaymentsByYear.init()
 
-        expect(spySetupAggregateSummaryShowHideButton).toHaveBeenCalled()
-        expect(spySetupAggregateShowAllButton).toHaveBeenCalled()
+      expect(spySetupAggregateSummaryShowHideButton).toHaveBeenCalled()
+      expect(spySetupAggregateShowAllButton).toHaveBeenCalled()
     })
   })
 
   describe('setupAggregateSummaryShowHideButton', () => {
     it('should hide details and date range by default', () => {
-      const summaryDetails = document.getElementById('summaryDetails');
-		  const dateRange = document.getElementById('dateRange');
+      const summaryDetails = document.getElementById('summaryDetails')
+      const dateRange = document.getElementById('dateRange')
 
       schemePaymentsByYear.setupAggregateSummaryShowHideButton()
 
@@ -61,8 +61,8 @@ describe('search', () => {
     })
 
     it('should create a click event listener on showhidebutton', () => {
-      const spyToggleDisplay= jest.spyOn(schemePaymentsByYear, 'toggleDisplay')
-      const spyToggleDetails= jest.spyOn(schemePaymentsByYear, 'toggleDetails')
+      const spyToggleDisplay = jest.spyOn(schemePaymentsByYear, 'toggleDisplay')
+      const spyToggleDetails = jest.spyOn(schemePaymentsByYear, 'toggleDetails')
 
       schemePaymentsByYear.setupAggregateSummaryShowHideButton()
 
@@ -75,26 +75,26 @@ describe('search', () => {
 
   describe('toggleDisplay', () => {
     it('should toggle the classname of an element', () => {
-        const element = document.createElement('div')
+      const element = document.createElement('div')
 
-        schemePaymentsByYear.toggleDisplay(element)
-        expect(element.style.display).toBe('none')
+      schemePaymentsByYear.toggleDisplay(element)
+      expect(element.style.display).toBe('none')
 
-        schemePaymentsByYear.toggleDisplay(element)
-        expect(element.style.display).toBe('block')
+      schemePaymentsByYear.toggleDisplay(element)
+      expect(element.style.display).toBe('block')
     })
   })
 
   describe('toggleDetails', () => {
     it('should toggle the innerText of an element', () => {
-        const element = document.createElement('div')
-        element.innerText = 'Show Details'
+      const element = document.createElement('div')
+      element.innerText = 'Show Details'
 
-        schemePaymentsByYear.toggleDetails(element)
-        expect(element.innerText).toBe('Hide Details')
+      schemePaymentsByYear.toggleDetails(element)
+      expect(element.innerText).toBe('Hide Details')
 
-        schemePaymentsByYear.toggleDetails(element)
-        expect(element.innerText).toBe('Show Details')
+      schemePaymentsByYear.toggleDetails(element)
+      expect(element.innerText).toBe('Show Details')
     })
   })
 
