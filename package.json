@@ -53,6 +53,7 @@
     "html-webpack-plugin": "5.5.0",
     "jest": "29.0.0",
     "jest-junit": "13.2.0",
+    "jsdom": "^24.1.1",
     "mini-css-extract-plugin": "2.5.3",
     "node-loader": "^2.0.0",
     "node-polyfill-webpack-plugin": "2.0.1",
@@ -83,7 +84,8 @@
       "beforeAll",
       "beforeEach",
       "afterAll",
-      "afterEach"
+      "afterEach",
+      "it"
     ],
     "ignore": [
       "app/dist/**/*.js",
