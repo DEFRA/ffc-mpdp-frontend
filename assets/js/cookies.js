@@ -3,10 +3,10 @@ const setupLinkListeners = () => {
   links.forEach((link) => {
     const element = document.querySelector(`a[href='${link}']`)
     element?.addEventListener('click', (event) => {
-      if (location.pathname.includes(link)) {
+      if (window.location.pathname.includes(link)) {
         event.preventDefault()
       }
-    })  
+    })
   })
 }
 
@@ -44,7 +44,7 @@ const setupCookieComponentListeners = () => {
   }
 
   cookieContainer.style.display = 'block'
-  
+
   acceptButton?.addEventListener('click', (event) => {
     showBanner(acceptedBanner)
     event.preventDefault()
@@ -63,7 +63,7 @@ const setupCookieComponentListeners = () => {
 
   rejectedBanner?.querySelector('.js-hide').addEventListener('click', () => {
     cookieBanner.setAttribute('hidden', 'hidden')
-  }) 
+  })
 }
 
 (() => {
