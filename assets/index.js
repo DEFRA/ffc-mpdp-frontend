@@ -1,8 +1,9 @@
 const { initAll } = require('govuk-frontend')
+require('./css/application.scss')
+
 require('./js/search').init()
 require('./js/schemePaymentsByYear').init()
-require('./css/application.scss')
-require('./js/cookies')
-require('./js/details')
+require('./js/details').init()
+require('./js/cookies').init()
 
 initAll()

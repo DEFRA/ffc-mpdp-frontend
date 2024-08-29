@@ -2,9 +2,9 @@ const endpoint = 'http://__TEST_ENDPOINT__'
 process.env.MPDP_BACKEND_ENDPOINT = endpoint
 
 const wreck = require('@hapi/wreck')
-const { get, getPaymentData, getPaymentDetails, getSearchSuggestions, getDownloadDetailsCsv, post } = require('../../../app/backend/api')
-const { getUrlParams } = require('../../../app/utils/helper')
-const mockSuggestions = require('../../data/mockSuggestions')
+const { get, getPaymentData, getPaymentDetails, getSearchSuggestions, getDownloadDetailsCsv, post } = require('../../../../app/backend/api')
+const { getUrlParams } = require('../../../../app/utils/helper')
+const mockSuggestions = require('../../../data/mockSuggestions')
 
 const fetchMock = jest.spyOn(global, 'fetch')
 

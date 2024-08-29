@@ -1,4 +1,4 @@
-const search = require('../../../assets/js/search')
+const search = require('../../../../assets/js/search')
 const { JSDOM } = require('jsdom')
 const dom = new JSDOM()
 
