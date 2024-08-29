@@ -1,3 +1,5 @@
+const showAllText = 'Show all'
+
 module.exports = {
   init () {
     this.setupSchemeShowHideButtons()
@@ -15,7 +17,7 @@ module.exports = {
     const activitiesElements = document.querySelectorAll('.schemeActivity')
 
     showAllButton?.addEventListener('click', () => {
-      const show = showAllButton.textContent === 'Show all'
+      const show = showAllButton.textContent === showAllText
       detailsElements.forEach((element) => {
         element.style.display = show ? 'block' : 'none'
       })
@@ -31,7 +33,7 @@ module.exports = {
         this.toggleDetails(showHideButton, show)
       })
 
-      showAllButton.textContent = show ? 'Hide all' : 'Show all'
+      showAllButton.textContent = show ? 'Hide all' : showAllText
     })
   },
 
