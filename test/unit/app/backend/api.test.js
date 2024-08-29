@@ -1,4 +1,4 @@
-const endpoint = 'http://__TEST_ENDPOINT__'
+const endpoint = 'https://__TEST_ENDPOINT__'
 process.env.MPDP_BACKEND_ENDPOINT = endpoint
 
 const wreck = require('@hapi/wreck')
@@ -10,6 +10,14 @@ const fetchMock = jest.spyOn(global, 'fetch')
 
 describe('Backend API tests', () => {
   const route = '/__TEST_ROUTE__'
+  const mockData = [{
+    payee_name: 'T R Carter & Sons 1',
+    part_postcode: 'RG1',
+    town: 'Reading',
+    county_council: 'Berkshire',
+    amount: '11142000.95'
+  }]
+
   test('service uses the env variable to connect to the backend service', async () => {
     const mockGet = jest.fn()
     const mockPost = jest.fn()
@@ -68,13 +76,6 @@ describe('Backend API tests', () => {
   })
 
   test('getPaymentData returns results from the payload in the right format', async () => {
-    const mockData = [{
-      payee_name: 'T R Carter & Sons 1',
-      part_postcode: 'RG1',
-      town: 'Reading',
-      county_council: 'Berkshire',
-      amount: '11142000.95'
-    }]
     const mockPost = jest.fn().mockResolvedValue({
       payload: JSON.stringify({
         rows: mockData,
@@ -99,13 +100,6 @@ describe('Backend API tests', () => {
   })
 
   test('getPaymentData called with download action', async () => {
-    const mockData = [{
-      payee_name: 'T R Carter & Sons 1',
-      part_postcode: 'RG1',
-      town: 'Reading',
-      county_council: 'Berkshire',
-      amount: '11142000.95'
-    }]
     const mockPost = jest.fn().mockResolvedValue({
       payload: JSON.stringify({
         rows: mockData,
@@ -143,13 +137,6 @@ describe('Backend API tests', () => {
   })
 
   test('getPaymentDetails returns results', async () => {
-    const mockData = [{
-      payee_name: 'T R Carter & Sons 1',
-      part_postcode: 'RG1',
-      town: 'Reading',
-      county_council: 'Berkshire',
-      amount: '11142000.95'
-    }]
     const mockGet = jest.fn().mockResolvedValue({
       payload: JSON.stringify(mockData)
     })
@@ -160,9 +147,9 @@ describe('Backend API tests', () => {
     const res = await getPaymentDetails(payeeName, partPostcode)
     expect(res).toMatchObject(mockData)
 
-    const route = getUrlParams('paymentdetails', { payeeName, partPostcode })
+    const newRoute = getUrlParams('paymentdetails', { payeeName, partPostcode })
 
-    expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
+    expect(mockGet).toHaveBeenCalledWith(`${endpoint}${newRoute}`)
   })
 
   test('getSearchSuggestions returns default object if no response is received', async () => {
@@ -173,8 +160,8 @@ describe('Backend API tests', () => {
     const res = await getSearchSuggestions(searchString)
     expect(res).toEqual({ rows: [], count: 0 })
 
-    const route = getUrlParams('searchsuggestion', { searchString })
-    expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
+    const newRoute = getUrlParams('searchsuggestion', { searchString })
+    expect(mockGet).toHaveBeenCalledWith(`${endpoint}${newRoute}`)
   })
 
   test('getSearchSuggestions returns results', async () => {
@@ -187,8 +174,8 @@ describe('Backend API tests', () => {
     const res = await getSearchSuggestions(searchString)
     expect(res).toMatchObject(mockSuggestions)
 
-    const route = getUrlParams('searchsuggestion', { searchString })
-    expect(mockGet).toHaveBeenCalledWith(`${endpoint}${route}`)
+    const newRoute = getUrlParams('searchsuggestion', { searchString })
+    expect(mockGet).toHaveBeenCalledWith(`${endpoint}${newRoute}`)
   })
   test('getDownloadDetailsCsv returns results', async () => {
     const content = 'TEST_CSV_CONTENT'
@@ -198,11 +185,11 @@ describe('Backend API tests', () => {
 
     const payeeName = '__PAYEE_NAME__'
     const partPostcode = '__POST_CODE'
-    const route = getUrlParams('downloaddetails', { payeeName, partPostcode })
+    const newRoute = getUrlParams('downloaddetails', { payeeName, partPostcode })
     const res = await getDownloadDetailsCsv(payeeName, partPostcode)
 
     // Verify the result
-    expect(fetchMock).toHaveBeenCalledWith(`${endpoint}${route}`)
+    expect(fetchMock).toHaveBeenCalledWith(`${endpoint}${newRoute}`)
     expect(fetchMock.mock.calls.length).toBe(1)
     expect(res).toBeInstanceOf(Buffer)
     expect(res).toEqual(bufferedData)
