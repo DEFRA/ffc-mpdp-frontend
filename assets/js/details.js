@@ -1,104 +1,108 @@
-const setupShowAllButton = () => {
-	const showAllButton = document.querySelector('#showAllButton');
-	if (!showAllButton) {
-		return;
-	}
+const showAllText = 'Show all'
+const showDetailsText = 'Show Details'
 
-	const detailsElements = document.querySelectorAll('.schemeDetails');
-	const activitiesElements = document.querySelectorAll('.schemeActivity');
-	
-	showAllButton?.addEventListener('click', () => {
-		const show = showAllButton.innerText === 'Show all';
-		detailsElements.forEach((element) => {
-			element.style.display = show? 'block' : 'none';
-		});
+module.exports = {
+  init () {
+    this.setupSchemeShowHideButtons()
+    this.setupSummaryShowHideButton()
+    this.setupShowAllButton()
+  },
 
-		activitiesElements.forEach((element) => {
-			element.open = show;
-		});
+  setupShowAllButton () {
+    const showAllButton = document.querySelector('#showAllButton')
+    if (!showAllButton) {
+      return
+    }
 
-		const allShowHideButtons = getAllSchemeShowHideButtons()
-		allShowHideButtons.forEach((showHideButton, i) => {
-			const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i+1}`);
-			toggleDisplay(schemeMoreInfo, show);
-			toggleDetails(showHideButton, show);
-		})
+    const detailsElements = document.querySelectorAll('.schemeDetails')
+    const activitiesElements = document.querySelectorAll('.schemeActivity')
 
-		showAllButton.innerText = show ? 'Hide all' : 'Show all';
-	});
-};
+    showAllButton?.addEventListener('click', () => {
+      const show = showAllButton.textContent === showAllText
+      detailsElements.forEach((element) => {
+        element.style.display = show ? 'block' : 'none'
+      })
 
-const toggleDisplay = (element, show) => {
-	element.style.display = show? 'block' : 'none';
+      activitiesElements.forEach((element) => {
+        element.open = show
+      })
+
+      const allShowHideButtons = this.getAllSchemeShowHideButtons()
+      allShowHideButtons.forEach((showHideButton, i) => {
+        const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i + 1}`)
+        this.toggleDisplay(schemeMoreInfo, show)
+        this.toggleDetails(showHideButton, show)
+      })
+
+      showAllButton.textContent = show ? 'Hide all' : showAllText
+    })
+  },
+
+  toggleDisplay (element, show) {
+    element.style.display = show ? 'block' : 'none'
+  },
+
+  toggleDetails (element, show) {
+    element.textContent = show ? 'Hide Details' : showDetailsText
+  },
+
+  setupSummaryShowHideButton () {
+    const showHideButton = document.getElementById('summaryToggle')
+    if (!showHideButton) {
+      return
+    }
+
+    const summaryDetails = document.getElementById('summaryDetails')
+    const dateRange = document.getElementById('dateRange')
+
+    // hide the details by default
+    this.toggleDisplay(summaryDetails, false)
+    this.toggleDisplay(dateRange, false)
+
+    showHideButton?.addEventListener('click', () => {
+      const show = document.getElementById('summaryToggle').textContent === showDetailsText
+      this.toggleDisplay(summaryDetails, show)
+      this.toggleDisplay(dateRange, show)
+
+      this.toggleDetails(showHideButton, show)
+    })
+  },
+
+  setupSchemeShowHideButtons () {
+    const allShowHideButtons = this.getAllSchemeShowHideButtons()
+    if (!allShowHideButtons.length) {
+      return
+    }
+
+    allShowHideButtons.forEach((showHideButton, i) => {
+      if (!showHideButton) {
+        return
+      }
+
+      const schemeDetails = document.getElementById(`schemeDetails${i + 1}`)
+      const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i + 1}`)
+
+      // hide the details by default
+      this.toggleDisplay(schemeDetails, false)
+      this.toggleDisplay(schemeMoreInfo, false)
+
+      showHideButton?.addEventListener('click', () => {
+        const show = showHideButton.textContent === showDetailsText
+        this.toggleDisplay(schemeDetails, show)
+        this.toggleDisplay(schemeMoreInfo, show)
+
+        this.toggleDetails(showHideButton, show)
+      })
+    })
+  },
+
+  getAllSchemeShowHideButtons () {
+    const allButtons = []
+    const schemesLength = document.getElementById('mpdpSummaryBreakdown')?.getAttribute('data-schemesLength')
+    for (let i = 1; i <= parseInt(schemesLength); i++) {
+      allButtons.push(document.getElementById(`schemeToggle${i}`))
+    }
+
+    return allButtons
+  }
 }
-
-const toggleDetails = (element, show) => {
-	element.innerText = show? 'Hide Details' : 'Show Details';
-}
-
-const setupSummaryShowHideButton = () => {
-	const showHideButton = document.getElementById('summaryToggle');
-	if (!showHideButton) {
-		return;
-	}
-
-	const summaryDetails = document.getElementById('summaryDetails');
-	const dateRange = document.getElementById('dateRange');
-
-	// hide the details by default
-	toggleDisplay(summaryDetails, false);
-	toggleDisplay(dateRange, false);
-
-	showHideButton?.addEventListener('click', () => {
-		const show = document.getElementById('summaryToggle').innerText === 'Show Details';
-		toggleDisplay(summaryDetails, show);
-		toggleDisplay(dateRange, show);
-		
-		toggleDetails(showHideButton, show);
-	});
-};
-
-const setupSchemeShowHideButtons = () => {
-
-	const allShowHideButtons = getAllSchemeShowHideButtons()
-	if(!allShowHideButtons.length) {
-		return;
-	}
-
-	allShowHideButtons.forEach((showHideButton, i) => {
-		if (!showHideButton) {
-			return;
-		}
-
-		const schemeDetails = document.getElementById(`schemeDetails${i+1}`);
-		const schemeMoreInfo = document.getElementById(`schemeMoreInfo${i+1}`);
-		
-		// hide the details by default
-		toggleDisplay(schemeDetails, false);
-		toggleDisplay(schemeMoreInfo, false);
-
-		showHideButton?.addEventListener('click', () => {
-			const show = showHideButton.innerText === 'Show Details'
-			toggleDisplay(schemeDetails, show);
-			toggleDisplay(schemeMoreInfo, show);
-			
-			toggleDetails(showHideButton, show);
-		});
-	})
-};
-
-const getAllSchemeShowHideButtons = () => {
-	const allButtons = [];
-	const schemesLength = document.getElementById('mpdpSummaryBreakdown')?.getAttribute('data-schemesLength')
-	for(let i = 1; i <= schemesLength; i++) {
-		allButtons.push(document.getElementById(`schemeToggle${i}`));
-	}
-
-	return allButtons;
-}
-
-(() => {
-	setupSchemeShowHideButtons();
-  	setupSummaryShowHideButton();
-	setupShowAllButton();
-})()

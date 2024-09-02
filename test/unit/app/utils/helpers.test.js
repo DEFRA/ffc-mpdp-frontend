@@ -1,4 +1,4 @@
-const config = require('../../../app/config')
+const config = require('../../../../app/config')
 const {
   getReadableAmount,
   getSchemeStaticData,
@@ -8,7 +8,7 @@ const {
   removeTrailingSlash,
   getMatchingStaticAmounts,
   getAllPaymentDataFilePath
-} = require('../../../app/utils/helper')
+} = require('../../../../app/utils/helper')
 
 describe('helper module tests', () => {
   test('getReadableAmount returns a 0 if number is undefined', () => {

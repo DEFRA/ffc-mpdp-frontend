@@ -25,3 +25,5 @@ layout.njk
 .idea/**
 .idea/
 
+lcov.info
+coverage

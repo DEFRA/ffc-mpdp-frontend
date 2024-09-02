@@ -4,7 +4,7 @@ describe('Server test', () => {
   test('Server gets created', () => {
     console.log = jest.fn()
 
-    expect(global.__SERVER__.settings.port).toEqual(3001)
+    expect(global.__SERVER__.settings.port).toEqual(3002)
     expect(console.log).toHaveBeenCalledTimes(0)
     jest.resetAllMocks()
   })
@@ -15,11 +15,11 @@ describe('Server test', () => {
     const currentPort = process.env.PORT
     const currentEnv = process.env.NODE_ENV
 
-    process.env.PORT = '3002'
+    process.env.PORT = '3003'
     process.env.NODE_ENV = 'development'
 
     const server = await start()
-    expect(server.settings.port).toEqual(3002)
+    expect(server.settings.port).toEqual(3003)
     expect(console.log).toHaveBeenCalledTimes(1)
 
     await server.stop()

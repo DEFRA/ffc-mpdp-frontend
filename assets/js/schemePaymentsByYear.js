@@ -1,51 +1,52 @@
-const setupAggregateSummaryShowHideButton = () => {
-	const showHideButton = document.getElementById('paymentsByYearSummaryToggle');
-	if (!showHideButton) {
-		return;
-	}
+module.exports = {
+  init () {
+    this.setupAggregateSummaryShowHideButton()
+    this.setupAggregateShowAllButton()
+  },
 
-	const summaryDetails = document.getElementById('summaryDetails');
-	const dateRange = document.getElementById('dateRange');
+  setupAggregateSummaryShowHideButton () {
+    const showHideButton = document.getElementById('paymentsByYearSummaryToggle')
+    if (!showHideButton) {
+      return
+    }
 
-	// hide the details by default
-	toggleDisplay(summaryDetails);
-	toggleDisplay(dateRange);
+    const summaryDetails = document.getElementById('summaryDetails')
+    const dateRange = document.getElementById('dateRange')
 
-	showHideButton?.addEventListener('click', () => {
-		toggleDisplay(summaryDetails);
-		toggleDisplay(dateRange);
-		
-		toggleDetails(showHideButton);
-	});
-};
+    // hide the details by default
+    this.toggleDisplay(summaryDetails)
+    this.toggleDisplay(dateRange)
 
-const toggleDisplay = (element) => {
-	element.style.display = element.style.display === 'none' ? 'block' : 'none';
+    showHideButton?.addEventListener('click', () => {
+      this.toggleDisplay(summaryDetails)
+      this.toggleDisplay(dateRange)
+      this.toggleDetails(showHideButton)
+    })
+  },
+
+  toggleDisplay (element) {
+    element.style.display = element.style.display === 'none' ? 'block' : 'none'
+  },
+
+  toggleDetails (element) {
+    element.innerText = element.innerText === 'Show Details' ? 'Hide Details' : 'Show Details'
+  },
+
+  setupAggregateShowAllButton () {
+    const showAllButton = document.querySelector('#showAllYearPaymentsButton')
+    if (!showAllButton) {
+      return
+    }
+
+    const activitiesElements = document.querySelectorAll('.yearlyActivity')
+
+    showAllButton?.addEventListener('click', () => {
+      const showAll = showAllButton.innerText === 'Show all'
+      activitiesElements.forEach(element => {
+        element.open = showAll
+      })
+
+      showAllButton.innerText = showAll ? 'Hide all' : 'Show all'
+    })
+  }
 }
-
-const toggleDetails = (element) => {
-	element.innerText = element.innerText === 'Show Details' ? 'Hide Details' : 'Show Details';
-}
-
-const setupAgrregateShowAllButton = () => {
-	const showAllButton = document.querySelector('#showAllYearPaymentsButton');
-	if (!showAllButton) {
-		return;
-	}
-
-	const activitiesElements = document.querySelectorAll('.yearlyActivity');
-	
-	showAllButton?.addEventListener('click', () => {
-		const showAll = showAllButton.innerText === 'Show all';
-		activitiesElements.forEach((element) => {
-			element.open = showAll;
-		});
-
-		showAllButton.innerText = showAll ? 'Hide all' : 'Show all';
-	});
-};
-
-(() => {
-	setupAggregateSummaryShowHideButton();
-    setupAgrregateShowAllButton();
-})()
