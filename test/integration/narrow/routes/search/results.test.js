@@ -4,7 +4,7 @@ const { expectHeader } = require('../../../../utils/header-expects')
 const { expectPhaseBanner } = require('../../../../utils/phase-banner-expect')
 const { getOptions, mockGetPaymentData, filterBySchemes, filterByCounties, getFilterOptions, filterByYears } = require('../../../../utils/helpers')
 const mockData = require('../../../../data/mockResults')
-const config = require('../../../../../app/config')
+const mockConfig = require('../../../../../app/config')
 const { expectTitle } = require('../../../../utils/title-expect')
 const { expectTags } = require('../../../../utils/tags-expects')
 const counties = require('../../../../../app/data/filters/counties')
@@ -16,7 +16,7 @@ jest.mock('../../../../../app/backend/api', () => ({
 
 beforeAll(() => {
   jest.mock('../../../../../app/config', () => ({
-    ...config,
+    ...mockConfig,
     search: {
       limit: 10
     }
