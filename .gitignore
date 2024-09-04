@@ -12,6 +12,7 @@ helm/**/*.lock
 *.tgz
 .env
 *.log
+app/data/downloads/ffc-payment-data.csv
 
 # Editor stuff
 .vscode

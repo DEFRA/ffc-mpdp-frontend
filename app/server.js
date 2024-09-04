@@ -24,6 +24,7 @@ const init = async function () {
   await server.register(require('./plugins/logging'))
   await server.register(require('./plugins/errors'))
   await server.register(require('./plugins/cookies'))
+  await server.register(require('./plugins/csvUpdate'))
 
   return server
 }
