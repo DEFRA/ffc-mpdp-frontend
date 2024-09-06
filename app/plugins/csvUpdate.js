@@ -1,22 +1,20 @@
 const config = require('../config')
 const fs = require('fs/promises')
 
-async function fetchCSVFileData (text) {
+async function fetchCSVFileData () {
   const response = await fetch(`${config.backendEndpoint}/downloadall`)
 
-  if (!response.ok) {
-    throw new Error('Unable to fetch CSV file from backend')
+  if (response.ok) {
+    const data = await response.text()
+    await fs.writeFile('app/data/downloads/ffc-payment-data.csv', data)
+    console.log('Local CSV file successfully updated')
   }
-
-  const data = await response.text()
-  await fs.writeFile('app/data/downloads/ffc-payment-data.csv', data)
-  console.log('Local CSV file successfully updated', text)
 }
 
 module.exports = {
   name: 'CSV Update',
   register: async () => {
-    await fetchCSVFileData('start')
-    setInterval(fetchCSVFileData, config.csvFileUpdateInterval)
+    await fetchCSVFileData()
+    setInterval(async () => await fetchCSVFileData(), config.csvFileUpdateInterval)
   }
 }
