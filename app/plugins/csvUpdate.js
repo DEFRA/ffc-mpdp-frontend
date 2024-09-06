@@ -15,6 +15,6 @@ module.exports = {
   name: 'CSV Update',
   register: async () => {
     await fetchCSVFileData()
-    setInterval(async () => await fetchCSVFileData(), config.csvFileUpdateInterval)
+    setInterval(fetchCSVFileData, config.csvFileUpdateInterval)
   }
 }
