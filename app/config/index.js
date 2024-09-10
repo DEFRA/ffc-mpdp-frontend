@@ -21,7 +21,7 @@ module.exports = {
   serviceName: 'Find farm and land payment data',
   startPageLink: '/service-start',
   backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
-  csvFileUpdateInterval: parseInt(process.env.CSV_FILE_UPDATE_INTERVAL) || 1000 * 60 * 60 * 24,
+  csvFileUpdateInterval: 1000 * 60 * 60 * 24,
   search: {
     limit: 20
   },
