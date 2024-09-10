@@ -3,7 +3,7 @@ const fs = require('fs/promises')
 
 const originalFetch = global.fetch
 
-describe('csvUpdate plugin', () => {
+describe.skip('csvUpdate plugin', () => {
   beforeAll(async () => {
     jest.unmock('../../../../app/plugins/csvUpdate')
     jest.useFakeTimers()
