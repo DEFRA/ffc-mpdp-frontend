@@ -1,5 +1,5 @@
 const config = require('../../../../app/config')
-const fs = require('fs/promises')
+const fs = require('fs')
 
 const originalFetch = global.fetch
 
@@ -8,7 +8,7 @@ describe('csvUpdate plugin', () => {
     jest.unmock('../../../../app/plugins/csvUpdate')
     jest.useFakeTimers()
 
-    jest.spyOn(fs, 'writeFile').mockImplementation(() => Promise.resolve())
+    jest.spyOn(fs, 'writeFileSync').mockImplementation(() => Promise.resolve())
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
       text: () => Promise.resolve('test data'),
       ok: true
@@ -29,8 +29,8 @@ describe('csvUpdate plugin', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1)
     expect(global.fetch).toHaveBeenCalledWith(`${config.backendEndpoint}/downloadall`)
 
-    expect(fs.writeFile).toHaveBeenCalledTimes(1)
-    expect(fs.writeFile).toHaveBeenCalledWith('app/data/downloads/ffc-payment-data.csv', 'test data')
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(1)
+    expect(fs.writeFileSync).toHaveBeenCalledWith('app/data/downloads/ffc-payment-data.csv', 'test data')
   })
 
   describe('fetch error', () => {
@@ -40,7 +40,7 @@ describe('csvUpdate plugin', () => {
 
     it('should throw an error if theres a problem fetching the data', async () => {
       expect(global.fetch).toHaveBeenCalledTimes(1)
-      expect(fs.writeFile).toHaveBeenCalledTimes(0)
+      expect(fs.writeFileSync).toHaveBeenCalledTimes(0)
     })
   })
 })
