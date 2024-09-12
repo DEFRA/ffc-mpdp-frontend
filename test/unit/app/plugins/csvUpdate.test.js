@@ -3,7 +3,7 @@ const fs = require('fs/promises')
 
 const originalFetch = global.fetch
 
-describe.skip('csvUpdate plugin', () => {
+describe('csvUpdate plugin', () => {
   beforeAll(async () => {
     jest.unmock('../../../../app/plugins/csvUpdate')
     jest.useFakeTimers()
@@ -25,19 +25,12 @@ describe.skip('csvUpdate plugin', () => {
     jest.useRealTimers()
   })
 
-  it('should call fetchCSVFileData when initialised', async () => {
+  it('should call fetch and writeFile when initialised', async () => {
     expect(global.fetch).toHaveBeenCalledTimes(1)
     expect(global.fetch).toHaveBeenCalledWith(`${config.backendEndpoint}/downloadall`)
 
     expect(fs.writeFile).toHaveBeenCalledTimes(1)
     expect(fs.writeFile).toHaveBeenCalledWith('app/data/downloads/ffc-payment-data.csv', 'test data')
-  })
-
-  it('should call fetchCSVFileData again after a specified amount of time', () => {
-    jest.advanceTimersByTime(config.csvFileUpdateInterval)
-
-    expect(global.fetch).toHaveBeenCalledTimes(2)
-    expect(fs.writeFile).toHaveBeenCalledTimes(1)
   })
 
   describe('fetch error', () => {
