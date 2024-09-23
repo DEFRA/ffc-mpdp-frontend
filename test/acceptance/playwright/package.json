@@ -1,0 +1,23 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cucumber-tests": "cucumber-js",
+    "e2e-tests": "npx playwright test --project=mobile-chrome && npx playwright show-report",
+    "e2e-tests-dev": "npx playwright test --project=dev && npx playwright show-report",
+    "e2e-tests-qa": "npx playwright test --project=qa && npx playwright show-report",
+    "e2e-tests-pre-prod": "npx playwright test --project=pre-prod && npx playwright show-report",
+    "e2e-tests-prod": "npx playwright test --project=prod && npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@cucumber/cucumber": "^10.9.0",
+    "@playwright/test": "^1.46.1",
+    "@types/node": "^20.14.11"
+  }
+}
