@@ -18,6 +18,11 @@ const schemeStaticData = [
     name: 'Sustainable Farming Incentive',
     description: 'To improve productivity and efficiency for farming, horticultural and forestry businesses.',
     link: 'https://www.gov.uk/government/collections/sustainable-farming-incentive-guidance'
+  },
+  {
+    name: 'Countryside Stewardship',
+    description: 'Countryside Stewardship (CS) provides financial incentives for farmers, foresters and land managers to look after and improve the environment.',
+    link: 'https://www.gov.uk/guidance/countryside-stewardship-get-funding-to-protect-and-improve-the-land-you-manage'
   }
 ]
 
