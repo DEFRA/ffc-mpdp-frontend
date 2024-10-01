@@ -17,7 +17,6 @@ switch (environment) {
 }
 
 export const config = {
-  //
   // ====================
   // Runner Configuration
   // ====================
