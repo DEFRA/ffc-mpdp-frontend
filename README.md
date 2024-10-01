@@ -11,6 +11,11 @@ Optional:
 - Kubernetes
 - Helm
 
+:warning: If you encounter the error `error: RPC failed; HTTP 400 curl 22 The requested URL returned error: 400` while trying to push to GitHub, this is because the size of of the CSV file is larger than the post buffer of git on your local machine. You can increase it to 20Mb using the following command
+```
+git config http.postBuffer 20000000
+```
+
 ### Environment variables
 
 The following environment variables are required by the application.

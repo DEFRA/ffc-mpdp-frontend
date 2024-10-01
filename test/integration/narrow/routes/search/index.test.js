@@ -37,7 +37,7 @@ describe('MPDP Search page test', () => {
 
     const downloadAllLink = $('#downloadAllLink')
     expect(downloadAllLink.attr('href')).toMatch('/downloadall')
-    expect(downloadAllLink.text()).toMatch('download all scheme data (.CSV, 3MB)')
+    expect(downloadAllLink.text()).toMatch('download all scheme data (.CSV, 10.9MB)')
 
     expect($('.govuk-back-link')).toBeDefined()
 

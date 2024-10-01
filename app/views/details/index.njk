@@ -15,7 +15,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{summary.payee_name}}</h1>
-    <p class='mpdp-break-word'>Business location: {{summary.town}}, {{summary.county_council}}, {{summary.parliamentary_constituency}}, {{ summary.part_postcode }} </p>
+    <p class='mpdp-break-word'>Business location: {{summary.town}}, {{summary.county_council}}, {% if summary.parliamentary_constituency != 'None' %} {{summary.parliamentary_constituency}}, {% endif %}{{ summary.part_postcode }} </p>
 
     {{ govukInsetText({
       text: "The business and land may be in different locations."
