@@ -1,0 +1,61 @@
+#!/usr/bin/env sh
+
+# Define variables
+BACKEND_REPO_URL="https://github.com/DEFRA/ffc-mpdp-backend.git"
+BACKEND_REPO_DIR="ffc-mpdp-backend"
+FRONTEND_REPO_DIR="ffc-mpdp-frontend"
+
+# Clone the backend repository
+if [ ! -d "$BACKEND_REPO_DIR" ]; then
+  echo "Cloning backend repository..."
+  git clone "$BACKEND_REPO_URL" "$BACKEND_REPO_DIR"
+else
+  echo "Backend repository already exists."
+fi
+# Navigate to the backend repository
+cd "$BACKEND_REPO_DIR"
+
+if [ -z "$(docker network ls --filter name=^ffc-mpdp$ --format={{.Name}})" ]; then
+  echo "Creating ffc-mpdp Docker network"
+  docker network create ffc-mpdp
+fi
+
+set -e
+projectRoot="$(a="/$0"; a=${a%/*}; a=${a:-.}; a=${a#/}/; cd "$a/.." || return; pwd)"
+
+cd "${projectRoot}"
+
+docker-compose down -v
+docker-compose -f docker-compose.migrate.yaml down
+docker-compose -f docker-compose.migrate.yaml run --rm database-up
+
+docker-compose \
+  -f docker-compose.yaml \
+  -f docker-compose.override.yaml \
+  -f docker-compose.link.yaml \
+  up $@ -d
+
+# Navigate to the frontend repository
+cd ..
+
+if [ -z "$(docker network ls --filter name=^ffc-mpdp$ --format={{.Name}})" ]; then
+  echo "Creating ffc-mpdp Docker network"
+  docker network create ffc-mpdp
+fi
+
+set -e
+projectRoot="$(a="/$0"; a=${a%/*}; a=${a:-.}; a=${a#/}/; cd "$a/.." || return; pwd)"
+
+cd "${projectRoot}"
+
+docker-compose down -v
+
+docker-compose \
+  -f docker-compose.yaml \
+  -f docker-compose.override.yaml \
+  -f docker-compose.link.yaml \
+  up $@ -d
+
+# run acceptance
+cd test/acceptance/playwright
+docker-compose up --build --abort-on-container-exit

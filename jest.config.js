@@ -37,7 +37,7 @@ module.exports = {
     '<rootDir>/test/teardown.js'
   ],
   testEnvironment: 'node',
-  testPathIgnorePatterns: [],
+  testPathIgnorePatterns: ['test/acceptance'],
   testMatch: [
     '**/__tests__/**/*.+(js)',
     '**/?(*.)+(spec|test).+(js)'
