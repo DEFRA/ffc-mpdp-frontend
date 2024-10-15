@@ -5,7 +5,8 @@ namespace: ffc-mpdp
 workstream: ffc-mpdp
 image: ffc-mpdp-frontend
 
-labels: {}
+labels:
+  component: service
 
 appInsights:
   connectionString:

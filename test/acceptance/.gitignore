@@ -1,0 +1,40 @@
+# test projectts stuff
+node_modules
+.tmp/
+logs/
+
+# Test output
+html-reports
+test-output
+allure-reports
+allure-results
+reports/
+
+# npm stuff
+.npm/
+node_modules
+npm-debug.log
+
+# Misc
+helm/**/*.lock
+*.tgz
+.env
+*.log
+
+# Editor stuff
+.vscode
+dist/
+
+# Generated views
+layout.njk
+
+# OS stuff
+.DS_Store
+.idea/**
+.idea/
+
+# Playwright stuff
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
