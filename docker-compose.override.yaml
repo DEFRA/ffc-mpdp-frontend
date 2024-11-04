@@ -1,5 +1,3 @@
-
-
 services:
   ffc-mpdp-frontend:
     build:
@@ -12,3 +10,10 @@ services:
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
+    networks:
+      - ffc-mpdp
+
+networks:
+  ffc-mpdp:
+    driver: bridge
+    name: ffc-mpdp
