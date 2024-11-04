@@ -3,10 +3,10 @@ const { get } = require('../backend/api')
 module.exports = {
   method: 'GET',
   path: '/downloadPaymentsByYearSummary',
-  handler: async (_request, _response) => {
+  handler: async (_request, h) => {
     try {
       const content = await get('/downloadPaymentsByYearSummary')
-      return _response
+      return h
         .response(content?.payload)
         .type('application/csv')
         .header(
@@ -14,7 +14,7 @@ module.exports = {
           'attachment; filename="ffc-payments-by-year.csv"'
         )
     } catch (error) {
-      return _response.response(error).code(500)
+      return h.response(error).code(500)
     }
   }
 }
