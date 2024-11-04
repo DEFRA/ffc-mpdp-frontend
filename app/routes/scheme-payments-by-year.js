@@ -1,4 +1,4 @@
-const { schemePaymentsByYearModel } = require('./models/schemePaymentsByYearModel')
+const { schemePaymentsByYearModel } = require('./models/scheme-payments-by-year')
 
 module.exports = [
   {

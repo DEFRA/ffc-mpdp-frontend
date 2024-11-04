@@ -2,8 +2,8 @@ const config = require('../../../config')
 const { getPaymentData } = require('../../../backend/api')
 const staticCounties = require('../../../data/filters/counties')
 const staticYears = require('../../../data/filters/years')
-const { sortByItems } = require('../../../data/sortByItems')
-const { getRelatedContentLinks } = require('../../../config/relatedContent')
+const { sortByItems } = require('../../../data/sort-by-items')
+const { getRelatedContentLinks } = require('../../../config/related-content')
 const { getAllSchemesNames } = require('../../../utils/helper')
 
 const getTags = (query, { counties }) => {

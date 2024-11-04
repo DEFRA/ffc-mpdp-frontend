@@ -6,17 +6,17 @@ const routes = [].concat(
   require('../routes/cookies/cookies'),
   require('../routes/privacy'),
   require('../routes/accessibility'),
-  require('../routes/backendHealthy'),
-  require('../routes/downloadall'),
-  require('../routes/downloadAllData'),
+  require('../routes/backend-healthy'),
+  require('../routes/download-all'),
+  require('../routes/download-all-data'),
   require('../routes/search'),
   require('../routes/search/results'),
   require('../routes/details'),
-  require('../routes/downloaddetails'),
+  require('../routes/download-details'),
   require('../routes/search/suggestions'),
-  require('../routes/downloadresults'),
-  require('../routes/schemePaymentsByYear'),
-  require('../routes/downloadPaymentsByYearSummary')
+  require('../routes/download-results'),
+  require('../routes/scheme-payments-by-year'),
+  require('../routes/download-payments-by-year-summary')
 )
 
 module.exports = {

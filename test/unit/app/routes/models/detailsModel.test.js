@@ -1,4 +1,4 @@
-const { detailsModel } = require('../../../../../app/routes/models/detailsModel')
+const { detailsModel } = require('../../../../../app/routes/models/details')
 const api = require('../../../../../app/backend/api')
 const { getSchemeStaticData } = require('../../../../../app/utils/helper')
 

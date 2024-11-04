@@ -8,7 +8,7 @@ const mockConfig = require('../../../../../app/config')
 const { expectTitle } = require('../../../../utils/title-expect')
 const { expectTags } = require('../../../../utils/tags-expects')
 const counties = require('../../../../../app/data/filters/counties')
-const { schemeStaticData } = require('../../../../../app/data/schemeStaticData')
+const { schemeStaticData } = require('../../../../../app/data/scheme-static-data')
 
 jest.mock('../../../../../app/backend/api', () => ({
   getPaymentData: mockGetPaymentData
