@@ -1,4 +1,3 @@
-
 services:
   ffc-mpdp-frontend:
     command: npm run start:debug
