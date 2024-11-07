@@ -1,5 +1,5 @@
 const config = require('../config')
-const { schemeStaticData } = require('../data/schemeStaticData')
+const { schemeStaticData } = require('../data/scheme-static-data')
 const staticAmounts = require('../data/filters/amounts')
 const path = require('path')
 

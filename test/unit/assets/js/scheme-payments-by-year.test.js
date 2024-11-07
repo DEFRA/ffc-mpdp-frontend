@@ -1,4 +1,4 @@
-const schemePaymentsByYear = require('../../../../assets/js/schemePaymentsByYear')
+const schemePaymentsByYear = require('../../../../assets/js/scheme-payments-by-year')
 const { JSDOM } = require('jsdom')
 const dom = new JSDOM()
 

@@ -1,4 +1,4 @@
-const { detailsModel } = require('../models/detailsModel')
+const { detailsModel } = require('../models/details')
 const Joi = require('joi')
 
 module.exports = [

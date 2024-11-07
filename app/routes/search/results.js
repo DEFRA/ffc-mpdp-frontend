@@ -1,4 +1,4 @@
-const { resultsModel } = require('../models/search/resultsModel')
+const { resultsModel } = require('../models/search/results')
 const { resultsQuery: query } = require('../queries/search/results')
 
 module.exports = [

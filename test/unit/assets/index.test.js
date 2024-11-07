@@ -1,7 +1,7 @@
 const { JSDOM } = require('jsdom')
 const dom = new JSDOM()
 const search = require('../../../assets/js/search')
-const schemePaymentsByYear = require('../../../assets/js/schemePaymentsByYear')
+const schemePaymentsByYear = require('../../../assets/js/scheme-payments-by-year')
 const details = require('../../../assets/js/details')
 const cookies = require('../../../assets/js/cookies')
 

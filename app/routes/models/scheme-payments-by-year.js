@@ -1,5 +1,5 @@
 const { getSchemePaymentsByYear } = require('../../backend/api')
-const { getRelatedContentLinks } = require('../../config/relatedContent')
+const { getRelatedContentLinks } = require('../../config/related-content')
 const { getFinancialYearSummary, getReadableAmount } = require('../../utils/helper')
 
 const schemePaymentsByYearModel = async () => {

@@ -11,7 +11,7 @@ module.exports = {
         payeeName: Joi.string().trim().required(),
         partPostcode: Joi.string().trim().required()
       }),
-      failAction: async (request, h, error) => {
+      failAction: async (_request, h, error) => {
         return h.response(error.toString()).code(400).takeover()
       }
     },

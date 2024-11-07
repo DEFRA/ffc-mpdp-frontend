@@ -1,4 +1,4 @@
-const { getRelatedContentLinks } = require('../config/relatedContent')
+const { getRelatedContentLinks } = require('../config/related-content')
 
 module.exports = {
   method: 'GET',

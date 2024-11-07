@@ -1,6 +1,6 @@
 const api = require('../../backend/api')
 const { getReadableAmount, getSchemeStaticData } = require('../../utils/helper')
-const { getRelatedContentLinks } = require('../../config/relatedContent')
+const { getRelatedContentLinks } = require('../../config/related-content')
 
 const detailsModel = async ({ payeeName, partPostcode, searchString, page }) => {
   const paymentDetails = await api.getPaymentDetails(payeeName, partPostcode)

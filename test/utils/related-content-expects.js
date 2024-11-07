@@ -1,4 +1,4 @@
-const { getRelatedContentLinks } = require('../../app/config/relatedContent')
+const { getRelatedContentLinks } = require('../../app/config/related-content')
 
 const expectRelatedContent = ($, page) => {
   const relatedContentLinks = getRelatedContentLinks(page)
