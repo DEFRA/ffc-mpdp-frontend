@@ -1,5 +1,6 @@
 $govuk-assets-path: '~govuk-frontend/govuk/assets/';
 $govuk-global-styles: true; // https://frontend.design-system.service.gov.uk/sass-api-reference/#global-styles
+$govuk-font-family: "Arial", sans-serif !important;
 @import '~govuk-frontend/govuk/all';
 
 .nojs-hidden {
