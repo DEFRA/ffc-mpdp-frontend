@@ -1,8 +1,8 @@
 const Joi = require('joi')
 
-const { updatePolicy } = require('../../cookies')
-const { cookieModel } = require('../models/cookie')
-const config = require('../../config')
+const { updatePolicy } = require('../cookies')
+const { cookieModel } = require('./models/cookie')
+const config = require('../config')
 
 module.exports = [{
   method: 'GET',

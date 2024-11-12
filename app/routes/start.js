@@ -1,4 +1,4 @@
-const { getRelatedContentLinks } = require('../../config/related-content')
+const { getRelatedContentLinks } = require('../config/related-content')
 
 const sharedConfig = {
   method: 'GET',
