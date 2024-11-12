@@ -78,7 +78,7 @@ describe('MPDP Search page test', () => {
     expect(res.statusCode).toBe(400)
     const $ = cheerio.load(res.payload)
     expect($('h1').text()).toEqual(pageTitle)
-    const errorSummary = $('#error-summary-title')
+    const errorSummary = $('.govuk-error-summary__title')
     expect(errorSummary).toBeDefined()
     expect(errorSummary.text()).toContain('There is a problem')
     expect($('#resultsSearchInput')).toBeDefined()
@@ -104,7 +104,7 @@ describe('MPDP Search page error tests', () => {
     expect(res.statusCode).toBe(400)
 
     expect($('h1').text()).toEqual(pageTitle)
-    const errorSummary = $('#error-summary-title')
+    const errorSummary = $('.govuk-error-summary__title')
     expect(errorSummary).toBeDefined()
     expect(errorSummary.text()).toContain('There is a problem')
     expect($('#resultsSearchInput')).toBeDefined()
