@@ -1,8 +1,6 @@
-'use strict'
-
 const Hapi = require('@hapi/hapi')
 
-const init = async function () {
+async function createServer () {
   const server = Hapi.server({
     host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT || 3001,
@@ -38,4 +36,4 @@ const start = async function () {
   return server
 }
 
-module.exports = { start }
+module.exports = { createServer }

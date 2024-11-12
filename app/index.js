@@ -1,13 +1,10 @@
 require('./insights').setup()
-const { start } = require('./server')
+const { createServer } = require('./server')
 
-const init = async () => {
-  try {
-    await start()
-  } catch (err) {
-    console.error(err)
-    process.exit(1)
-  }
+async function startServer () {
+  const server = await createServer()
+  await server.start()
+  console.log(`Server running at: ${server.info.uri}`)
 }
 
-init()
+startServer()

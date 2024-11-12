@@ -1,4 +1,4 @@
-const { start } = require('../../../../app/server')
+const { createServer } = require('../../../../app/server')
 
 describe('Server test', () => {
   test('Server gets created', () => {
@@ -18,9 +18,9 @@ describe('Server test', () => {
     process.env.PORT = '3003'
     process.env.NODE_ENV = 'development'
 
-    const server = await start()
+    const server = await createServer()
+    await server.initialize()
     expect(server.settings.port).toEqual(3003)
-    expect(console.log).toHaveBeenCalledTimes(1)
 
     await server.stop()
     process.env.port = currentPort
