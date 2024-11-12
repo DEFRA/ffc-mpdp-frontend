@@ -21,13 +21,9 @@ const expectLinks = $ => {
 }
 
 const expectTexts = $ => {
-  expect($('.govuk-header__logotype-text').text()).toContain(
-    'GOV.UK'
-  )
+  expect($('.govuk-header__logo a title').text()).toContain('GOV.UK')
 
-  expect($('a.govuk-header__service-name').first().text()).toContain(
-    config.serviceName
-  )
+  expect($('a.govuk-header__service-name').first().text()).toContain(config.serviceName)
 }
 
 const expectHeader = $ => {
