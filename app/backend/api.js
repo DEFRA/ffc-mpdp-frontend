@@ -72,7 +72,7 @@ async function getPaymentDetails (payeeName, partPostcode) {
 }
 
 async function getDownloadDetailsCsv (payeeName, partPostcode) {
-  const url = getUrlParams(`${payeeName}/${partPostcode}`)
+  const url = getUrlParams(`${payeeName}/${partPostcode}/file`)
   return getBufferFromUrl(url)
 }
 

@@ -189,7 +189,7 @@ describe('Backend API tests', () => {
     const res = await getDownloadDetailsCsv(payeeName, partPostcode)
 
     // Verify the result
-    expect(fetchMock).toHaveBeenCalledWith(`${endpoint}${path}${newRoute}`)
+    expect(fetchMock).toHaveBeenCalledWith(`${endpoint}${path}${newRoute}/file`)
     expect(fetchMock.mock.calls.length).toBe(1)
     expect(res).toBeInstanceOf(Buffer)
     expect(res).toEqual(bufferedData)
