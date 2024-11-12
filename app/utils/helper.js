@@ -23,7 +23,9 @@ const getPageTitle = route => config.routes[route]?.title || ''
 const removeTrailingSlash = url => url.replace(/\/$/, '')
 
 function getMatchingStaticAmounts (amounts) {
-  if (!amounts?.length) return []
+  if (!amounts?.length) {
+    return []
+  }
 
   const _amounts = amounts?.map(x => parseFloat(x))
 
@@ -44,7 +46,9 @@ function getMatchingStaticAmounts (amounts) {
 function getFinancialYearSummary (financialYears) {
   /* eslint-disable camelcase */
   const financial_years = sortFinancialYears(financialYears)
-  if (!financial_years || financial_years.length === 0) return
+  if (!financial_years || financial_years.length === 0) {
+    return {}
+  }
 
   return {
     financial_years,

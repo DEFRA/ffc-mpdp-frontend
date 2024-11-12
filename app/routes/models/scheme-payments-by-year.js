@@ -9,7 +9,7 @@ async function schemePaymentsByYearModel () {
     throw new Error()
   }
 
-  const returnVal = {
+  return {
     relatedContentData: getRelatedContentLinks('scheme-payments-by-year'),
     summary: {
       ...getFinancialYearSummary(Object.keys(schemePaymentsByYear)),
@@ -17,8 +17,6 @@ async function schemePaymentsByYearModel () {
       schemePaymentsByYear: transformSummary(schemePaymentsByYear)
     }
   }
-
-  return returnVal
 }
 
 function getSchemeSummary (schemePaymentsByYear) {
