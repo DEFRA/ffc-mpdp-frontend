@@ -21,6 +21,7 @@ module.exports = {
   serviceName: 'Find farm and land payment data',
   startPageLink: '/service-start',
   backendEndpoint: process.env.MPDP_BACKEND_ENDPOINT,
+  backendPath: process.env.MPDP_BACKEND_PATH,
   search: {
     limit: 20
   },

@@ -3,7 +3,6 @@ const {
   getReadableAmount,
   getSchemeStaticData,
   getAllSchemesNames,
-  getUrlParams,
   getPageTitle,
   removeTrailingSlash,
   getMatchingStaticAmounts,
@@ -57,17 +56,6 @@ describe('helper module tests', () => {
   test('getAllSchemesNames returns all scheme names', () => {
     const allSchemeNames = getAllSchemesNames()
     expect(allSchemeNames.length).toBe(5)
-  })
-
-  test('getUrlParams returns correct value', () => {
-    const page = '__TEST_ROUTE__'
-    const obj = {
-      val: '__VALUE__',
-      anotherVal: '__ANOTHER_VALUE__'
-    }
-
-    const url = getUrlParams(page, obj)
-    expect(url).toMatch(`/${page}?val=${obj.val}&anotherVal=${obj.anotherVal}`)
   })
 
   test('getPageTitle returns correct value', () => {

@@ -1,7 +1,9 @@
-const { start } = require('../app/server')
+const { createServer } = require('../app/server')
 
 beforeEach(async () => {
   jest.setTimeout(10000)
   process.env.PORT = 3002
-  globalThis.__SERVER__ = await start()
+  const server = await createServer()
+  await server.initialize()
+  globalThis.__SERVER__ = server
 })

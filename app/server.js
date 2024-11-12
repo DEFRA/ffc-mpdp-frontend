@@ -1,9 +1,8 @@
-'use strict'
-
 const Hapi = require('@hapi/hapi')
 
-const init = async function () {
+async function createServer () {
   const server = Hapi.server({
+    host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT || 3001,
     routes: {
       validate: {
@@ -28,13 +27,4 @@ const init = async function () {
   return server
 }
 
-const start = async function () {
-  const server = await init()
-  if (process.env.NODE_ENV !== 'test') {
-    console.log(`Listening on ${server.settings.host}:${server.settings.port}`)
-  }
-  await server.start()
-  return server
-}
-
-module.exports = { start }
+module.exports = { createServer }

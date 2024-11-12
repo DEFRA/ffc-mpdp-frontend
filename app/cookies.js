@@ -1,7 +1,7 @@
 const config = require('./config')
 const { cookie: { cookieNameCookiePolicy } } = config
 
-const getCurrentPolicy = (request, h) => {
+function getCurrentPolicy (request, h) {
   let cookiesPolicy = request.state[cookieNameCookiePolicy]
   if (!cookiesPolicy) {
     cookiesPolicy = createDefaultPolicy(h)
@@ -9,13 +9,13 @@ const getCurrentPolicy = (request, h) => {
   return cookiesPolicy
 }
 
-const createDefaultPolicy = h => {
+function createDefaultPolicy (h) {
   const cookiesPolicy = { confirmed: false, essential: true, analytics: false }
   h.state(cookieNameCookiePolicy, cookiesPolicy, config.cookieConfig)
   return cookiesPolicy
 }
 
-const updatePolicy = (request, h, analytics) => {
+function updatePolicy (request, h, analytics) {
   const cookiesPolicy = getCurrentPolicy(request, h)
   cookiesPolicy.analytics = analytics
   cookiesPolicy.confirmed = true
@@ -27,7 +27,7 @@ const updatePolicy = (request, h, analytics) => {
   }
 }
 
-const removeAnalytics = (request, h) => {
+function removeAnalytics (request, h) {
   const googleCookiesRegex = /^_ga$|^_ga_*$|^_gid$|^_ga_.*$|^_gat_.*$/g
   Object.keys(request.state).forEach(cookieName => {
     if (cookieName.search(googleCookiesRegex) === 0) {

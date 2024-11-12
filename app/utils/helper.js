@@ -1,9 +1,9 @@
+const path = require('path')
 const config = require('../config')
 const { schemeStaticData } = require('../data/scheme-static-data')
 const staticAmounts = require('../data/filters/amounts')
-const path = require('path')
 
-const getReadableAmount = amount => {
+function getReadableAmount (amount) {
   if (typeof amount !== 'number') {
     return '0'
   }
@@ -18,14 +18,14 @@ const getSchemeStaticData = schemeName => schemeStaticData.find(x => x.name.toLo
 
 const getAllSchemesNames = () => schemeStaticData.map(x => x.name)
 
-const getUrlParams = (page, params = {}) => `/${page}?${new URLSearchParams(params).toString()}`
-
 const getPageTitle = route => config.routes[route]?.title || ''
 
 const removeTrailingSlash = url => url.replace(/\/$/, '')
 
-const getMatchingStaticAmounts = amounts => {
-  if (!amounts || !amounts.length) return []
+function getMatchingStaticAmounts (amounts) {
+  if (!amounts?.length) {
+    return []
+  }
 
   const _amounts = amounts?.map(x => parseFloat(x))
 
@@ -43,10 +43,12 @@ const getMatchingStaticAmounts = amounts => {
   return returnAmounts
 }
 
-const getFinancialYearSummary = financialYears => {
+function getFinancialYearSummary (financialYears) {
   /* eslint-disable camelcase */
   const financial_years = sortFinancialYears(financialYears)
-  if (!financial_years || financial_years.length === 0) return
+  if (!financial_years || financial_years.length === 0) {
+    return {}
+  }
 
   return {
     financial_years,
@@ -56,7 +58,7 @@ const getFinancialYearSummary = financialYears => {
   /* eslint-enable camelcase */
 }
 
-const sortFinancialYears = financialYears => {
+function sortFinancialYears (financialYears) {
   return financialYears.sort((a, b) => {
     const [_startYearA, endYearA] = a.split('/') // eslint-disable-line no-unused-vars
     const [_startYearB, endYearB] = b.split('/') // eslint-disable-line no-unused-vars
@@ -64,7 +66,7 @@ const sortFinancialYears = financialYears => {
   })
 }
 
-const getAllPaymentDataFilePath = () => {
+function getAllPaymentDataFilePath () {
   return path.join(__dirname, '..', 'data', 'downloads', 'ffc-payment-data.csv')
 }
 
@@ -72,7 +74,6 @@ module.exports = {
   getReadableAmount,
   getSchemeStaticData,
   getAllSchemesNames,
-  getUrlParams,
   getPageTitle,
   removeTrailingSlash,
   getMatchingStaticAmounts,
