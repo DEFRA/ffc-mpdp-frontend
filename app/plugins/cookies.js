@@ -1,6 +1,5 @@
 const config = require('../config')
 const { getCurrentPolicy, removeAnalytics } = require('../cookies')
-
 const { cookie: { cookieNameCookiePolicy }, cookiePolicy } = config
 
 module.exports = {

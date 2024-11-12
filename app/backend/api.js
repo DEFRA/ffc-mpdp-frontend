@@ -2,7 +2,7 @@ const wreck = require('@hapi/wreck')
 const config = require('../config')
 const { getUrlParams } = require('../utils/helper')
 
-const get = async url => {
+async function get (url) {
   try {
     return (await wreck.get(`${config.backendEndpoint}${url}`))
   } catch (err) {
@@ -11,7 +11,7 @@ const get = async url => {
   }
 }
 
-const post = async (url, payload) => {
+async function post (url, payload) {
   try {
     return (await wreck.post(`${config.backendEndpoint}${url}`, { payload }))
   } catch (err) {
@@ -20,13 +20,13 @@ const post = async (url, payload) => {
   }
 }
 
-const getPaymentData = async (
+async function getPaymentData (
   searchString,
   offset,
   filterBy,
   sortBy,
   action,
-  limit = config.search.limit) => {
+  limit = config.search.limit) {
   const response = await post('/paymentdata', {
     searchString,
     limit,
@@ -48,7 +48,7 @@ const getPaymentData = async (
   }
 }
 
-const getSearchSuggestions = async searchString => {
+async function getSearchSuggestions (searchString) {
   const url = getUrlParams('searchsuggestion', {
     searchString
   })
@@ -61,7 +61,7 @@ const getSearchSuggestions = async searchString => {
   return JSON.parse(response.payload)
 }
 
-const getPaymentDetails = async (payeeName, partPostcode) => {
+async function getPaymentDetails (payeeName, partPostcode) {
   const url = getUrlParams('paymentdetails', {
     payeeName,
     partPostcode
@@ -75,7 +75,7 @@ const getPaymentDetails = async (payeeName, partPostcode) => {
   return JSON.parse(response.payload)
 }
 
-const getDownloadDetailsCsv = async (payeeName, partPostcode) => {
+async function getDownloadDetailsCsv (payeeName, partPostcode) {
   const url = getUrlParams('downloaddetails', {
     payeeName,
     partPostcode
@@ -83,7 +83,7 @@ const getDownloadDetailsCsv = async (payeeName, partPostcode) => {
   return getBufferFromUrl(url)
 }
 
-const getBufferFromUrl = async url => {
+async function getBufferFromUrl (url) {
   try {
     const response = await fetch(`${config.backendEndpoint}${url}`)
     const arrayBuffer = await response.arrayBuffer()
@@ -94,7 +94,7 @@ const getBufferFromUrl = async url => {
   }
 }
 
-const getSchemePaymentsByYear = async () => {
+async function getSchemePaymentsByYear () {
   const url = getUrlParams('schemePayments')
 
   const response = await get(url)

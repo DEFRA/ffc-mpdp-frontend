@@ -1,8 +1,6 @@
 const path = require('path')
 const nunjucks = require('nunjucks')
-
 const config = require('../config')
-
 const { version } = require('../../package.json')
 
 module.exports = {
