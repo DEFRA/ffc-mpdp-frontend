@@ -27,13 +27,4 @@ async function createServer () {
   return server
 }
 
-const start = async function () {
-  const server = await init()
-  if (process.env.NODE_ENV !== 'test') {
-    console.log(`Listening on ${server.settings.host}:${server.settings.port}`)
-  }
-  await server.start()
-  return server
-}
-
 module.exports = { createServer }
