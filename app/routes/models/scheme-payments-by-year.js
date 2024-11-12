@@ -2,7 +2,7 @@ const { getSchemePaymentsByYear } = require('../../backend/api')
 const { getRelatedContentLinks } = require('../../config/related-content')
 const { getFinancialYearSummary, getReadableAmount } = require('../../utils/helper')
 
-const schemePaymentsByYearModel = async () => {
+async function schemePaymentsByYearModel () {
   const schemePaymentsByYear = await getSchemePaymentsByYear()
 
   if (!schemePaymentsByYear) {
@@ -21,7 +21,7 @@ const schemePaymentsByYearModel = async () => {
   return returnVal
 }
 
-const getSchemeSummary = schemePaymentsByYear => {
+function getSchemeSummary (schemePaymentsByYear) {
   let total = 0
   const totalPaymentsBySchemes = []
   const totalPaymentsByYear = {}
@@ -61,11 +61,11 @@ const getSchemeSummary = schemePaymentsByYear => {
   }
 }
 
-const getFormattedYear = year => {
+function getFormattedYear (year) {
   return year.split('/').map(x => `20${x}`).join(' to ')
 }
 
-const transformSummary = schemePaymentsByYear => {
+function transformSummary (schemePaymentsByYear) {
   const schemePaymentsSummary = {}
   Object.keys(schemePaymentsByYear).forEach(year => {
     const formattedYear = getFormattedYear(year)

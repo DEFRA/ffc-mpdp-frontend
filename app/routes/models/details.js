@@ -2,7 +2,7 @@ const api = require('../../backend/api')
 const { getReadableAmount, getSchemeStaticData } = require('../../utils/helper')
 const { getRelatedContentLinks } = require('../../config/related-content')
 
-const detailsModel = async ({ payeeName, partPostcode, searchString, page }) => {
+async function detailsModel ({ payeeName, partPostcode, searchString, page }) {
   const paymentDetails = await api.getPaymentDetails(payeeName, partPostcode)
 
   if (!paymentDetails) {
@@ -20,7 +20,7 @@ const detailsModel = async ({ payeeName, partPostcode, searchString, page }) => 
   }
 }
 
-const createPaymentDetailsSummary = paymentDetails => {
+function createPaymentDetailsSummary (paymentDetails) {
   const summary = createSummary(paymentDetails)
 
   let farmerTotal = 0
@@ -50,7 +50,7 @@ const createPaymentDetailsSummary = paymentDetails => {
   return summary
 }
 
-const createSummary = paymentDetails => {
+function createSummary (paymentDetails) {
   /* eslint-disable camelcase */
   const { payee_name, part_postcode, town, county_council, parliamentary_constituency } = paymentDetails
 
@@ -68,7 +68,7 @@ const createSummary = paymentDetails => {
   /* eslint-enable camelcase */
 }
 
-const addSchemeToSummary = (summary, scheme) => {
+function addSchemeToSummary (summary, scheme) {
   const amount = parseFloat(scheme.amount)
   let schemeData = summary.schemes.find(x => x?.name.toLowerCase() === scheme.name.toLowerCase())
   if (!schemeData) {
@@ -90,7 +90,7 @@ const addSchemeToSummary = (summary, scheme) => {
   addSchemeActivity(scheme, schemeData)
 }
 
-const addSchemeActivity = (scheme, schemeData) => {
+function addSchemeActivity (scheme, schemeData) {
   const [startYear, endYear] = scheme.financial_year.split('/')
   const financialYear = `20${startYear} to 20${endYear}`
   if (!(financialYear in schemeData?.activity)) {

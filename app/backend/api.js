@@ -1,10 +1,9 @@
 const wreck = require('@hapi/wreck')
 const config = require('../config')
-const { getUrlParams } = require('../utils/helper')
 
 async function get (url) {
   try {
-    return (await wreck.get(`${config.backendEndpoint}${url}`))
+    return (await wreck.get(`${config.backendEndpoint}${config.backendPath}${url}`))
   } catch (err) {
     console.error(`Encountered error while calling the backend with url: ${config.backendEndpoint}${url}}`, err)
     return null
@@ -13,7 +12,7 @@ async function get (url) {
 
 async function post (url, payload) {
   try {
-    return (await wreck.post(`${config.backendEndpoint}${url}`, { payload }))
+    return (await wreck.post(`${config.backendEndpoint}${config.backendPath}${url}`, { payload }))
   } catch (err) {
     console.error(`Encountered error while calling the backend with url: ${url}`, err)
     return null
@@ -27,7 +26,7 @@ async function getPaymentData (
   sortBy,
   action,
   limit = config.search.limit) {
-  const response = await post('/paymentdata', {
+  const response = await post('', {
     searchString,
     limit,
     offset,
@@ -49,7 +48,7 @@ async function getPaymentData (
 }
 
 async function getSearchSuggestions (searchString) {
-  const url = getUrlParams('searchsuggestion', {
+  const url = getUrlParams('search', {
     searchString
   })
 
@@ -62,10 +61,7 @@ async function getSearchSuggestions (searchString) {
 }
 
 async function getPaymentDetails (payeeName, partPostcode) {
-  const url = getUrlParams('paymentdetails', {
-    payeeName,
-    partPostcode
-  })
+  const url = getUrlParams(`${payeeName}/${partPostcode}`)
 
   const response = await get(url)
   if (!response) {
@@ -76,16 +72,13 @@ async function getPaymentDetails (payeeName, partPostcode) {
 }
 
 async function getDownloadDetailsCsv (payeeName, partPostcode) {
-  const url = getUrlParams('downloaddetails', {
-    payeeName,
-    partPostcode
-  })
+  const url = getUrlParams(`${payeeName}/${partPostcode}`)
   return getBufferFromUrl(url)
 }
 
 async function getBufferFromUrl (url) {
   try {
-    const response = await fetch(`${config.backendEndpoint}${url}`)
+    const response = await fetch(`${config.backendEndpoint}${config.backendPath}${url}`)
     const arrayBuffer = await response.arrayBuffer()
     return Buffer.from(arrayBuffer)
   } catch (error) {
@@ -95,7 +88,7 @@ async function getBufferFromUrl (url) {
 }
 
 async function getSchemePaymentsByYear () {
-  const url = getUrlParams('schemePayments')
+  const url = getUrlParams('summary')
 
   const response = await get(url)
   if (!response) {
@@ -105,6 +98,13 @@ async function getSchemePaymentsByYear () {
   return JSON.parse(response.payload)
 }
 
+function getUrlParams (page, params = {}) {
+  if (Object.keys(params).length === 0) {
+    return `/${page}`
+  }
+  return `/${page}?${new URLSearchParams(params).toString()}`
+}
+
 module.exports = {
   get,
   post,
@@ -112,5 +112,6 @@ module.exports = {
   getSearchSuggestions,
   getPaymentDetails,
   getDownloadDetailsCsv,
-  getSchemePaymentsByYear
+  getSchemePaymentsByYear,
+  getUrlParams
 }

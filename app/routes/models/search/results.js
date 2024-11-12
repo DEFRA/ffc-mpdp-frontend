@@ -6,7 +6,7 @@ const { sortByItems } = require('../../../data/sort-by-items')
 const { getRelatedContentLinks } = require('../../../config/related-content')
 const { getAllSchemesNames } = require('../../../utils/helper')
 
-const getTags = (query, { counties }) => {
+function getTags (query, { counties }) {
   const tags = {
     Scheme: getAllSchemesNames().reduce((acc, scheme) => {
       if (query.schemes?.toString().toLowerCase().split(',').includes(scheme.toLowerCase())) {
@@ -49,7 +49,7 @@ const getTags = (query, { counties }) => {
   return tags
 }
 
-const getFilters = (query, filterOptions) => {
+function getFilters (query, filterOptions) {
   const schemesLength = !query.schemes ? 0 : (typeof query.schemes === 'string' ? 1 : query.schemes?.length)
   const yearsLength = !query.years ? 0 : (typeof query.years === 'string' ? 1 : query.years?.length)
   const countiesLength = !query.counties ? 0 : (typeof query.counties === 'string' ? 1 : query.counties?.length)
@@ -99,12 +99,14 @@ const getCounties = counties => counties?.length ? counties.sort((a, b) => a.loc
 
 const isChecked = (field, value) => (typeof field === 'string') ? field?.toLowerCase() === value?.toLowerCase() : field?.find(x => x.toLowerCase() === value.toLowerCase())
 
-const getSortByModel = query => ({
-  selected: decodeURIComponent(query.sortBy),
-  items: sortByItems
-})
+function getSortByModel (query) {
+  return {
+    selected: decodeURIComponent(query.sortBy),
+    items: sortByItems
+  }
+}
 
-const getPaginationAttributes = (totalResults, requestedPage, searchString, filterBy, sortBy) => {
+function getPaginationAttributes (totalResults, requestedPage, searchString, filterBy, sortBy) {
   const encodedSearchString = encodeURIComponent(searchString)
   const totalPages = Math.ceil(totalResults / config.search.limit)
 
@@ -150,7 +152,7 @@ const getPaginationAttributes = (totalResults, requestedPage, searchString, filt
   return { previous, next }
 }
 
-const getDownloadResultsLink = (searchString, filterBy, sortBy) => {
+function getDownloadResultsLink (searchString, filterBy, sortBy) {
   const encodedSearchString = encodeURIComponent(searchString)
   let downloadResultsLink = `/downloadresults?searchString=${encodedSearchString}`
   for (const key in filterBy) {
@@ -168,7 +170,7 @@ const getDownloadResultsLink = (searchString, filterBy, sortBy) => {
   return { downloadResultsLink }
 }
 
-const performSearch = async (searchString, requestedPage, filterBy, sortBy) => {
+async function performSearch (searchString, requestedPage, filterBy, sortBy) {
   const offset = (requestedPage - 1) * config.search.limit
   const paymentData = await getPaymentData(searchString, offset, filterBy, sortBy)
   const results = paymentData.results?.map(({ total_amount, ...x }) => x) // eslint-disable-line camelcase
@@ -178,7 +180,7 @@ const performSearch = async (searchString, requestedPage, filterBy, sortBy) => {
   }
 }
 
-const resultsModel = async (request, error) => {
+async function resultsModel (request, error) {
   const { query } = request
   const searchString = decodeURIComponent(query.searchString)
   const referer = query.referer || request.headers.referer

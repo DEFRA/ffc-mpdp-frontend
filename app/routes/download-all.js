@@ -5,7 +5,7 @@ module.exports = {
   path: '/downloadall',
   handler: async (_request, h) => {
     try {
-      const content = await get('/downloadall')
+      const content = await get('/file')
       return h.response(content?.payload)
         .type('application/csv')
         .header('Content-Disposition', 'attachment; filename="ffc-payment-data.csv"')

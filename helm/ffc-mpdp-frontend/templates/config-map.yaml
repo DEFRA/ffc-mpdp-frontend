@@ -10,4 +10,5 @@ data:
   {{ else }}
   MPDP_BACKEND_ENDPOINT: {{ quote .Values.container.mpdpBackendEndpoint }}
   {{- end }}
+  MPDP_BACKEND_PATH: {{ quote .Values.container.mpdpBackendPath }}
 {{- end -}}

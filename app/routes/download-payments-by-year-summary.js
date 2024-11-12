@@ -5,7 +5,7 @@ module.exports = {
   path: '/downloadPaymentsByYearSummary',
   handler: async (_request, h) => {
     try {
-      const content = await get('/downloadPaymentsByYearSummary')
+      const content = await get('/summary/file')
       return h
         .response(content?.payload)
         .type('application/csv')

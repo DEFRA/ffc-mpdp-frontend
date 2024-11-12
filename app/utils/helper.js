@@ -18,8 +18,6 @@ const getSchemeStaticData = schemeName => schemeStaticData.find(x => x.name.toLo
 
 const getAllSchemesNames = () => schemeStaticData.map(x => x.name)
 
-const getUrlParams = (page, params = {}) => `/${page}?${new URLSearchParams(params).toString()}`
-
 const getPageTitle = route => config.routes[route]?.title || ''
 
 const removeTrailingSlash = url => url.replace(/\/$/, '')
@@ -72,7 +70,6 @@ module.exports = {
   getReadableAmount,
   getSchemeStaticData,
   getAllSchemesNames,
-  getUrlParams,
   getPageTitle,
   removeTrailingSlash,
   getMatchingStaticAmounts,
