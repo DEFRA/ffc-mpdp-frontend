@@ -1,12 +1,10 @@
 const routes = [].concat(
   require('../routes/assets'),
-  require('../routes/healthy'),
-  require('../routes/healthz'),
+  require('../routes/health'),
   require('../routes/service-start'),
   require('../routes/cookies/cookies'),
   require('../routes/privacy'),
   require('../routes/accessibility'),
-  require('../routes/backend-healthy'),
   require('../routes/download-all'),
   require('../routes/download-all-data'),
   require('../routes/search'),
