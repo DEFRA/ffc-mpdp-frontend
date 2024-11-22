@@ -5,8 +5,7 @@ const {
   getAllSchemesNames,
   getPageTitle,
   removeTrailingSlash,
-  getMatchingStaticAmounts,
-  getAllPaymentDataFilePath
+  getMatchingStaticAmounts
 } = require('../../../../app/utils/helper')
 
 describe('helper module tests', () => {
@@ -94,9 +93,5 @@ describe('helper module tests', () => {
       text: '£30,000 or more',
       value: '30000-'
     }])
-  })
-
-  test('getAllPaymentDataFilePath returns path to the test file', () => {
-    expect(getAllPaymentDataFilePath()).toContain('/data/downloads/ffc-payment-data.csv')
   })
 })

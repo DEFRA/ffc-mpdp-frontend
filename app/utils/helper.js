@@ -1,4 +1,3 @@
-const path = require('path')
 const config = require('../config')
 const { schemeStaticData } = require('../data/scheme-static-data')
 const staticAmounts = require('../data/filters/amounts')
@@ -66,10 +65,6 @@ function sortFinancialYears (financialYears) {
   })
 }
 
-function getAllPaymentDataFilePath () {
-  return path.join(__dirname, '..', 'data', 'downloads', 'ffc-payment-data.csv')
-}
-
 module.exports = {
   getReadableAmount,
   getSchemeStaticData,
@@ -77,6 +72,5 @@ module.exports = {
   getPageTitle,
   removeTrailingSlash,
   getMatchingStaticAmounts,
-  getFinancialYearSummary,
-  getAllPaymentDataFilePath
+  getFinancialYearSummary
 }

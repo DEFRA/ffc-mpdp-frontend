@@ -9,8 +9,8 @@ console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 
 module.exports = {
   entry: {
-    'assets': './assets/index.js',
-    'main': './app/index.js'
+    assets: './assets/index.js',
+    main: './app/index.js'
   },
   mode: isDev ? 'development' : 'production',
   module: {
@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         test: /.node$/,
-        loader: 'node-loader',
+        loader: 'node-loader'
       }
     ]
   },
@@ -64,15 +64,15 @@ module.exports = {
     publicPath: '/assets/'
   },
   resolve: {
-    extensions: [ '.js' ],
-    fallback: { 
-      "os": require.resolve("os-browserify/browser"),
-      "crypto": require.resolve("crypto-browserify"),
-      "path": require.resolve("path-browserify"),
-      "stream": require.resolve("stream-browserify"),
-      "zlib": require.resolve("browserify-zlib"),
-      "https": require.resolve("https-browserify"),
-      "fs": false
+    extensions: ['.js'],
+    fallback: {
+      os: require.resolve('os-browserify/browser'),
+      crypto: require.resolve('crypto-browserify'),
+      path: require.resolve('path-browserify'),
+      stream: require.resolve('stream-browserify'),
+      zlib: require.resolve('browserify-zlib'),
+      https: require.resolve('https-browserify'),
+      fs: false
     }
   },
   plugins: [
