@@ -1,3 +1,5 @@
+const { Readable } = require('stream')
+const { getDownloadAllCsv } = require('../backend/api')
 const { getAllPaymentDataFilePath } = require('../utils/helper')
 
 /* Checkout this confluence page to find out the rationale behind this functionality
@@ -7,14 +9,14 @@ module.exports = {
   method: 'GET',
   path: '/downloadalldata',
   handler: async (_request, h) => {
-    try {
-      return h.file(getAllPaymentDataFilePath(), {
-        mode: 'attachment',
-        filename: 'ffc-payment-data.csv'
-      })
-    } catch (error) {
-      console.error(error)
-      throw error
-    }
+    const csvStream = await getDownloadAllCsv()
+
+    return h.response(csvStream)
+      .type('text/csv')
+      .header('Content-Disposition', 'attachment; filename="ffc-payment-data.csv"')
+    // return h.file(getAllPaymentDataFilePath(), {
+    //   mode: 'attachment',
+    //   filename: 'ffc-payment-data.csv'
+    // })
   }
 }

@@ -1,9 +1,9 @@
-const wreck = require('@hapi/wreck')
+const Wreck = require('@hapi/wreck')
 const config = require('../config')
 
 async function get (url) {
   try {
-    return (await wreck.get(`${config.backendEndpoint}${config.backendPath}${url}`))
+    return (await Wreck.get(`${config.backendEndpoint}${config.backendPath}${url}`))
   } catch (err) {
     console.error(`Encountered error while calling the backend with url: ${config.backendEndpoint}${url}}`, err)
     return null
@@ -12,7 +12,7 @@ async function get (url) {
 
 async function post (url, payload) {
   try {
-    return (await wreck.post(`${config.backendEndpoint}${config.backendPath}${url}`, { payload }))
+    return (await Wreck.post(`${config.backendEndpoint}${config.backendPath}${url}`, { payload }))
   } catch (err) {
     console.error(`Encountered error while calling the backend with url: ${url}`, err)
     return null
@@ -76,6 +76,11 @@ async function getDownloadDetailsCsv (payeeName, partPostcode) {
   return getBufferFromUrl(url)
 }
 
+async function getDownloadAllCsv () {
+  const url = getUrlParams('file')
+  return Wreck.request('GET', `${config.backendEndpoint}${config.backendPath}${url}`)
+}
+
 async function getBufferFromUrl (url) {
   try {
     const response = await fetch(`${config.backendEndpoint}${config.backendPath}${url}`)
@@ -113,5 +118,6 @@ module.exports = {
   getPaymentDetails,
   getDownloadDetailsCsv,
   getSchemePaymentsByYear,
-  getUrlParams
+  getUrlParams,
+  getDownloadAllCsv
 }
