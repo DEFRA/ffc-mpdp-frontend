@@ -30,4 +30,4 @@ EXPOSE ${PORT}
 COPY --from=development /home/node/app/ ./app/
 COPY --from=development /home/node/package*.json ./
 RUN npm ci
-CMD [ "node", "app/dist/main.js" ]
+CMD [ "node", "app/index.js" ]
