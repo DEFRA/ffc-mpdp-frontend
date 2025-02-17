@@ -1,9 +1,9 @@
 apiVersion: v2
 description: Web frontend for MPDP workstream
 name: ffc-mpdp-frontend
-# this version is automatically updated in the build pipline
+# this version is automatically updated in the build pipeline
 version: 1.0.0
 dependencies:
 - name: ffc-helm-library
-  version: 4.0.0
+  version: 4.7.2
   repository: https://raw.githubusercontent.com/defra/ffc-helm-repository/master/

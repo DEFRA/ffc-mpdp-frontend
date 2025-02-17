@@ -1,4 +1,4 @@
-ARG PARENT_VERSION=2.5.0-node22.11.0
+ARG PARENT_VERSION=2.5.2-node22.13.1
 ARG PORT=3001
 ARG PORT_DEBUG=9229
 
@@ -30,4 +30,4 @@ EXPOSE ${PORT}
 COPY --from=development /home/node/app/ ./app/
 COPY --from=development /home/node/package*.json ./
 RUN npm ci
-CMD [ "node", "app/dist/main.js" ]
+CMD [ "node", "app/index.js" ]

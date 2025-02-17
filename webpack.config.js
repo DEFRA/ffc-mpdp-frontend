@@ -9,8 +9,7 @@ console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 
 module.exports = {
   entry: {
-    assets: './assets/index.js',
-    main: './app/index.js'
+    assets: './assets/index.js'
   },
   mode: isDev ? 'development' : 'production',
   module: {
@@ -51,10 +50,6 @@ module.exports = {
         generator: {
           filename: 'fonts/[contenthash][ext]'
         }
-      },
-      {
-        test: /.node$/,
-        loader: 'node-loader'
       }
     ]
   },
@@ -62,18 +57,6 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'app/dist'),
     publicPath: '/assets/'
-  },
-  resolve: {
-    extensions: ['.js'],
-    fallback: {
-      os: require.resolve('os-browserify/browser'),
-      crypto: require.resolve('crypto-browserify'),
-      path: require.resolve('path-browserify'),
-      stream: require.resolve('stream-browserify'),
-      zlib: require.resolve('browserify-zlib'),
-      https: require.resolve('https-browserify'),
-      fs: false
-    }
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -86,6 +69,5 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[contenthash].css'
     })
-  ],
-  target: 'node'
+  ]
 }
