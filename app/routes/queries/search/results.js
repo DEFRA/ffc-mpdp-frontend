@@ -9,7 +9,7 @@ const resultsQueryObj = {
   years: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
   counties: Joi.alternatives().try(Joi.string(), Joi.array()).default([]),
   sortBy: Joi.string().trim().optional().default('score'),
-  referer: Joi.string().trim().optional().default('')
+  referer: Joi.string().trim().optional().allow('').default('')
 }
 
 module.exports = {
