@@ -7,7 +7,7 @@ module.exports = {
     isSecure: process.env.NODE_ENV === 'production'
   },
   cookiePolicy: {
-    clearInvalid: false,
+    clearInvalid: true,
     encoding: 'base64json',
     isSameSite: 'Lax',
     isSecure: process.env.NODE_ENV === 'production'
