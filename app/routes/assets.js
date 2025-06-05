@@ -13,6 +13,10 @@ module.exports = {
     },
     cache: {
       privacy: 'private'
+    },
+    state: {
+      parse: false,
+      failAction: 'ignore'
     }
   }
 }
