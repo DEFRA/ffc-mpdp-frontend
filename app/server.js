@@ -9,6 +9,9 @@ async function createServer () {
         options: {
           abortEarly: false
         }
+      },
+      state: {
+        failAction: 'ignore'
       }
     },
     router: {
