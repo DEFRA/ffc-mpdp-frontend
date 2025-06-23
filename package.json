@@ -1,6 +1,6 @@
 {
   "name": "ffc-mpdp-frontend",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Web frontend for MPDP workstream",
   "homepage": "https://github.com/DEFRA/ffc-mpdp-frontend",
   "main": "app/index.js",
@@ -27,7 +27,7 @@
     "@hapi/vision": "7.0.0",
     "@hapi/wreck": "18.0.0",
     "applicationinsights": "2.5.1",
-    "govuk-frontend": "5.7.1",
+    "govuk-frontend": "5.10.0",
     "hapi-pino": "11.0.1",
     "joi": "17.9.2",
     "nunjucks": "3.2.4"
