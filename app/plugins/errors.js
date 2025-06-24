@@ -6,13 +6,19 @@ module.exports = {
         const response = request.response
         if (response.isBoom) {
           const statusCode = response.output.statusCode
+
+          if (statusCode === 404) {
+            return h.view('errors/404').code(statusCode)
+          }
+
           request.log('error', {
             statusCode,
             data: response.data,
             message: response.message,
             stack: response.stack
           })
-          return response
+
+          return h.view('errors/500').code(statusCode)
         }
         return h.continue
       })
