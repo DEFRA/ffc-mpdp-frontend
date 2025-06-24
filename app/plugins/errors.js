@@ -14,8 +14,11 @@ module.exports = {
             stack: response.stack
           })
 
-          return h.view('errors/500').code(statusCode)
+          if (statusCode >= 500) {
+            return h.view('errors/500').code(statusCode)
+          }
         }
+
         return h.continue
       })
     }
