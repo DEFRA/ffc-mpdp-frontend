@@ -18,7 +18,6 @@ module.exports = {
             return h.view('errors/500').code(statusCode)
           }
         }
-
         return h.continue
       })
     }
