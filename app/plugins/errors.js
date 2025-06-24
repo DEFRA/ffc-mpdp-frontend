@@ -14,7 +14,10 @@ module.exports = {
             stack: response.stack
           })
 
-          return h.view('errors/500').code(statusCode)
+          if (response.isBoom && statusCode >= 500) {
+  return h.view('errors/500', { error: response.message }).code(statusCode)
+}
+
         }
         return h.continue
       })
