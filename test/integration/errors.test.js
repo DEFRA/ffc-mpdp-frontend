@@ -59,14 +59,35 @@ describe('errors plugin test', () => {
     expect(response.payload).not.toContain('Sorry, there is a problem with the service')
   })
 
-  test('should render 500 error view for 404 not found error', async () => {
+  test('should render 404 error view when accessing non-valid path', async () => {
     const response = await global.__SERVER__.inject({
       method: 'GET',
       url: '/not-valid-path'
     })
 
     expect(response.statusCode).toBe(404)
-    expect(response.payload).toContain('Sorry, there is a problem with the service')
+    expect(response.payload).toContain('Page not found')
+  })
+
+  test('should not render 404 error view when accessing valid path', async () => {
+    global.__SERVER__.route({
+      method: 'GET',
+      path: '/valid-path',
+      handler: () => {
+        return 'This is a valid path'
+      }
+    })
+
+    const response = await global.__SERVER__.inject({
+      method: 'GET',
+      url: '/valid-path'
+    })
+
+    expect(response.statusCode).toBe(200)
+    expect(response.payload).toContain('This is a valid path')
+
+    expect(response.statusCode).not.toBe(404)
+    expect(response.payload).not.toContain('Page not found')
   })
 
   test('should render 500 error view for 400 bad request error', async () => {
