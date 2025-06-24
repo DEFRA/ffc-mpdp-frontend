@@ -4,6 +4,7 @@ module.exports = {
     register: (server) => {
       server.ext('onPreResponse', (request, h) => {
         const response = request.response
+        
         if (response.isBoom) {
           const statusCode = response.output.statusCode
 
