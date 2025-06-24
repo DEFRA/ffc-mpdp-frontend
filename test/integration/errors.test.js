@@ -59,7 +59,7 @@ describe('errors plugin test', () => {
     expect(response.payload).not.toContain('Sorry, there is a problem with the service')
   })
 
-  test('should render 404 error view for 404 not found error', async () => {
+  test('should render 500 error view for 404 not found error', async () => {
     const response = await global.__SERVER__.inject({
       method: 'GET',
       url: '/not-valid-path'
