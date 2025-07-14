@@ -14,9 +14,9 @@ module.exports = [
 
           if (!searchString || !searchString.trim()) {
             return h.view(
-              `search/${pageId || 'index'}`
-              // await resultsModel(request, error)
-            ).takeover()
+              `search/${pageId || 'index'}`,
+              await resultsModel(request, error)
+            ).code(400).takeover()
           }
 
           return h.view(
