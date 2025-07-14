@@ -25,11 +25,7 @@ module.exports = [
       handler: async (request, h) => {
         const { searchString } = request.query
         request.query.searchString = encodeURIComponent(searchString)
-
-        return h.view(
-          'search/results',
-          await resultsModel(request)
-        )
+        return h.view('search/results', await resultsModel(request))
       }
     }
   }
