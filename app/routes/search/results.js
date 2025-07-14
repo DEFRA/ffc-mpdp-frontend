@@ -12,7 +12,7 @@ module.exports = [
         failAction: async (request, h, error) => {
           const { searchString, pageId } = request.query
 
-          if (!searchString || !searchString.trim()) {
+          if (!searchString || !searchString?.trim()) {
             return h.view(
               `search/${pageId || 'index'}`,
               await resultsModel(request, error)
@@ -34,7 +34,7 @@ module.exports = [
       handler: async (request, h) => {
         const { searchString } = request.query
 
-        if (!searchString || !searchString.trim()) {
+        if (!searchString || !searchString?.trim()) {
           return h.redirect('/search').takeover()
         }
         request.query.searchString = encodeURIComponent(searchString)
