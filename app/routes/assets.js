@@ -1,8 +1,19 @@
+const Joi = require('joi')
+const Boom = require('@hapi/boom')
+
 module.exports = {
   method: 'GET',
   path: '/assets/{path*}',
   options: {
     auth: false,
+    validate: {
+      params: Joi.object({
+        path: Joi.string().required()
+      }),
+      failAction: (request, h, err) => {
+        throw Boom.notFound()
+      }
+    },
     handler: {
       directory: {
         path: [
