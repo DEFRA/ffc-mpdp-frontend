@@ -35,9 +35,11 @@ module.exports = [
         const { searchString } = request.query
 
         if (!searchString || !searchString?.trim()) {
-          return h.redirect(302, '/search')
+          return h.redirect(302, '/service-start')
         }
+
         request.query.searchString = encodeURIComponent(searchString)
+
         return h.view(
           'search/results',
           await resultsModel(request)
