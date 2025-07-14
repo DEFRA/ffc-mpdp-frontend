@@ -33,11 +33,6 @@ module.exports = [
       },
       handler: async (request, h) => {
         const { searchString } = request.query
-
-        if (!searchString || !searchString?.trim()) {
-          return h.redirect(302, '/service-start')
-        }
-
         request.query.searchString = encodeURIComponent(searchString)
 
         return h.view(
