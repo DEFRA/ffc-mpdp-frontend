@@ -10,19 +10,38 @@ module.exports = [
       validate: {
         query,
         failAction: async (request, h, error) => {
-          if (!request.query.searchString.trim()) {
+          const { searchString, pageId } = request.query
+
+          if (!searchString || !searchString.trim()) {
             return h.view(
-              `search/${request.query.pageId || 'index'}`,
-              await resultsModel(request, error)
-            ).code(400).takeover()
+              `search/${pageId || 'index'}`
+              // await resultsModel(request, error)
+            ).takeover()
           }
 
-          return h.view('search/index', { ...request.query, errorList: [{ text: error.details[0].message }] }).code(400).takeover()
+          return h.view(
+            'search/index',
+            {
+              ...request.query,
+              errorList: [
+                {
+                  text: error.details[0].message
+                }
+              ]
+            }).code(400).takeover()
         }
       },
       handler: async (request, h) => {
-        request.query.searchString = encodeURIComponent(request.query.searchString)
-        return h.view('search/results', await resultsModel(request))
+        const { searchString } = request.query
+
+        if (!searchString || !searchString.trim()) {
+          return h.redirect('/search').takeover()
+        }
+        request.query.searchString = encodeURIComponent(searchString)
+        return h.view(
+          'search/results',
+          await resultsModel(request)
+        )
       }
     }
   }
