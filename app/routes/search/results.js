@@ -12,7 +12,7 @@ module.exports = [
         failAction: async (request, h, error) => {
           const { searchString, pageId } = request.query
 
-          if (!searchString || !searchString?.trim()) {
+          if (!(searchString?.trim())) {
             return h.view(
               `search/${pageId || 'index'}`,
               await resultsModel(request, error)
