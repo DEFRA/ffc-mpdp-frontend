@@ -182,7 +182,7 @@ module.exports = {
     }
 
     this.searchInput.oninput = () => {
-      if (this.searchInput.value.length < minCharLength) {
+      if (this.searchInput.value.trim().length < minCharLength) {
         this.hideSuggestions()
         return
       }
