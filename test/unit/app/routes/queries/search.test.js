@@ -70,7 +70,7 @@ describe('search results schema', () => {
   })
 })
 
-describe('/results route', () => {
+describe('graceful redirect of /results route to /search', () => {
   let route
 
   beforeAll(() => {
