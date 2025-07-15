@@ -10,7 +10,7 @@ module.exports = {
       params: Joi.object({
         path: Joi.string().required()
       }),
-      failAction: (request, h, err) => {
+      failAction: (_request, _h, _err) => {
         throw Boom.notFound()
       }
     },
