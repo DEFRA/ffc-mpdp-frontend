@@ -353,6 +353,22 @@ describe('search', () => {
       expect(hideSuggestionsSpy).toHaveBeenCalled()
     })
 
+    it('should hide suggestions when input length equals the minCharLength but has a leading space', () => {
+      searchInput.value = ' te'
+      const hideSuggestionsSpy = jest.spyOn(search, 'hideSuggestions')
+      searchInput.dispatchEvent(new window.Event('input', { bubbles: true }))
+
+      expect(hideSuggestionsSpy).toHaveBeenCalled()
+    })
+
+    it('should hide suggestions when input length equals the minCharLength but has a trailing space', () => {
+      searchInput.value = 'te '
+      const hideSuggestionsSpy = jest.spyOn(search, 'hideSuggestions')
+      searchInput.dispatchEvent(new window.Event('input', { bubbles: true }))
+
+      expect(hideSuggestionsSpy).toHaveBeenCalled()
+    })
+
     it('should call loadSuggestions when input length is sufficient', () => {
       searchInput.value = 'test'
       const loadSuggestionsSpy = jest.spyOn(search, 'loadSuggestions')
