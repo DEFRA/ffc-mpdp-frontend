@@ -12,6 +12,7 @@ module.exports = {
         const statusCode = request.response.statusCode
         if (
           request.response.variety === 'view' &&
+          statusCode !== 403 &&
           statusCode !== 404 &&
           statusCode !== 500 &&
           request.response.source.manager._context
