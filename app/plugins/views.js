@@ -2,6 +2,7 @@ const path = require('path')
 const nunjucks = require('nunjucks')
 const config = require('../config')
 const { version } = require('../../package.json')
+const { getPageTitle } = require('../utils/helper')
 
 module.exports = {
   plugin: require('@hapi/vision'),
@@ -34,11 +35,15 @@ module.exports = {
     },
     path: '../views',
     relativeTo: __dirname,
-    context: {
-      appVersion: version,
-      assetPath: '/assets',
-      pageTitle: config.serviceName,
-      googleTagManagerKey: config.googleTagManagerKey
+    context: function (request) {
+      return {
+        appVersion: version,
+        assetPath: '/assets',
+        serviceName: config.serviceName,
+        pageTitle: getPageTitle(request.path),
+        serviceUrl: config.startPageLink,
+        googleTagManagerKey: config.googleTagManagerKey
+      }
     }
   }
 }
