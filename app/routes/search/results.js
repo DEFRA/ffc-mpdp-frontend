@@ -10,9 +10,11 @@ module.exports = [
       validate: {
         query,
         failAction: async (request, h, error) => {
-          if (!request.query.searchString.trim()) {
+          const { searchString, pageId } = request.query
+
+          if (!(searchString?.trim())) {
             return h.view(
-              `search/${request.query.pageId || 'index'}`,
+              `search/${pageId || 'index'}`,
               await resultsModel(request, error)
             ).code(400).takeover()
           }
@@ -21,7 +23,8 @@ module.exports = [
         }
       },
       handler: async (request, h) => {
-        request.query.searchString = encodeURIComponent(request.query.searchString)
+        const { searchString } = request.query
+        request.query.searchString = encodeURIComponent(searchString)
         return h.view('search/results', await resultsModel(request))
       }
     }
