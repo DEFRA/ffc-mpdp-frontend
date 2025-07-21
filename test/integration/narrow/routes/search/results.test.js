@@ -645,3 +645,29 @@ describe('Single result shows "1 Result" (not plural)', () => {
     expect($('#downloadResultsLink').text()).toMatch('Download 1 result (.CSV)')
   })
 })
+
+describe('GET /results fails & redirects gracefully when query is empty', () => {
+  test('renders the search/index view with error when query object is empty', async () => {
+    const res = await global.__SERVER__.inject(getOptions('results', 'GET'))
+
+    const $ = cheerio.load(res.payload)
+
+    expect(res.statusCode).toBe(400)
+    expect($('.govuk-error-summary__title').text()).toContain('There is a problem')
+    expect($('.govuk-heading-l').text()).toContain('Search for an agreement holder')
+    expect($('#search-input-error').text()).toContain('Error: Enter a name or location')
+  })
+
+  test('renders the search/index view with Joi error message if query string is invalid', async () => {
+    const res = await global.__SERVER__.inject(getOptions('results', 'GET', {
+      searchString: 'test',
+      page: 'not-a-number'
+    }))
+
+    const $ = cheerio.load(res.payload)
+
+    expect(res.statusCode).toBe(400)
+    expect($('.govuk-error-summary__title').text()).toContain('There is a problem')
+    expect($('.govuk-error-summary__list').text()).toMatch(/"page" must be a number/)
+  })
+})
