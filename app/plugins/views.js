@@ -37,6 +37,7 @@ module.exports = {
     relativeTo: __dirname,
     context: function (request) {
       return {
+        ...request.response.source.manager._context,
         appVersion: version,
         assetPath: '/assets',
         serviceName: config.serviceName,
