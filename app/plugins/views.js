@@ -37,6 +37,7 @@ module.exports = {
     relativeTo: __dirname,
     context: function (request) {
       return {
+        cookiesPolicy: request.response.source.manager._context.cookiesPolicy,
         appVersion: version,
         assetPath: '/assets',
         serviceName: config.serviceName,
