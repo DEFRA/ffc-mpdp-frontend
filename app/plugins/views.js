@@ -39,7 +39,7 @@ module.exports = {
       return {
         ...request.response.source.manager._context,
         appVersion: version,
-        assetPath: '/assets',
+        assetPath: '/assets/rebrand',
         serviceName: config.serviceName,
         pageTitle: getPageTitle(request.path),
         serviceUrl: config.startPageLink,
