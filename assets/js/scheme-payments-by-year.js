@@ -29,7 +29,7 @@ module.exports = {
   },
 
   toggleDetails (element) {
-    element.innerText = element.innerText === 'Show Details' ? 'Hide Details' : 'Show Details'
+    element.innerText = element.innerText === 'Show details' ? 'Hide details' : 'Show details'
   },
 
   setupAggregateShowAllButton () {
