@@ -15,7 +15,7 @@ module.exports = [
           searchString: Joi.string().trim().min(1).required(),
           page: Joi.number().default(1)
         }),
-        failAction: async (request, h, error) => {
+        failAction: async (request, h, _error) => {
           return h.view(
             'search/index',
             {
