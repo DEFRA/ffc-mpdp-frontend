@@ -206,7 +206,7 @@ async function resultsModel (request, error) {
       tags: getTags(query, {}),
       errorList: [{
         text: 'Enter a name or location',
-        href: '#resultsSearchInput'
+        href: '#searchInput'
       }],
       headingTitle: `Results for ‘${searchString}’`,
       total: 0

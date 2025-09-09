@@ -5,6 +5,7 @@ const { expectHeader } = require('../../../../utils/header-expects')
 const { expectPhaseBanner } = require('../../../../utils/phase-banner-expect')
 const { getOptions, mockGetPaymentDetails } = require('../../../../utils/helpers')
 const { expectRelatedContent } = require('../../../../utils/related-content-expects')
+const { expectTitle } = require('../../../../utils/title-expect')
 
 jest.spyOn(api, 'getPaymentDetails')
   .mockImplementation(mockGetPaymentDetails)
@@ -80,9 +81,31 @@ describe('MPDP Details page tests', () => {
   })
 
   test('Check for for common elements', () => {
+    expectTitle($, 'T R Carter & Sons 1')
     expectPhaseBanner($)
     expectFooter($)
     expectHeader($)
     expectRelatedContent($, 'details')
+  })
+
+  test('GET /details shows validation error when query params are invalid', async () => {
+    const invalidOptions = getOptions(
+      'details',
+      'GET',
+      {
+        searchString: ''
+      }
+    )
+
+    const invalidResponse = await global.__SERVER__.inject(invalidOptions)
+    const $error = cheerio.load(invalidResponse.payload)
+    const errorText = $error('.govuk-error-summary__list li a').text()
+    const errorHref = $error('.govuk-error-summary__list li a').attr('href')
+
+    expect(invalidResponse.statusCode).toBe(400)
+    expect(errorText).toMatch('Enter a name or location')
+    expect(errorHref).toBe('#searchInput')
+    expectTitle($error, 'Error: Search for an agreement holder')
+    expectRelatedContent($error, 'details')
   })
 })
