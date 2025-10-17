@@ -1,5 +1,7 @@
 # FFC MPDP Frontend Service
 
+> This repository was for the FCP Platform hosted version of the service.  Since migrating to the Core Delivery Platform (CDP), this repository have been replaced with [fcp-mpdp-frontend](https://github.com/DEFRA/fcp-mpdp-frontend)
+
 > Frontend service for the Making Payment Data Public
 
 ## Prerequisites
